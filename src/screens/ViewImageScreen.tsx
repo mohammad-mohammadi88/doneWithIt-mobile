@@ -1,12 +1,20 @@
-import { Image, StyleSheet, View } from 'react-native';
-import colors from "@Constants/colors";
+import { Image, StyleSheet, View, Pressable } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { FC } from "react"
+import AppPressable from '@/Components/AppPressable';
 
 const ViewImageScreen: FC = () => (
     <View style={styles.container}>
         <View style={styles.btnContainer}>
-            <View style={[ styles.topBtn, styles.deleteBtn ]}></View>
-            <View style={[ styles.topBtn, styles.closeBtn ]}></View>
+
+            <AppPressable onPress={() => console.log("close")}>
+                <MaterialCommunityIcons name='close' size={35} color="white" />
+            </AppPressable>
+
+            <Pressable onPress={() => console.log("delete")}>
+                <MaterialCommunityIcons name='trash-can-outline' size={35} color="white" />
+            </Pressable>
+
         </View>
         <Image style={styles.image} resizeMode="contain" source={require("@Images/chairImage.png")} />
     </View>
@@ -28,15 +36,9 @@ const styles = StyleSheet.create({
         position: "absolute",
         flexDirection: "row",
         width: "100%",
-        top: 20
-    },
-    topBtn: {
-        borderRadius: 100,
-        height: 55,
-        width: 55
-    },
-    deleteBtn: { backgroundColor: colors.secondary },
-    closeBtn: { backgroundColor: colors.primary }
+        top: 20,
+        zIndex: 50
+    }
 })
 
 export default ViewImageScreen

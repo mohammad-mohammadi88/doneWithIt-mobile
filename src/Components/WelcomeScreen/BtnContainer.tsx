@@ -1,41 +1,36 @@
+import { StyleSheet, Text, ViewStyle } from 'react-native';
+import type { AppColorsType } from '@Constants/colors';
+import AppPressable from '../AppPressable';
+import colors from '@Constants/colors';
 import type { FC } from 'react';
-import { 
-    TouchableNativeFeedback,
-    TouchableHighlight,
-    StyleSheet,
-    ViewStyle,
-    Platform,
-    Text,
-    View,
-} from 'react-native';
 
-interface Props { 
-    BtnStyle: ViewStyle;
-    title: string
+interface Props {
+    BtnStyle?: ViewStyle;
+    title: string,
+    backgroundColor?: AppColorsType,
+    onPress: (e: any) => void
 }
 
-const BtnContainer: FC<Props> = ({BtnStyle,title}) => {
-    const BtnComponent = Platform.OS === "android" ? TouchableNativeFeedback : TouchableHighlight
-    return (
-        <BtnComponent>
-            <View style={[ styles.bottomBtn, BtnStyle ]}>
-                <Text style={styles.btnText}>{title}</Text>
-            </View>
-        </BtnComponent>
-    )
-}
+const BtnContainer: FC<Props> = ({ BtnStyle = {}, onPress, title, backgroundColor = "secondary" }) => (
+    <AppPressable style={[ styles.btn, BtnStyle, { backgroundColor: colors[ backgroundColor ] ?? backgroundColor } ]} onPress={onPress}>
+        <Text style={styles.btnText}>{title}</Text>
+    </AppPressable>
+)
 
 const styles = StyleSheet.create({
-    bottomBtn: {
+    btn: {
         width: "100%",
         height: 70,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderRadius: 100,
+        margin: 13
     },
     btnText: {
-        fontSize: 22,
+        fontSize: 20,
         color: "white",
-        fontWeight: 600
+        fontWeight: 600,
+        textTransform: "uppercase"
     },
 })
 

@@ -18,7 +18,10 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
     },
-    slug: { fontSize: 20 }
+    slug: {
+        fontSize: 24,
+        fontWeight: 700
+    }
 })
 
 export default LogoContainer
