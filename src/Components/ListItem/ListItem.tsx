@@ -1,7 +1,7 @@
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import colors, { initialPressAction } from '@Constants/colors';
+import React, { memo, type FC } from 'react';
 import AppPressable from '../AppPressable';
-import colors from '@Constants/colors';
-import { memo, type FC } from 'react';
 
 import Animated, {
     useAnimatedStyle,
@@ -15,6 +15,7 @@ import {
     Image,
     Text,
     View,
+    PressableAndroidRippleConfig,
 } from 'react-native';
 
 interface DragInterface {
@@ -22,6 +23,8 @@ interface DragInterface {
     SWIPE_THRESHOLD: number,
     dragFn: () => void;
 }
+
+
 interface Props {
     image?: any,
     title: string,
@@ -29,12 +32,30 @@ interface Props {
     style?: StyleProp<ViewStyle>,
     onPress: (e: any) => void,
     dragableOptions?: DragInterface,
-    ExtraImageComponent?: () => React.JSX.Element
+    ImageReplaceComponent?: () => React.JSX.Element,
+    pressAction?: {
+        android_ripple: PressableAndroidRippleConfig,
+        highlightColor: string
+    }
 }
 
-const ListItem: FC<Props> = ({ image, title, subTitle, onPress, style = {}, dragableOptions,ExtraImageComponent }) => {
-    const BaseComponent = (<AppPressable style={[ styles.item, style ]} onPress={onPress}>
-        {ExtraImageComponent && <ExtraImageComponent />}
+const ListItem: FC<Props> = ({
+    pressAction,
+    ImageReplaceComponent,
+    dragableOptions,
+    style = {},
+    subTitle,
+    onPress,
+    title,
+    image,
+}) => {
+    const BaseComponent = (
+    <AppPressable
+        pressAction={pressAction}
+        style={[ styles.item, style ]}
+        onPress={onPress}
+    >
+        {ImageReplaceComponent && <ImageReplaceComponent />}
         {image && <Image style={styles.image} source={image} />}
         <View style={styles.infoContainer}>
             <Text numberOfLines={1} style={styles.title}>{title}</Text>
@@ -47,7 +68,7 @@ const ListItem: FC<Props> = ({ image, title, subTitle, onPress, style = {}, drag
     if (typeof dragableOptions === "undefined") {
         return BaseComponent
     } else {
-        const {dragFn,RightDragComponent,SWIPE_THRESHOLD} = dragableOptions;
+        const { dragFn, RightDragComponent, SWIPE_THRESHOLD } = dragableOptions;
         const translateX = useSharedValue(0);
         const panGesture = Gesture.Pan()
             .onUpdate((event) => {
@@ -80,13 +101,11 @@ const ListItem: FC<Props> = ({ image, title, subTitle, onPress, style = {}, drag
     }
 }
 
-
 const styles = StyleSheet.create({
     item: {
         flexDirection: "row",
         backgroundColor: '#fff',
-        flex: 1,
-        elevation: 2,
+        alignItems: "center",
     },
     image: {
         height: 70,
@@ -97,7 +116,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         height: 70,
         flex: 1,
-        justifyContent:"center",
+        justifyContent: "center",
         textOverflow: "hidden",
     },
     dragBox: {

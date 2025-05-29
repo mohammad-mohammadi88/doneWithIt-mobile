@@ -1,8 +1,9 @@
+import ListItemDeleteAction from '@Components/ListItem/ListItemDeleteAction';
 import ListItemSeparator from '@Components/ListItem/ListItemSeparator';
 import { FlatList, StyleSheet } from 'react-native';
 import ListItem from '@Components/ListItem';
 import { useState, type FC } from 'react';
-import ListItemDeleteAction from '@/Components/ListItem/ListItemDeleteAction';
+import { grayPressAction } from '@Constants/colors';
 
 interface MessageType {
     id: number;
@@ -11,8 +12,8 @@ interface MessageType {
     image: any
 }
 const MessagesScreen: FC = () => {
-    const [refreshing, setRefreshing] = useState<boolean>(false)
-    const [messages, setMessages] = useState<MessageType[]>([
+    const [ refreshing, setRefreshing ] = useState<boolean>(false)
+    const [ messages, setMessages ] = useState<MessageType[]>([
         {
             id: 1,
             title: "title 1",
@@ -32,25 +33,27 @@ const MessagesScreen: FC = () => {
             image: require("@Images/user.jpg")
         },
     ]);
-    const handleDeleteMessage = (deleteId:number) =>{
-        setMessages(c => c.filter(({id})=> id !== deleteId))
+    const handleDeleteMessage = (deleteId: number) => {
+        // setMessages(c => c.filter(({id})=> id !== deleteId))
+        console.log(deleteId)
     }
-    
+
     return (
         <FlatList
             style={styles.container}
             data={messages}
-            renderItem={({ item: { title, description, image,id } }) => (
+            renderItem={({ item: { title, description, image, id } }) => (
                 <ListItem
                     onPress={() => handleDeleteMessage(id)}
                     style={styles.messageContainer}
                     subTitle={description}
+                    pressAction={grayPressAction}
                     image={image}
                     title={title}
                     dragableOptions={{
                         SWIPE_THRESHOLD: -50,
-                        dragFn:() => handleDeleteMessage(id),
-                        RightDragComponent:() => <ListItemDeleteAction />
+                        dragFn: () => handleDeleteMessage(id),
+                        RightDragComponent: () => <ListItemDeleteAction />
                     }}
                 />
             )}
@@ -58,11 +61,11 @@ const MessagesScreen: FC = () => {
             refreshing={refreshing}
             onRefresh={() => {
                 const mm = [];
-                for(let i = 1;i <= Math.ceil(Math.random() * 10);i++){
+                for (let i = 1; i <= Math.ceil(Math.random() * 10); i++) {
                     mm.push({
                         id: i,
-                        title: "title "+i,
-                        description: "desc "+i,
+                        title: "title " + i,
+                        description: "desc " + i,
                         image: require("@Images/user.jpg")
                     })
                 }
@@ -74,10 +77,11 @@ const MessagesScreen: FC = () => {
 
 const styles = StyleSheet.create({
     messageContainer: {
-        padding: 5
+        padding: 5,
+        elevation: 2,
     },
-    container:{
-        height:"100%"
+    container: {
+        height: "100%"
     }
 })
 

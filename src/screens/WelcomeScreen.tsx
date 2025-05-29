@@ -16,17 +16,17 @@ const WelcomeScreen: FC = () => {
                 backgroundColor="primary"
                 onPress={handlePress}
                 title='register'
-            />
+                />
         </ImageBackground>
     )
 }
 
 const styles = StyleSheet.create({
-    backgroundImage: {
-        flex: 1,
+    backgroundImage: {        
         justifyContent: "flex-end",
         overflow: "hidden",
         alignItems: "center",
+        height: "100%",
         paddingHorizontal:20
     }
 })

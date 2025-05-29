@@ -1,17 +1,23 @@
+import { initialPressAction } from '@/constants/colors';
 import type { FC } from 'react';
 import {
     type PressableProps,
     type StyleProp,
     type ViewStyle,
     Pressable,
-    Platform
+    Platform,
+    PressableAndroidRippleConfig
 } from 'react-native';
 
 interface AppPressableProps{
-    highlightColor?: string,
-    style?:StyleProp<ViewStyle>
+    style?:StyleProp<ViewStyle>,
+    pressAction?: {
+        android_ripple: PressableAndroidRippleConfig,
+        highlightColor: string
+    }
 }
-const AppPressable: FC<AppPressableProps & PressableProps> = ({ children,style,highlightColor = "#eee", android_ripple = { color: "oklch(87% 0 0)" }, ...props }) => {
+const AppPressable: FC<AppPressableProps & PressableProps> = ({ children,style, pressAction = initialPressAction, ...props }) => {
+    const {highlightColor,android_ripple} = pressAction;
     const handleStyle = ({pressed}:{pressed:boolean}) => [
         style,
         pressed && Platform.OS !== "android" && {backgroundColor: highlightColor}

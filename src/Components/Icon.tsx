@@ -15,7 +15,9 @@ const Icon :FC<Props> = ({iconColor,backgroundColor,name,size}) => {
             width: size,
             height: size,
             borderRadius: size / 2,
-            backgroundColor
+            backgroundColor,
+            justifyContent: "center",
+            alignItems: "center",
         }
     })
     return (

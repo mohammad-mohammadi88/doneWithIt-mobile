@@ -1,7 +1,7 @@
 import { StyleSheet, Text, ViewStyle } from 'react-native';
 import type { AppColorsType } from '@Constants/colors';
 import AppPressable from '../AppPressable';
-import colors from '@Constants/colors';
+import colors, { grayPressAction } from '@Constants/colors';
 import type { FC } from 'react';
 
 interface Props {
@@ -12,7 +12,11 @@ interface Props {
 }
 
 const BtnContainer: FC<Props> = ({ BtnStyle = {}, onPress, title, backgroundColor = "secondary" }) => (
-    <AppPressable style={[ styles.btn, BtnStyle, { backgroundColor: colors[ backgroundColor ] ?? backgroundColor } ]} onPress={onPress}>
+    <AppPressable
+        style={[ styles.btn, BtnStyle, { backgroundColor: colors[ backgroundColor ] ?? backgroundColor } ]}
+        onPress={onPress}
+        pressAction={grayPressAction}
+    >
         <Text style={styles.btnText}>{title}</Text>
     </AppPressable>
 )

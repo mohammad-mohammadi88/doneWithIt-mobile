@@ -1,11 +1,12 @@
 import AppScreen from '@Screens/AppScreen';
-// import MessagesScreen from '@Screens/MessagesScreen';
-// import ViewImageScreen from '@Screens/ViewImageScreen';
 import WelcomeScreen from '@Screens/WelcomeScreen';
-// import ListingDetailsScreen from '@Screens/ListingDetailsScreen';
+import MessagesScreen from '@Screens/MessagesScreen';
+import ViewImageScreen from '@Screens/ViewImageScreen';
+import AccountScreen from '@Screens/AccountScreen';
+import ListingDetailsScreen from '@Screens/ListingDetailsScreen';
 import type { FC } from 'react';
 
-const Index: FC = () => <AppScreen><WelcomeScreen /></AppScreen>
+const Index: FC = () => <AppScreen><AccountScreen /></AppScreen>
 
 export default Index 
 
