@@ -1,5 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
+import defaultStyles from '@Constants/styles';
 import colors from '@Constants/colors';
 import type { FC } from 'react';
 
@@ -15,9 +16,8 @@ const ListItemDeleteAction: FC<Props> = ({ backgroundColor = colors.secondary, w
 
 const styles = StyleSheet.create({
     container: {
+        ...defaultStyles.flexCenter,
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
     }
 })
 

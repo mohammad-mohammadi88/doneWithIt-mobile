@@ -1,4 +1,5 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+import defaultStyles from '@Constants/styles';
 import type { FC } from 'react';
 
 const LogoContainer: FC = () => (
@@ -20,7 +21,8 @@ const styles = StyleSheet.create({
     },
     slug: {
         fontSize: 24,
-        fontWeight: 700
+        fontWeight: 700,
+        fontFamily: defaultStyles.font.fontFamily,
     }
 })
 

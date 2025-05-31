@@ -2,15 +2,12 @@ const colors = {
     primary: "#6394f2",
     secondary: "#fc5c65",
     medium: "#6e6969",
-    light: "#eee",
+    light: "#efefef",
+    lightGray: "#eee",
+    dark:"#101010",
     gray: "oklch(87% 0 0)",
 };
-export type AppColorsType =
-    | "primary"
-    | "secondary"
-    | "medium"
-    | "light"
-    | "gray";
+export type AppColorsType = keyof typeof colors
 export const grayPressAction = {
     android_ripple: { color: colors.gray },
     highlightColor: colors.light,

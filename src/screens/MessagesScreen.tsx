@@ -78,7 +78,6 @@ const MessagesScreen: FC = () => {
 const styles = StyleSheet.create({
     messageContainer: {
         padding: 5,
-        elevation: 2,
     },
     container: {
         height: "100%"

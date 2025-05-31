@@ -1,7 +1,8 @@
 import { GestureDetector, Gesture } from 'react-native-gesture-handler';
-import colors, { initialPressAction } from '@Constants/colors';
+import defaultStyles from '@Constants/styles';
 import React, { memo, type FC } from 'react';
 import AppPressable from '../AppPressable';
+import colors from '@Constants/colors';
 
 import Animated, {
     useAnimatedStyle,
@@ -30,7 +31,7 @@ interface Props {
     title: string,
     subTitle?: string,
     style?: StyleProp<ViewStyle>,
-    onPress: (e: any) => void,
+    onPress?: (e: any) => void,
     dragableOptions?: DragInterface,
     ImageReplaceComponent?: () => React.JSX.Element,
     pressAction?: {
@@ -58,12 +59,10 @@ const ListItem: FC<Props> = ({
         {ImageReplaceComponent && <ImageReplaceComponent />}
         {image && <Image style={styles.image} source={image} />}
         <View style={styles.infoContainer}>
-            <Text numberOfLines={1} style={styles.title}>{title}</Text>
+            <Text numberOfLines={1} style={[defaultStyles.font,styles.title]}>{title}</Text>
             {subTitle && <Text numberOfLines={1} style={styles.subTitle}>{subTitle}</Text>}
         </View>
     </AppPressable>)
-
-
 
     if (typeof dragableOptions === "undefined") {
         return BaseComponent
@@ -126,14 +125,14 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     title: {
-        fontSize: 20,
         fontWeight: 600,
-        textTransform: "capitalize",
+        textTransform: "capitalize",        
     },
     subTitle: {
         fontSize: 18,
         color: colors.medium,
         marginTop: 5,
+        fontFamily: defaultStyles.font.fontFamily,
     }
 })
 

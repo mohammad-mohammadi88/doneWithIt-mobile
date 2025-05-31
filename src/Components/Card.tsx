@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import colors from '@Constants/colors';
 import type { FC } from 'react';
+import defaultStyles from '@/constants/styles';
 
 interface Props{
     title: string;
@@ -38,11 +39,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 600,
         marginBottom: 7,
+        fontFamily: defaultStyles.font.fontFamily,
     },
     subTitle:{
         color: colors.primary,
         fontSize: 20,
         fontWeight: 600,
+        fontFamily: defaultStyles.font.fontFamily,
     }
 })
 

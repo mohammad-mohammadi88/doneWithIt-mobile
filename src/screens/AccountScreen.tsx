@@ -1,7 +1,8 @@
 import ListItemSeparator from '@Components/ListItem/ListItemSeparator';
-import { FlatList, StyleSheet, View } from 'react-native';
-import ListItem from '@Components/ListItem';
 import colors, { grayPressAction } from '@Constants/colors';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { IconNamesType } from '@Types/MaterialIcons';
+import ListItem from '@Components/ListItem';
 import Icon from '@Components/Icon';
 import type { FC } from 'react';
 
@@ -9,7 +10,7 @@ interface MenuItemType{
     id:number;
     title: string,
     icon:{
-        name: string,
+        name: IconNamesType,
         backgroundColor: string
     },
     onPress: (e:any) => void
@@ -60,7 +61,7 @@ const AccountScreen: FC = () => {
                         ImageReplaceComponent={() => <Icon
                             backgroundColor={icon.backgroundColor}
                             iconColor='white'
-                            name={icon.name}
+                            icon={icon.name}
                             size={40}
                         />}
                     />}    
@@ -75,7 +76,7 @@ const AccountScreen: FC = () => {
                 ImageReplaceComponent={() => <Icon
                     backgroundColor="orange"
                     iconColor='white'
-                    name="logout"
+                    icon="logout"
                     size={40}
                 />}
             />

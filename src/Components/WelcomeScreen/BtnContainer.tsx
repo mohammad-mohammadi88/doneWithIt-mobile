@@ -1,7 +1,8 @@
+import colors, { grayPressAction } from '@Constants/colors';
 import { StyleSheet, Text, ViewStyle } from 'react-native';
 import type { AppColorsType } from '@Constants/colors';
+import defaultStyles from '@Constants/styles';
 import AppPressable from '../AppPressable';
-import colors, { grayPressAction } from '@Constants/colors';
 import type { FC } from 'react';
 
 interface Props {
@@ -23,10 +24,9 @@ const BtnContainer: FC<Props> = ({ BtnStyle = {}, onPress, title, backgroundColo
 
 const styles = StyleSheet.create({
     btn: {
+        ...defaultStyles.flexCenter,
         width: "100%",
         height: 70,
-        justifyContent: "center",
-        alignItems: "center",
         borderRadius: 100,
         margin: 13
     },
@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: "white",
         fontWeight: 600,
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+        fontFamily: defaultStyles.font.fontFamily,
     },
 })
 

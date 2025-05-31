@@ -1,6 +1,7 @@
 import { Image, StyleSheet, View, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import AppPressable from '@Components/AppPressable';
+import defaultStyles from '@Constants/styles';
 import type { FC } from "react"
 
 const ViewImageScreen: FC = () => (
@@ -26,10 +27,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#000",
         flex: 1
     },
-    image: {
-        height: "100%",
-        width: "100%"
-    },
+    image: defaultStyles.fullScreen,
     btnContainer: {
         justifyContent: "space-between",
         paddingHorizontal: 15,

@@ -1,12 +1,13 @@
+import { Image, StyleSheet, Text, View } from 'react-native';
+import defaultStyles from '@Constants/styles';
 import ListItem from '@Components/ListItem';
 import colors from '@Constants/colors';
 import type { FC } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
 
 const ListingDetailsScreen: FC = () => {
     return (
         <View>
-            <Image style={styles.image} source={require("@Images/sampleCardImage.png")} />
+            <Image style={styles.image} source={require("@Images/jacket.png")} />
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>Red jacket for sale</Text>
                 <Text style={styles.price}>$100</Text>
@@ -33,19 +34,20 @@ const styles = StyleSheet.create({
         padding: 20
     },
     title: {
+        fontFamily: defaultStyles.font.fontFamily,
         fontSize: 26,
         fontWeight: 600,
         marginBottom: 10
     },
     price: {
         color: colors.primary,
+        fontFamily: defaultStyles.font.fontFamily,
         fontSize: 20,
         fontWeight: "bold",
     },
     userContainer: {
         marginTop: 40,
         width: "100%",
-        
     }
 })
 

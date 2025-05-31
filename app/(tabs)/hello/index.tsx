@@ -9,7 +9,7 @@ const index :FC = () => {
             <AppPressable >
                 <View></View>
             </AppPressable>
-            <Link href={"/"}>index</Link>
+            <Link href={"/"}>index54</Link>
         </View>
     )
 }

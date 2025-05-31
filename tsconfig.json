@@ -9,6 +9,7 @@
             "@Images/*": ["./src/assets/images/*"],
             "@Constants/*": ["./src/constants/*"],
             "@Screens/*": ["./src/screens/*"],
+            "@Types/*": ["./src/types/*"],
         }
     },
     "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
