@@ -1,47 +1,46 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+import defaultStyles from '@Constants/styles';
 import colors from '@Constants/colors';
 import type { FC } from 'react';
-import defaultStyles from '@/constants/styles';
 
-interface Props{
+interface Props {
     title: string;
     subTitle: string;
     image: any
 }
 
-const Card :FC<Props> = ({title,subTitle,image}) => {
-    return (
-        <View style={styles.card}>
-            <Image style={styles.image} source={image}/>
-            <View style={styles.infoContainer}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subTitle}>{subTitle}</Text>
-            </View>
+const Card: FC<Props> = ({ title, subTitle, image }) => (
+    <View style={styles.card}>
+        <Image style={styles.image} source={image} />
+        <View style={styles.infoContainer}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subTitle}>{subTitle}</Text>
         </View>
-    )
-}
+    </View>
+)
+
 
 const styles = StyleSheet.create({
-    card:{
+    card: {
         marginBottom: 20,
         backgroundColor: "#fff",
         borderRadius: 20,
-        overflow:"hidden"
+        overflow: "hidden"
     },
-    image:{
+    image: {
         width: "100%",
         height: 200,
     },
-    infoContainer:{
+    infoContainer: {
         padding: 20
     },
-    title:{
+    title: {
         fontSize: 20,
         fontWeight: 600,
         marginBottom: 7,
         fontFamily: defaultStyles.font.fontFamily,
     },
-    subTitle:{
+    subTitle: {
         color: colors.primary,
         fontSize: 20,
         fontWeight: 600,

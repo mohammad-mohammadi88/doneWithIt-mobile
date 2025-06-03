@@ -1,16 +1,16 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { IconNamesType } from '@Types/MaterialIcons';
+import type { IconNamesType } from '@Types/globals';
 import { StyleSheet, View } from 'react-native';
 import type { FC } from 'react';
 
-interface Props{
+interface Props {
     backgroundColor: string;
     icon: IconNamesType,
     iconColor: string,
     size: number;
 }
 
-const Icon :FC<Props> = ({iconColor,backgroundColor,icon,size}) => {
+const Icon: FC<Props> = ({ iconColor, backgroundColor, icon, size }) => {
     const styles = StyleSheet.create({
         iconContainer: {
             width: size,
@@ -23,7 +23,7 @@ const Icon :FC<Props> = ({iconColor,backgroundColor,icon,size}) => {
     })
     return (
         <View style={styles.iconContainer}>
-            <MaterialCommunityIcons name={icon} size={size / 2} color={iconColor}/>
+            <MaterialCommunityIcons name={icon} size={size / 2} color={iconColor} />
         </View>
     )
 }

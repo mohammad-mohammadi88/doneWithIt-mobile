@@ -16,7 +16,7 @@ const ListItemDeleteAction: FC<Props> = ({ backgroundColor = colors.secondary, w
 
 const styles = StyleSheet.create({
     container: {
-        ...defaultStyles.flexCenter,
+        ...defaultStyles.flexCenter,        
         flex: 1,
     }
 })

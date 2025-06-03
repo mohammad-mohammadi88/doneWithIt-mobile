@@ -6,7 +6,7 @@ const defaultStyles = StyleSheet.create({
         fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir"
     },
     flexCenter: {
-        alignContent: "center",
+        alignItems: "center",
         justifyContent: "center"
     },
     fullScreen:{

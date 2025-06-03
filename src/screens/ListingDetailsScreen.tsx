@@ -4,26 +4,25 @@ import ListItem from '@Components/ListItem';
 import colors from '@Constants/colors';
 import type { FC } from 'react';
 
-const ListingDetailsScreen: FC = () => {
-    return (
-        <View>
-            <Image style={styles.image} source={require("@Images/jacket.png")} />
-            <View style={styles.infoContainer}>
-                <Text style={styles.title}>Red jacket for sale</Text>
-                <Text style={styles.price}>$100</Text>
-                <View style={styles.userContainer}>
-                    <ListItem
-                        style={{width:"100%"}}
-                        onPress={() => console.log("first")}
-                        image={require("@Images/user.jpg")}
-                        title="mohammad mohammadi frontend developer"
-                        subTitle='5 Listings'
-                    />
-                </View>
+const ListingDetailsScreen: FC = () => (
+    <View>
+        <Image style={styles.image} source={require("@Images/jacket.png")} />
+        <View style={styles.infoContainer}>
+            <Text style={styles.title}>Red jacket for sale</Text>
+            <Text style={styles.price}>$100</Text>
+            <View style={styles.userContainer}>
+                <ListItem
+                    style={{ width: "100%" }}
+                    onPress={() => console.log("first")}
+                    image={require("@Images/user.jpg")}
+                    title="mohammad mohammadi frontend developer"
+                    subTitle='5 Listings'
+                />
             </View>
         </View>
-    )
-}
+    </View>
+)
+
 
 const styles = StyleSheet.create({
     image: {

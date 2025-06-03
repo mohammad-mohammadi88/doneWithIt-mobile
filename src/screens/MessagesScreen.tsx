@@ -1,9 +1,10 @@
-import ListItemDeleteAction from '@Components/ListItem/ListItemDeleteAction';
-import ListItemSeparator from '@Components/ListItem/ListItemSeparator';
 import { FlatList, StyleSheet } from 'react-native';
-import ListItem from '@Components/ListItem';
-import { useState, type FC } from 'react';
 import { grayPressAction } from '@Constants/colors';
+import { useState, type FC } from 'react';
+import ListItem, {
+    ListItemDeleteAction,
+    ListItemSeparator
+} from '@Components/ListItem';
 
 interface MessageType {
     id: number;
@@ -12,7 +13,7 @@ interface MessageType {
     image: any
 }
 const MessagesScreen: FC = () => {
-    const [ refreshing, setRefreshing ] = useState<boolean>(false)
+    const [ refreshing ] = useState<boolean>(false)
     const [ messages, setMessages ] = useState<MessageType[]>([
         {
             id: 1,

@@ -1,4 +1,4 @@
-import AppPressable from '@Components/AppPressable';
+import AppPressable from '@/Components/AppComponents/AppPressable';
 import { Link } from 'expo-router';
 import type { FC } from 'react';
 import { StyleSheet, View } from 'react-native';

@@ -2,7 +2,7 @@ import colors, { grayPressAction } from '@Constants/colors';
 import { StyleSheet, Text, ViewStyle } from 'react-native';
 import type { AppColorsType } from '@Constants/colors';
 import defaultStyles from '@Constants/styles';
-import AppPressable from '../AppPressable';
+import AppPressable from './AppPressable';
 import type { FC } from 'react';
 
 interface Props {
@@ -12,31 +12,29 @@ interface Props {
     onPress: (e: any) => void
 }
 
-const BtnContainer: FC<Props> = ({ BtnStyle = {}, onPress, title, backgroundColor = "secondary" }) => (
+const AppButton: FC<Props> = ({ BtnStyle = {}, onPress, title, backgroundColor = "secondary" }) => (
     <AppPressable
-        style={[ styles.btn, BtnStyle, { backgroundColor: colors[ backgroundColor ] ?? backgroundColor } ]}
+        style={[ styles.btn,defaultStyles.flexCenter, BtnStyle, { backgroundColor: colors[ backgroundColor ] ?? backgroundColor } ]}
         onPress={onPress}
         pressAction={grayPressAction}
     >
-        <Text style={styles.btnText}>{title}</Text>
+        <Text style={[styles.btnText,defaultStyles.font]}>{title}</Text>
     </AppPressable>
 )
 
 const styles = StyleSheet.create({
     btn: {
-        ...defaultStyles.flexCenter,
         width: "100%",
-        height: 70,
-        borderRadius: 100,
-        margin: 13
+        height: 50,
+        borderRadius: 20,
+        marginVertical: 10
     },
     btnText: {
-        fontSize: 20,
         color: "white",
         fontWeight: 600,
+        textAlign: "center",
         textTransform: "uppercase",
-        fontFamily: defaultStyles.font.fontFamily,
     },
 })
 
-export default BtnContainer
+export default AppButton

@@ -1,7 +1,7 @@
-import type { FC } from 'react';
 import { grayPressAction } from '@Constants/colors';
 import defaultStyles from '@Constants/styles';
 import AppPressable from './AppPressable';
+import type { FC } from 'react';
 import {
     StyleSheet,
     Text,

@@ -8,12 +8,15 @@ const colors = {
     gray: "oklch(87% 0 0)",
 };
 export type AppColorsType = keyof typeof colors
+
 export const grayPressAction = {
     android_ripple: { color: colors.gray },
     highlightColor: colors.light,
 };
+
 export const initialPressAction = {
     android_ripple: { color: "transparent" },
     highlightColor: "transparent"
 }
+
 export default colors;

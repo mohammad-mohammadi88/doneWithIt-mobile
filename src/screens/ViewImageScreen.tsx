@@ -1,8 +1,8 @@
-import { Image, StyleSheet, View, Pressable } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AppPressable from '@Components/AppPressable';
+import { AppPressable } from '@Components/AppComponents';
 import defaultStyles from '@Constants/styles';
-import type { FC } from "react"
+import type { FC } from "react";
 
 const ViewImageScreen: FC = () => (
     <View style={styles.container}>

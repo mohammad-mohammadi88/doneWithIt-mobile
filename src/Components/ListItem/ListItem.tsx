@@ -1,30 +1,29 @@
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { AppPressable } from '../AppComponents';
 import defaultStyles from '@Constants/styles';
 import React, { memo, type FC } from 'react';
-import AppPressable from '../AppPressable';
 import colors from '@Constants/colors';
 
-import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withSpring
-} from 'react-native-reanimated';
 import {
+    PressableAndroidRippleConfig,
     StyleSheet,
     StyleProp,
     ViewStyle,
     Image,
     Text,
     View,
-    PressableAndroidRippleConfig,
 } from 'react-native';
+import Animated, {
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring
+} from 'react-native-reanimated';
 
 interface DragInterface {
     RightDragComponent: () => React.JSX.Element;
     SWIPE_THRESHOLD: number,
     dragFn: () => void;
 }
-
 
 interface Props {
     image?: any,
@@ -51,18 +50,18 @@ const ListItem: FC<Props> = ({
     image,
 }) => {
     const BaseComponent = (
-    <AppPressable
-        pressAction={pressAction}
-        style={[ styles.item, style ]}
-        onPress={onPress}
-    >
-        {ImageReplaceComponent && <ImageReplaceComponent />}
-        {image && <Image style={styles.image} source={image} />}
-        <View style={styles.infoContainer}>
-            <Text numberOfLines={1} style={[defaultStyles.font,styles.title]}>{title}</Text>
-            {subTitle && <Text numberOfLines={1} style={styles.subTitle}>{subTitle}</Text>}
-        </View>
-    </AppPressable>)
+        <AppPressable
+            pressAction={pressAction}
+            style={[ styles.item, style ]}
+            onPress={onPress}
+        >
+            {ImageReplaceComponent && <ImageReplaceComponent />}
+            {image && <Image style={styles.image} source={image} />}
+            <View style={styles.infoContainer}>
+                <Text numberOfLines={1} style={[ defaultStyles.font, styles.title ]}>{title}</Text>
+                {subTitle && <Text numberOfLines={1} style={styles.subTitle}>{subTitle}</Text>}
+            </View>
+        </AppPressable>)
 
     if (typeof dragableOptions === "undefined") {
         return BaseComponent
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontWeight: 600,
-        textTransform: "capitalize",        
+        textTransform: "capitalize",
     },
     subTitle: {
         fontSize: 18,

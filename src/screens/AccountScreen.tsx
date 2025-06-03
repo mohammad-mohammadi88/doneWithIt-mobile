@@ -1,41 +1,41 @@
-import ListItemSeparator from '@Components/ListItem/ListItemSeparator';
 import colors, { grayPressAction } from '@Constants/colors';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { IconNamesType } from '@Types/MaterialIcons';
+import { ListItemSeparator } from '@Components/ListItem';
+import type { IconNamesType } from '@Types/globals';
 import ListItem from '@Components/ListItem';
 import Icon from '@Components/Icon';
 import type { FC } from 'react';
 
-interface MenuItemType{
-    id:number;
+interface MenuItemType {
+    id: number;
     title: string,
-    icon:{
+    icon: {
         name: IconNamesType,
         backgroundColor: string
     },
-    onPress: (e:any) => void
+    onPress: (e: any) => void
 }
 
-const menuItems:MenuItemType[] = [
+const menuItems: MenuItemType[] = [
     {
-        id:1,
+        id: 1,
         title: "My Listings",
-        onPress(){
+        onPress() {
             console.log("My Listings")
         },
-        icon:{
-            name:"format-list-bulleted",
+        icon: {
+            name: "format-list-bulleted",
             backgroundColor: colors.primary
         }
     },
     {
-        id:2,
+        id: 2,
         title: "My Messages",
-        onPress(){
+        onPress() {
             console.log("My Messages")
         },
-        icon:{
-            name:"email",
+        icon: {
+            name: "email",
             backgroundColor: colors.secondary
         }
     },
@@ -53,7 +53,7 @@ const AccountScreen: FC = () => {
             <View style={styles.menuItemsContainer}>
                 <FlatList
                     data={menuItems}
-                    renderItem={({item:{onPress,title,icon}})=><ListItem
+                    renderItem={({ item: { onPress, title, icon } }) => <ListItem
                         pressAction={grayPressAction}
                         style={styles.menuItem}
                         onPress={onPress}
@@ -64,7 +64,7 @@ const AccountScreen: FC = () => {
                             icon={icon.name}
                             size={40}
                         />}
-                    />}    
+                    />}
                     ItemSeparatorComponent={ListItemSeparator}
                 />
             </View>
@@ -85,18 +85,18 @@ const AccountScreen: FC = () => {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         backgroundColor: colors.light,
         height: "100%",
     },
     userContainer: {
-        padding:15,
+        padding: 15,
     },
-    menuItemsContainer:{
-        marginVertical:50
+    menuItemsContainer: {
+        marginVertical: 50
     },
-    menuItem:{
-        paddingHorizontal:15
+    menuItem: {
+        paddingHorizontal: 15
     }
 })
 

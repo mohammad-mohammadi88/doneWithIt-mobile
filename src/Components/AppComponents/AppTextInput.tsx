@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { IconNamesType } from '@Types/MaterialIcons';
+import type { IconNamesType } from '@Types/globals';
 import defaultStyles from '@Constants/styles';
 import colors from '@Constants/colors';
 import {
@@ -17,42 +17,42 @@ interface Props {
     setValue: Dispatch<SetStateAction<any>>,
     placeholder?: string,
     icon?: IconNamesType,
-    value: any,
 }
 
 const AppTextInput: FC<Props & TextInputProps> = ({
     extraContainerStyle,
-    placeholder,
     setValue,
-    value,
     icon,
     ...props
 }) => (
     <View style={[ styles.container, extraContainerStyle ]}>
-        {icon && <MaterialCommunityIcons name={icon} color={colors.medium} size={28} />}
+        {icon && <MaterialCommunityIcons name={icon} color={colors.medium} size={25} />}
         <TextInput
-            clearButtonMode='always'
             style={[ styles.input, props.style ]}
+            clearButtonMode='always'
             onChangeText={setValue}
-            value={value}
             {...props}
         />
     </View>
 )
+
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: colors.lightGray,
         flexDirection: "row",
         alignItems: "center",
-        height: 50,
-        borderRadius: 100,
-        paddingHorizontal: 10
+        borderRadius: 20,
+        paddingHorizontal: 12,
+        paddingVertical: 2,
+        marginVertical: 10
     },
     input: {
         fontSize: 18,
+        flex: 1,
         color: colors.dark,
         fontFamily: defaultStyles.font.fontFamily,
+        marginLeft: 5
     }
 })
 
