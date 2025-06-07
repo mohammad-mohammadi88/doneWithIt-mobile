@@ -23,12 +23,13 @@ const AppTextInput: FC<Props & TextInputProps> = ({
     extraContainerStyle,
     setValue,
     icon,
+    style,
     ...props
 }) => (
     <View style={[ styles.container, extraContainerStyle ]}>
         {icon && <MaterialCommunityIcons name={icon} color={colors.medium} size={25} />}
         <TextInput
-            style={[ styles.input, props.style ]}
+            style={[ styles.input, style ]}
             clearButtonMode='always'
             onChangeText={setValue}
             {...props}
@@ -45,7 +46,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingHorizontal: 12,
         paddingVertical: 2,
-        marginVertical: 10
+        marginVertical: 10,
+        
     },
     input: {
         fontSize: 18,

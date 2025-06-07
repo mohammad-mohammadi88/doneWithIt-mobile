@@ -33,11 +33,7 @@ const MessagesScreen: FC = () => {
             description: "desc 3",
             image: require("@Images/user.jpg")
         },
-    ]);
-    const handleDeleteMessage = (deleteId: number) => {
-        // setMessages(c => c.filter(({id})=> id !== deleteId))
-        console.log(deleteId)
-    }
+    ])
 
     return (
         <FlatList
@@ -45,7 +41,7 @@ const MessagesScreen: FC = () => {
             data={messages}
             renderItem={({ item: { title, description, image, id } }) => (
                 <ListItem
-                    onPress={() => handleDeleteMessage(id)}
+                    onPress={() => console.log(id)}
                     style={styles.messageContainer}
                     subTitle={description}
                     pressAction={grayPressAction}
@@ -53,7 +49,7 @@ const MessagesScreen: FC = () => {
                     title={title}
                     dragableOptions={{
                         SWIPE_THRESHOLD: -50,
-                        dragFn: () => handleDeleteMessage(id),
+                        dragFn: () => setMessages(c => c.filter((message)=> message.id !== id)),
                         RightDragComponent: () => <ListItemDeleteAction />
                     }}
                 />

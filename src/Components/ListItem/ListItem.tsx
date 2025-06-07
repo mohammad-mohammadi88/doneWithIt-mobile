@@ -18,6 +18,7 @@ import Animated, {
     useSharedValue,
     withSpring
 } from 'react-native-reanimated';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface DragInterface {
     RightDragComponent: () => React.JSX.Element;
@@ -36,13 +37,15 @@ interface Props {
     pressAction?: {
         android_ripple: PressableAndroidRippleConfig,
         highlightColor: string
-    }
+    },
+    chevron?: boolean
 }
 
 const ListItem: FC<Props> = ({
-    pressAction,
     ImageReplaceComponent,
     dragableOptions,
+    chevron = true,
+    pressAction,
     style = {},
     subTitle,
     onPress,
@@ -61,6 +64,7 @@ const ListItem: FC<Props> = ({
                 <Text numberOfLines={1} style={[ defaultStyles.font, styles.title ]}>{title}</Text>
                 {subTitle && <Text numberOfLines={1} style={styles.subTitle}>{subTitle}</Text>}
             </View>
+            {chevron && <MaterialIcons name="chevron-right" size={25} color={colors.medium}/>}
         </AppPressable>)
 
     if (typeof dragableOptions === "undefined") {
@@ -128,7 +132,7 @@ const styles = StyleSheet.create({
         textTransform: "capitalize",
     },
     subTitle: {
-        fontSize: 18,
+        fontSize: 17,
         color: colors.medium,
         marginTop: 5,
         fontFamily: defaultStyles.font.fontFamily,

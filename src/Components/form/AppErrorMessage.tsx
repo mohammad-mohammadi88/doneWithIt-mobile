@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         color: "red",
         fontFamily: defaultStyles.font.fontFamily,
         fontSize:16,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     }
 })
 

@@ -6,11 +6,11 @@ import type { FC } from 'react';
 interface Props {
     backgroundColor: string;
     icon: IconNamesType,
-    iconColor: string,
+    iconColor?: string,
     size: number;
 }
 
-const Icon: FC<Props> = ({ iconColor, backgroundColor, icon, size }) => {
+const Icon: FC<Props> = ({ iconColor = "white", backgroundColor, icon, size }) => {
     const styles = StyleSheet.create({
         iconContainer: {
             width: size,

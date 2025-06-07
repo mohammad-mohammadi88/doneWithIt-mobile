@@ -8,14 +8,16 @@ import {
     View,
 } from 'react-native';
 
-interface PickerOptionsProps{
-    onPress: (e:any) => void,
-    label: string,
+interface PickerOptionProps {
+    onPress: (e: any) => void,
+    item: {
+        label: string
+    },
 }
-const PickerOptions:FC<PickerOptionsProps> = ({label,onPress}) => (
+const PickerOption: FC<PickerOptionProps> = ({ item, onPress }) => (
     <AppPressable style={styles.pickerOption} onPress={onPress} pressAction={grayPressAction}>
         <View>
-            <Text style={[defaultStyles.font,styles.pickerOptionLabel]}>{label}</Text>
+            <Text style={[ defaultStyles.font, styles.pickerOptionLabel ]}>{item.label}</Text>
         </View>
     </AppPressable>
 )
@@ -24,11 +26,11 @@ const styles = StyleSheet.create({
     pickerOption: {
         alignItems: "center",
         width: "100%",
-        paddingVertical: 15
+        paddingVertical: 15,
     },
     pickerOptionLabel: {
         width: "100%",
         textTransform: "capitalize"
     }
 })
-export default PickerOptions
+export default PickerOption

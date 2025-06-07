@@ -15,5 +15,6 @@ export interface ListingChangeInterface{
     title: string,
     price: string,
     description: string,
-    category: SelectedOption
+    category: SelectedOption,
+    images: string[]
 }

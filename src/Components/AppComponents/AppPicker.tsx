@@ -1,8 +1,7 @@
-import { useState, type Dispatch, type FC, type SetStateAction } from 'react';
+import { ComponentType, useState, type Dispatch, type FC, type SetStateAction } from 'react';
 import type { SelectedOption, SelectOptionInterface } from '@Types/globals';
 import colors, { grayPressAction } from '@Constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { ListItemSeparator } from '../ListItem';
 import { AppPressable, PickerOption } from ".";
 import defaultStyles from '@Constants/styles';
 import {
@@ -17,15 +16,21 @@ import {
 
 interface Props {
     setSelectedItem: Dispatch<SetStateAction<SelectedOption>> | any,
+    ItemSeparatorComponent?: ComponentType,
+    PickerOptionComponents?: React.JSX.ElementType,
     extraContainerStyle?: StyleProp<ViewStyle>,
     selectedItem: SelectedOption | undefined,
     selectOptions: SelectOptionInterface[],
+    numberOfColumns?: number;
     placeholder: string,
     onBlue?: any,
 }
 
 const AppPicker: FC<Props> = ({
+    PickerOptionComponents = PickerOption,
+    numberOfColumns = 1,
     extraContainerStyle,
+    ItemSeparatorComponent = undefined,
     setSelectedItem,
     selectOptions,
     selectedItem,
@@ -43,19 +48,19 @@ const AppPicker: FC<Props> = ({
     }
     return (
         <>
-            <View style={styles.container}>
+            <View style={[ styles.container, extraContainerStyle ]}>
                 <AppPressable
                     onBlur={onBlue}
                     pressAction={grayPressAction}
                     onPress={() => setIsModalVisible(true)}
-                    style={[ styles.picker, extraContainerStyle ]}
+                    style={styles.picker}
                 >
                     <MaterialCommunityIcons
-                        name="apps"
+                        name={selectedItem?.selectedIcon}
                         color={colors.medium}
                         size={28}
                     />
-                    <Text style={[ styles.placeholder, defaultStyles.font, placeholderColor ]}>
+                    <Text numberOfLines={2} style={[ styles.placeholder, defaultStyles.font, placeholderColor ]}>
                         {isItemSelected ? selectedItem.selectedLabel : placeholder}
                     </Text>
 
@@ -74,14 +79,18 @@ const AppPicker: FC<Props> = ({
                     <View>
                         <FlatList
                             data={selectOptions}
-                            renderItem={({ item }) => <PickerOption
-                                onPress={() => handleSelectOption({
-                                    selectedLabel: item.label,
-                                    selectedValue: item.value,
-                                })}
-                                label={item.label}
-                            />}
-                            ItemSeparatorComponent={() => <ListItemSeparator bgc={colors.lightGray} />}
+                            numColumns={numberOfColumns}
+                            renderItem={({ item: { value, item } }) =>
+                                <PickerOptionComponents
+                                    onPress={() => handleSelectOption({
+                                        selectedIcon: item?.icon?.icon || "apps",
+                                        selectedLabel: item.label,
+                                        selectedValue: value,
+                                    })}
+                                    item={item}
+                                />
+                            }
+                            ItemSeparatorComponent={ItemSeparatorComponent}
                         />
                     </View>
                 </View>
