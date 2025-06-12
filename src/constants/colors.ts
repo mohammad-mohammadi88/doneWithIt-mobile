@@ -19,4 +19,5 @@ export const initialPressAction = {
     highlightColor: "transparent"
 }
 
+
 export default colors;

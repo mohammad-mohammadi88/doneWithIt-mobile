@@ -33,7 +33,7 @@ const ImageInputList: FC<Props> = ({ ImageUris = [], onAdd, onRemove,...props })
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        paddingHorizontal: 10,
+        paddingHorizontal: 5,
         paddingBottom: 5
     },
     image: {

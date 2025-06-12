@@ -5,6 +5,7 @@ import type { IconNamesType } from '@Types/globals';
 import ListItem from '@Components/ListItem';
 import Icon from '@Components/Icon';
 import type { FC } from 'react';
+import { Href, useRouter } from 'expo-router';
 
 interface MenuItemType {
     id: number;
@@ -13,34 +14,31 @@ interface MenuItemType {
         name: IconNamesType,
         backgroundColor: string
     },
-    onPress: (e: any) => void
+    onPress: (e:any) => void
 }
 
-const menuItems: MenuItemType[] = [
-    {
-        id: 1,
-        title: "My Listings",
-        onPress() {
-            console.log("My Listings")
-        },
-        icon: {
-            name: "format-list-bulleted",
-            backgroundColor: colors.primary
-        }
-    },
-    {
-        id: 2,
-        title: "My Messages",
-        onPress() {
-            console.log("My Messages")
-        },
-        icon: {
-            name: "email",
-            backgroundColor: colors.secondary
-        }
-    },
-];
 const AccountScreen: FC = () => {
+    const router = useRouter()
+    const menuItems: MenuItemType[] = [
+        {
+            id: 1,
+            title: "My Listings",
+            onPress: () => {},
+            icon: {
+                name: "format-list-bulleted",
+                backgroundColor: colors.primary
+            }
+        },
+        {
+            id: 2,
+            title: "My Messages",
+            onPress: () => router.navigate("/(tabs)/account/myMessages"),
+            icon: {
+                name: "email",
+                backgroundColor: colors.secondary
+            }
+        },
+    ];
     return (
         <View style={styles.container}>
             <ListItem
@@ -49,11 +47,12 @@ const AccountScreen: FC = () => {
                 onPress={() => console.log("hello dear")}
                 image={require("@Images/user.jpg")}
                 subTitle='mohammaddev09@gmail.com'
+                chevron={false}
             />
             <View style={styles.menuItemsContainer}>
                 <FlatList
                     data={menuItems}
-                    renderItem={({ item: { onPress, title, icon } }) => <ListItem
+                    renderItem={({ item: {onPress,  title, icon } }) => <ListItem
                         pressAction={grayPressAction}
                         style={styles.menuItem}
                         onPress={onPress}

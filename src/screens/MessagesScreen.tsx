@@ -1,39 +1,52 @@
-import { FlatList, StyleSheet } from 'react-native';
-import { grayPressAction } from '@Constants/colors';
-import { useState, type FC } from 'react';
+import { Alert, FlatList, StyleSheet } from "react-native";
+import { grayPressAction } from "@Constants/colors";
+import { useState, type FC } from "react";
 import ListItem, {
     ListItemDeleteAction,
-    ListItemSeparator
-} from '@Components/ListItem';
+    ListItemSeparator,
+} from "@Components/ListItem";
 
 interface MessageType {
     id: number;
     title: string;
-    description: string,
-    image: any
+    description: string;
+    image: any;
 }
 const MessagesScreen: FC = () => {
-    const [ refreshing ] = useState<boolean>(false)
-    const [ messages, setMessages ] = useState<MessageType[]>([
+    const [refreshing, setRefreshing] = useState<boolean>(false);
+    const [messages, setMessages] = useState<MessageType[]>([
         {
             id: 1,
             title: "title 1",
             description: "desc 1",
-            image: require("@Images/user.jpg")
+            image: require("@Images/user.jpg"),
         },
         {
             id: 2,
             title: "title 2",
             description: "desc 2",
-            image: require("@Images/user.jpg")
+            image: require("@Images/user.jpg"),
         },
         {
             id: 3,
             title: "title 3",
             description: "desc 3",
-            image: require("@Images/user.jpg")
+            image: require("@Images/user.jpg"),
         },
-    ])
+    ]);
+    const handleLongPress = (id: number) => {
+        console.log("pressss"),
+            Alert.alert("Delete", "Do you want to delete this chat?", [
+                {
+                    text: "Cancel",
+                },
+                {
+                    text: "Yes",
+                    onPress: () =>
+                        setMessages((c) => c.filter((chat) => chat.id !== id)),
+                },
+            ]);
+    };
 
     return (
         <FlatList
@@ -41,44 +54,43 @@ const MessagesScreen: FC = () => {
             data={messages}
             renderItem={({ item: { title, description, image, id } }) => (
                 <ListItem
-                    onPress={() => console.log(id)}
+                    onPress={() => {
+                        setRefreshing(true);
+                        setRefreshing(false);
+                    }}
                     style={styles.messageContainer}
+                    onLongPress={() => handleLongPress(id)}
                     subTitle={description}
                     pressAction={grayPressAction}
                     image={image}
                     title={title}
-                    dragableOptions={{
-                        SWIPE_THRESHOLD: -50,
-                        dragFn: () => setMessages(c => c.filter((message)=> message.id !== id)),
-                        RightDragComponent: () => <ListItemDeleteAction />
-                    }}
                 />
             )}
             ItemSeparatorComponent={ListItemSeparator}
             refreshing={refreshing}
             onRefresh={() => {
                 const mm = [];
-                for (let i = 1; i <= Math.ceil(Math.random() * 10); i++) {
+                for (let i = 1; i <= Math.ceil(Math.random() * 10 + 10); i++) {
                     mm.push({
                         id: i,
                         title: "title " + i,
                         description: "desc " + i,
-                        image: require("@Images/user.jpg")
-                    })
+                        image: require("@Images/user.jpg"),
+                    });
                 }
-                setMessages(mm)
+                setMessages(mm);
             }}
         />
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
-    messageContainer: {
-        padding: 5,
-    },
     container: {
-        height: "100%"
-    }
-})
+        height: "100%",
+    },
+    messageContainer: {
+        padding: 6,
+    },
+});
 
-export default MessagesScreen
+export default MessagesScreen;

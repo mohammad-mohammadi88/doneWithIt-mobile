@@ -5,4 +5,4 @@ export { default as PickerOption} from "./PickerOption";
 export { default as ImageInput} from "./ImageInput";
 export { default as AppButton} from "./AppButton";
 export { default as AppPicker} from "./AppPicker";
-export { default as AppScreen} from "./AppScreen";
+export { default as Screen} from "./Screen";

@@ -1,8 +1,7 @@
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { AppPressable } from '../AppComponents';
-import defaultStyles from '@Constants/styles';
-import React, { memo, type FC } from 'react';
-import colors from '@Constants/colors';
+import { AppPressable } from "../AppComponents";
+import defaultStyles from "@Constants/styles";
+import React, { memo, type FC } from "react";
+import colors from "@Constants/colors";
 
 import {
     PressableAndroidRippleConfig,
@@ -12,101 +11,71 @@ import {
     Image,
     Text,
     View,
-} from 'react-native';
-import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withSpring
-} from 'react-native-reanimated';
-import { MaterialIcons } from '@expo/vector-icons';
+    PressableProps,
+} from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
-interface DragInterface {
-    RightDragComponent: () => React.JSX.Element;
-    SWIPE_THRESHOLD: number,
-    dragFn: () => void;
-}
 
-interface Props {
-    image?: any,
-    title: string,
-    subTitle?: string,
-    style?: StyleProp<ViewStyle>,
-    onPress?: (e: any) => void,
-    dragableOptions?: DragInterface,
-    ImageReplaceComponent?: () => React.JSX.Element,
+interface Props extends PressableProps {
+    image?: any;
+    title: string;
+    subTitle?: string;
+    style?: StyleProp<ViewStyle>;
+    onPress?: (e: any) => void;
+    ImageReplaceComponent?: () => React.JSX.Element;
     pressAction?: {
-        android_ripple: PressableAndroidRippleConfig,
-        highlightColor: string
-    },
-    chevron?: boolean
+        android_ripple: PressableAndroidRippleConfig;
+        highlightColor: string;
+    };
+    chevron?: boolean;
 }
 
 const ListItem: FC<Props> = ({
     ImageReplaceComponent,
-    dragableOptions,
     chevron = true,
     pressAction,
     style = {},
     subTitle,
-    onPress,
     title,
     image,
+    ...props
 }) => {
-    const BaseComponent = (
+    return (
         <AppPressable
             pressAction={pressAction}
-            style={[ styles.item, style ]}
-            onPress={onPress}
+            style={[styles.item, style]}
+            {...props}
         >
             {ImageReplaceComponent && <ImageReplaceComponent />}
             {image && <Image style={styles.image} source={image} />}
             <View style={styles.infoContainer}>
-                <Text numberOfLines={1} style={[ defaultStyles.font, styles.title ]}>{title}</Text>
-                {subTitle && <Text numberOfLines={1} style={styles.subTitle}>{subTitle}</Text>}
+                <Text
+                    numberOfLines={1}
+                    style={[defaultStyles.font, styles.title]}
+                >
+                    {title}
+                </Text>
+                {subTitle && (
+                    <Text numberOfLines={1} style={styles.subTitle}>
+                        {subTitle}
+                    </Text>
+                )}
             </View>
-            {chevron && <MaterialIcons name="chevron-right" size={25} color={colors.medium}/>}
-        </AppPressable>)
-
-    if (typeof dragableOptions === "undefined") {
-        return BaseComponent
-    } else {
-        const { dragFn, RightDragComponent, SWIPE_THRESHOLD } = dragableOptions;
-        const translateX = useSharedValue(0);
-        const panGesture = Gesture.Pan()
-            .onUpdate((event) => {
-                if (event.translationX < 0) {
-                    event.translationX < SWIPE_THRESHOLD
-                        ? translateX.set(withSpring(SWIPE_THRESHOLD))
-                        : translateX.set(withSpring(event.translationX))
-                }
-            })
-            .onEnd(() => {
-                if (translateX.value <= SWIPE_THRESHOLD) dragFn();
-                translateX.set(withSpring(0))
-            });
-
-        const animatedStyle = useAnimatedStyle(() => ({
-            transform: [ { translateX: translateX.value } ]
-        }))
-        return (
-            <>
-                <View style={styles.dragBox}>
-                    <RightDragComponent />
-                </View>
-                <GestureDetector gesture={panGesture}>
-                    <Animated.View style={animatedStyle}>
-                        {BaseComponent}
-                    </Animated.View>
-                </GestureDetector>
-            </>
-        )
-    }
-}
+            {chevron && (
+                <MaterialIcons
+                    name='chevron-right'
+                    size={25}
+                    color={colors.medium}
+                />
+            )}
+        </AppPressable>
+    );
+};
 
 const styles = StyleSheet.create({
     item: {
         flexDirection: "row",
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
         alignItems: "center",
     },
     image: {
@@ -122,7 +91,7 @@ const styles = StyleSheet.create({
         textOverflow: "hidden",
     },
     dragBox: {
-        position: 'absolute',
+        position: "absolute",
         right: 0,
         top: 0,
         bottom: 0,
@@ -136,7 +105,7 @@ const styles = StyleSheet.create({
         color: colors.medium,
         marginTop: 5,
         fontFamily: defaultStyles.font.fontFamily,
-    }
-})
+    },
+});
 
-export default memo(ListItem)
+export default memo(ListItem);
