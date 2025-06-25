@@ -1,3 +1,4 @@
+import type { ChangeListingImageType } from "@Types/listings";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Alert, Image, StyleSheet } from "react-native";
 import { Redirect, type Href } from "expo-router";
@@ -9,7 +10,7 @@ import type { FC } from "react";
 
 interface Props {
     imageUri?: string;
-    onChangeImage: (uri: string) => void;
+    onChangeImage: (image: ChangeListingImageType) => void;
     redirectUri?: Href;
 }
 const ImageInput: FC<Props> = ({
@@ -29,8 +30,8 @@ const ImageInput: FC<Props> = ({
             const handleSelectImage = async () => {
                 try {
                     // @ts-ignore
-                    const { assets, canceled } = await luanchImage();
-                    if (!canceled) onChangeImage(assets.uri);
+                    const { assets:{uri,mimeType}, canceled } = await luanchImage();
+                    if (!canceled) onChangeImage({uri,mimeType});
                 } catch (error) {
                     console.log("error while selecting the image", error);
                 }
@@ -39,18 +40,18 @@ const ImageInput: FC<Props> = ({
                 !imageUri
                     ? handleSelectImage()
                     : Alert.alert(
-                          "Delete",
-                          "Are You sure you want to delete this image?",
-                          [
-                              {
-                                  text: "Yes",
-                                  onPress: () => onChangeImage(imageUri),
-                              },
-                              {
-                                  text: "No",
-                              },
-                          ]
-                      );
+                        "Delete",
+                        "Are You sure you want to delete this image?",
+                        [
+                            {
+                                text: "Yes",
+                                onPress: () => onChangeImage({uri:imageUri}),
+                            },
+                            {
+                                text: "No",
+                            },
+                        ]
+                    );
             };
             return (
                 <AppPressable

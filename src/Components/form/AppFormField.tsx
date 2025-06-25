@@ -1,16 +1,17 @@
-import { Text, type DimensionValue, type StyleProp, type TextInputProps } from 'react-native';
-import { AppTextInput } from '../AppComponents';
-import AppErrorMessage from './AppErrorMessage';
-import { IconNamesType } from '@Types/globals';
-import { useFormikContext } from 'formik';
-import type { FC } from 'react';
+import type { DimensionValue, TextInputProps } from "react-native";
+import { AppTextInput } from "../AppComponents";
+import AppErrorMessage from "./AppErrorMessage";
+import { IconNamesType } from "@Types/globals";
+import { useFormikContext } from "formik";
+import type { FC } from "react";
 
 interface Props {
-    name: string,
-    icon?: IconNamesType,
-    width?: DimensionValue,
-    style?: any,
-    ExtraElement?: React.JSX.ElementType
+    name: string;
+    icon?: IconNamesType;
+    width?: DimensionValue;
+    style?: any;
+    ExtraElement?: React.JSX.ElementType;
+    useRegex?:RegExp
 }
 
 const AppFormField: FC<TextInputProps & Props> = ({
@@ -18,24 +19,31 @@ const AppFormField: FC<TextInputProps & Props> = ({
     width = "100%",
     style,
     ExtraElement,
+    useRegex,
     ...props
 }) => {
-    const { handleChange, setFieldTouched, errors, values } = useFormikContext();
+    const { setFieldValue, setFieldTouched, errors, values } =
+        useFormikContext();
     // @ts-ignore
-    const [ fieldError, value ] = [ errors[ name ], values[ name ] ]
+    const [fieldError, value] = [errors[name], values[name]];
+    const handleChange = (text:string) => {
+        if(!useRegex) return setFieldValue(name, text);
+        const regex = new RegExp(useRegex)
+        if(regex.test(text)) return setFieldValue(name,text)
+    }
     return (
         <>
             <AppTextInput
-                setValue={handleChange(name)}
+                setValue={handleChange}
                 onBlur={() => setFieldTouched(name)}
-                extraContainerStyle={[ { width }, style ]}
+                extraContainerStyle={[{ width }, style]}
                 value={value}
                 {...props}
             />
             {ExtraElement && <ExtraElement />}
             <AppErrorMessage error={fieldError} />
         </>
-    )
-}
+    );
+};
 
-export default AppFormField
+export default AppFormField;

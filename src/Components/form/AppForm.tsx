@@ -1,9 +1,10 @@
+import type { FormikOnSubmit } from '@Types/Forms';
 import { StyleSheet, View } from 'react-native';
 import type { FC, ReactNode } from 'react';
 import { Formik } from 'formik';
 
 interface Props {
-    onSubmit: (e: any) => void,
+    onSubmit: FormikOnSubmit,
     validationSchema: any,
     children: ReactNode,
     initialValues: any,

@@ -1,44 +1,62 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { useRef, type FC } from 'react';
-import type { Href } from 'expo-router';
-import ImageInput from './ImageInput';
+import type { ChangeListingImageType } from "@Types/listings";
+import { ScrollView, StyleSheet, View } from "react-native";
+import { useRef, type FC } from "react";
+import type { Href } from "expo-router";
+import ImageInput from "./ImageInput";
 
 interface Props {
-    ImageUris?: string[],
-    onRemove: (uri: string) => void,
-    onAdd: (uri: string) => void,
-    redirectUri?: Href
+    ImageUris?: string[];
+    onRemove: (image: ChangeListingImageType) => void;
+    onAdd: (image: ChangeListingImageType) => void;
+    redirectUri?: Href;
+    maxImageCount?: number;
 }
 
-const ImageInputList: FC<Props> = ({ ImageUris = [], onAdd, onRemove,...props }) => {
+const ImageInputList: FC<Props> = ({
+    ImageUris = [],
+    maxImageCount,
+    onAdd,
+    onRemove,
+    ...props
+}) => {
     const scrollView = useRef<ScrollView>(null);
+    const imageCondition =
+        (maxImageCount && maxImageCount > ImageUris.length) || !maxImageCount;
     return (
         <View>
-            <ScrollView ref={scrollView} horizontal onContentSizeChange={() => scrollView.current?.scrollToEnd()}>
+            <ScrollView
+                ref={scrollView}
+                horizontal
+                onContentSizeChange={() => scrollView.current?.scrollToEnd()}
+            >
                 <View style={styles.container}>
-                    {ImageUris.map(uri => <View key={uri} style={styles.image}>
-                        <ImageInput
-                            onChangeImage={onRemove}
-                            imageUri={uri}
-                            {...props}
-                        />
-                    </View>)}
-                    <ImageInput onChangeImage={onAdd} {...props} />
+                    {ImageUris.map((uri) => (
+                        <View key={uri} style={styles.image}>
+                            <ImageInput
+                                onChangeImage={onRemove}
+                                imageUri={uri}
+                                {...props}
+                            />
+                        </View>
+                    ))}
+                    {imageCondition && (
+                        <ImageInput onChangeImage={onAdd} {...props} />
+                    )}
                 </View>
             </ScrollView>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         paddingHorizontal: 5,
-        paddingBottom: 5
+        paddingBottom: 5,
     },
     image: {
-        marginRight: 10
-    }
-})
+        marginRight: 10,
+    },
+});
 
-export default ImageInputList
+export default ImageInputList;

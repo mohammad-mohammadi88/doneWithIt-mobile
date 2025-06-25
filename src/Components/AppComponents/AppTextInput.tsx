@@ -14,7 +14,7 @@ import {
 
 interface Props {
     extraContainerStyle?: StyleProp<ViewStyle>,
-    setValue: Dispatch<SetStateAction<any>>,
+    setValue: (text:string) => void,
     placeholder?: string,
     icon?: IconNamesType,
 }

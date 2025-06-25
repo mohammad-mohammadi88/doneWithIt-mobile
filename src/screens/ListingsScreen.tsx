@@ -1,48 +1,67 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { AppLottieView, AppButton } from "@Components/AppComponents";
+import { FlatList, StyleSheet, View, Text } from "react-native";
+import { useEffect, useState, type FC } from "react";
+import type { ListingType } from "@Types/listings";
+import { getListings } from "@/APIs/listings";
+import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
 import Card from "@Components/Card";
-import { useState, type FC } from "react";
+import { useApi } from "@/hooks";
 
-export interface CardInterface {
-    id: number;
-    title: string;
-    image: any;
-    price: number;
-}
-const initialCards: CardInterface[] = [
-    {
-        id: 1,
-        title: "Red jacket for sale",
-        price: 100,
-        image: require("@Images/jacket.png"),
-    },
-    {
-        id: 2,
-        title: "big sofa for sale",
-        price: 250,
-        image: require("@Images/sofa.png"),
-    },
-];
 const ListingsScreen: FC = () => {
-    const [refresh] = useState(false);
+    const [refresh] = useState<boolean>(false);
+    const {
+        request: loadListings,
+        data: listings,
+        isLoading,
+        error,
+    } = useApi<ListingType[]>(getListings);
+
+    useEffect(() => {
+        loadListings();
+    }, []);
+
     return (
-        <View style={styles.container}>
-            <FlatList
-                data={initialCards}
-                renderItem={({ item: { title, price, image, id } }) => (
-                    <Card
-                        subTitle={"$" + price}
-                        title={title}
-                        href={{
-                            pathname: "/(tabs)/Feed/ListingDetail",
-                            params: { title, image, price, id },
-                        }}
-                        image={image}
-                    />
-                )}
-                refreshing={refresh}
-                onRefresh={() => {}}
+        <View style={[styles.container, defaultStyles.flexCenter]}>
+            <AppLottieView
+                loop
+                source={require("@Animations/loading1.json")}
+                visible={isLoading && !error}
             />
+            {error && !isLoading && (
+                <>
+                    <Text style={styles.errorMessage}>
+                        Couldn't receive the listings.
+                    </Text>
+                    <AppButton title='Retry' onPress={loadListings} />
+                </>
+            )}
+            {!isLoading && !error && listings && (
+                <FlatList
+                    data={listings}
+                    renderItem={({
+                        item: { title, price, images, location, ...props },
+                    }) => (
+                        <Card
+                            subTitle={"$" + price}
+                            title={title}
+                            href={{
+                                pathname: "/Feed/ListingDetail",
+                                params: {
+                                    title,
+                                    images: JSON.stringify(images),
+                                    price,
+                                    location: JSON.stringify(location),
+                                    ...props,
+                                },
+                            }}
+                            imageURL={images[0]?.url}
+                        />
+                    )}
+                    refreshing={refresh}
+                    onRefresh={loadListings}
+                />
+            )}
         </View>
     );
 };
@@ -53,6 +72,12 @@ const styles = StyleSheet.create({
         padding: 20,
         flex: 1,
     },
+    errorMessage: {
+        fontSize: 22,
+        marginBottom: 10,
+    },
 });
 
 export default ListingsScreen;
+
+/* */

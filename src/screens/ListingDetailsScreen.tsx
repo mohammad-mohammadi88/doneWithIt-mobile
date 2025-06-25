@@ -1,34 +1,53 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import { CardInterface } from "./ListingsScreen";
+import type { ImageType, ListingParamsType } from "@Types/listings";
 import defaultStyles from "@Constants/styles";
 import ListItem from "@Components/ListItem";
+import { useState, type FC } from "react";
 import colors from "@Constants/colors";
-import { capitalize } from "@/helpers";
-import type { FC } from "react";
+import { capitalize } from "@/utilities";
+import {
+    ImageSourcePropType,
+    StyleSheet,
+    Image,
+    Text,
+    View,
+} from "react-native";
 
 interface Props {
-    listing: CardInterface;
+    listing: ListingParamsType;
 }
 const ListingDetailsScreen: FC<Props> = ({
-    listing: { id, image, price, title },
-}) => (
-    <View>
-        <Image style={styles.image} source={image} />
-        <View style={styles.infoContainer}>
-            <Text style={styles.title}>{capitalize(title)}</Text>
-            <Text style={styles.price}>${price}</Text>
-            <View style={styles.userContainer}>
-                <ListItem
-                    style={{ width: "100%" }}
-                    onPress={() => console.log("first")}
-                    image={require("@Images/user.jpg")}
-                    title='mohammad mohammadi frontend developer'
-                    subTitle='5 Listings'
-                />
+    listing: { images, price, title },
+}) => {
+    const imageArr: ImageType[] = JSON.parse(images) ?? [];
+    const [imageSource, setImageSource] = useState<ImageSourcePropType>({
+        uri: imageArr[0]?.url,
+    });
+
+    return (
+        <View>
+            <Image
+                style={styles.image}
+                source={imageSource}
+                onError={() =>
+                    setImageSource(require("@Images/notfoundImage.png"))
+                }
+            />
+            <View style={styles.infoContainer}>
+                <Text style={styles.title} numberOfLines={3}>{capitalize(title)}</Text>
+                <Text style={styles.price}>${price}</Text>
+                <View style={styles.userContainer}>
+                    <ListItem
+                        style={{ width: "100%" }}
+                        onPress={() => console.log("first")}
+                        image={require("@Images/user.jpg")}
+                        title='mohammad mohammadi frontend developer'
+                        subTitle='5 Listings'
+                    />
+                </View>
             </View>
         </View>
-    </View>
-);
+    );
+};
 
 const styles = StyleSheet.create({
     image: {

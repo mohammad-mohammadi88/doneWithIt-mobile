@@ -1,21 +1,32 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { ImageSourcePropType, StyleSheet, Text, View } from "react-native";
+import { Image } from "expo-image";
 import defaultStyles from "@Constants/styles";
 import { Href, Link } from "expo-router";
 import colors from "@Constants/colors";
-import { capitalize } from "@/helpers";
-import type { FC } from "react";
+import { capitalize } from "@/utilities";
+import { useState, type FC } from "react";
 
 interface Props {
     title: string;
     subTitle: string;
-    image: any;
-    href: Href
+    imageURL: string;
+    href: Href;
 }
 
-const Card: FC<Props> = ({ title, subTitle, image, href }) => {
+const Card: FC<Props> = ({ title, subTitle, imageURL, href }) => {
+    const [imageSource, setImageSource] = useState<ImageSourcePropType>({
+        uri: imageURL,
+    });
     const cardInner = (
         <>
-            <Image style={styles.image} source={image} />
+            <Image
+                style={styles.image}
+                source={imageSource}
+                onError={() =>
+                    setImageSource(require("@Images/notfoundImage.png"))
+                }
+            />
             <View style={styles.infoContainer}>
                 <Text style={styles.title}>{capitalize(title)}</Text>
                 <Text style={styles.subTitle}>{subTitle}</Text>

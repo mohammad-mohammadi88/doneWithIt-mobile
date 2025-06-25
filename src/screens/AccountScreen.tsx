@@ -3,9 +3,9 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { ListItemSeparator } from '@Components/ListItem';
 import type { IconNamesType } from '@Types/globals';
 import ListItem from '@Components/ListItem';
+import { useRouter } from 'expo-router';
 import Icon from '@Components/Icon';
 import type { FC } from 'react';
-import { Href, useRouter } from 'expo-router';
 
 interface MenuItemType {
     id: number;

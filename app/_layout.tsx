@@ -1,13 +1,25 @@
 import { Stack } from "expo-router";
 import type { FC } from "react";
 
+import { InitLayout, OfflineNotice } from "@/Components";
+
 const Layout: FC = () => {
     return (
-        <Stack screenOptions={{ headerShown: false }} initialRouteName='(tabs)'>
-            <Stack.Screen name='(tabs)' />
-            <Stack.Screen name='index' />
-            <Stack.Screen name="auth" />
-        </Stack>
+        <>
+            <OfflineNotice />
+            <Stack
+                screenOptions={{ headerShown: false,contentStyle:{
+                    backgroundColor: "white",
+                    
+                } }}
+                initialRouteName='(tabs)'
+                screenLayout={InitLayout}
+            >
+                <Stack.Screen name='(tabs)' />
+                <Stack.Screen name='welcome' />
+                <Stack.Screen name='auth' />
+            </Stack>
+        </>
     );
 };
 

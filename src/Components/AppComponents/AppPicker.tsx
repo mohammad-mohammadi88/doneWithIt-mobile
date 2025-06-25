@@ -1,9 +1,11 @@
-import { ComponentType, useState, type Dispatch, type FC, type SetStateAction } from 'react';
-import type { SelectedOption, SelectOptionInterface } from '@Types/globals';
-import colors, { grayPressAction } from '@Constants/colors';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AppPressable, PickerOption } from ".";
-import defaultStyles from '@Constants/styles';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import {
+    type SetStateAction,
+    ComponentType,
+    type Dispatch,
+    useState,
+    type FC,
+} from "react";
 import {
     type StyleProp,
     type ViewStyle,
@@ -12,18 +14,22 @@ import {
     Modal,
     Text,
     View,
-} from 'react-native';
+} from "react-native";
 
+import type { SelectedOption, SelectOptionInterface } from "@Types/globals";
+import colors, { grayPressAction } from "@Constants/colors";
+import { AppPressable, PickerOption } from ".";
+import defaultStyles from "@Constants/styles";
 interface Props {
-    setSelectedItem: Dispatch<SetStateAction<SelectedOption>> | any,
-    ItemSeparatorComponent?: ComponentType,
-    PickerOptionComponents?: React.JSX.ElementType,
-    extraContainerStyle?: StyleProp<ViewStyle>,
-    selectedItem: SelectedOption | undefined,
-    selectOptions: SelectOptionInterface[],
+    setSelectedItem: Dispatch<SetStateAction<SelectedOption>> | any;
+    ItemSeparatorComponent?: ComponentType;
+    PickerOptionComponents?: React.JSX.ElementType;
+    extraContainerStyle?: StyleProp<ViewStyle>;
+    selectedItem: SelectedOption | undefined;
+    selectOptions: SelectOptionInterface[];
     numberOfColumns?: number;
-    placeholder: string,
-    onBlue?: any,
+    placeholder: string;
+    onBlue?: any;
 }
 
 const AppPicker: FC<Props> = ({
@@ -35,20 +41,21 @@ const AppPicker: FC<Props> = ({
     selectOptions,
     selectedItem,
     placeholder,
-    onBlue
+    onBlue,
 }) => {
-    const [ isModalVisible, setIsModalVisible ] = useState<boolean>(false);
+    const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
     const handleSelectOption = (selected: SelectedOption) => {
         setSelectedItem(selected);
-        setIsModalVisible(false)
-    }
-    const isItemSelected = selectedItem && selectedItem?.selectedValue?.length > 0
+        setIsModalVisible(false);
+    };
+    const isItemSelected =
+        selectedItem && selectedItem?.selectedValue > 0;
     const placeholderColor = {
-        color: isItemSelected ? colors.dark : colors.medium
-    }
+        color: isItemSelected ? colors.dark : colors.medium,
+    };
     return (
         <>
-            <View style={[ styles.container, extraContainerStyle ]}>
+            <View style={[styles.container, extraContainerStyle]}>
                 <AppPressable
                     onBlur={onBlue}
                     pressAction={grayPressAction}
@@ -60,12 +67,21 @@ const AppPicker: FC<Props> = ({
                         color={colors.medium}
                         size={28}
                     />
-                    <Text numberOfLines={2} style={[ styles.placeholder, defaultStyles.font, placeholderColor ]}>
-                        {isItemSelected ? selectedItem.selectedLabel : placeholder}
+                    <Text
+                        numberOfLines={2}
+                        style={[
+                            styles.placeholder,
+                            defaultStyles.font,
+                            placeholderColor,
+                        ]}
+                    >
+                        {isItemSelected
+                            ? selectedItem.selectedLabel
+                            : placeholder}
                     </Text>
 
                     <MaterialCommunityIcons
-                        name="chevron-down"
+                        name='chevron-down'
                         color={colors.medium}
                         size={28}
                     />
@@ -80,31 +96,34 @@ const AppPicker: FC<Props> = ({
                         <FlatList
                             data={selectOptions}
                             numColumns={numberOfColumns}
-                            renderItem={({ item: { value, item } }) =>
+                            renderItem={({ item: { value, item } }) => (
                                 <PickerOptionComponents
-                                    onPress={() => handleSelectOption({
-                                        selectedIcon: item?.icon?.icon || "apps",
-                                        selectedLabel: item.label,
-                                        selectedValue: value,
-                                    })}
+                                    onPress={() =>
+                                        handleSelectOption({
+                                            selectedIcon:
+                                                item?.icon?.icon || "apps",
+                                            selectedLabel: item.label,
+                                            selectedValue: value,
+                                        })
+                                    }
                                     item={item}
                                 />
-                            }
+                            )}
                             ItemSeparatorComponent={ItemSeparatorComponent}
                         />
                     </View>
                 </View>
             </Modal>
         </>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
         overflow: "hidden",
         borderRadius: 100,
         backgroundColor: colors.lightGray,
-        marginVertical: 10
+        marginVertical: 10,
     },
     picker: {
         flexDirection: "row",
@@ -119,7 +138,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         textTransform: "capitalize",
     },
-    modalContainer: { padding: 10 }
-})
+    modalContainer: { padding: 10 },
+});
 
-export default AppPicker
+export default AppPicker;

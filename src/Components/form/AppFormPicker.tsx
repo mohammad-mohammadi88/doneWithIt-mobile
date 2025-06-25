@@ -1,18 +1,18 @@
-import type { SelectOptionInterface } from '@Types/globals';
-import type { DimensionValue, StyleProp, ViewStyle } from 'react-native';
-import AppErrorMessage from './AppErrorMessage';
-import { AppPicker } from '../AppComponents';
-import { useFormikContext } from 'formik';
-import type { FC } from 'react';
+import type { SelectOptionInterface } from "@Types/globals";
+import type { DimensionValue, StyleProp, ViewStyle } from "react-native";
+import AppErrorMessage from "./AppErrorMessage";
+import { AppPicker } from "../AppComponents";
+import { useFormikContext } from "formik";
+import type { FC } from "react";
 
 interface Props {
-    PickerOptionComponents?: React.JSX.ElementType,
-    extraContainerStyle?: StyleProp<ViewStyle>,
-    selectOptions: SelectOptionInterface[],
+    PickerOptionComponents?: React.JSX.ElementType;
+    extraContainerStyle?: StyleProp<ViewStyle>;
+    selectOptions: SelectOptionInterface[];
     numberOfColumns?: number;
-    width?: DimensionValue,
-    placeholder: string,
-    name: string
+    width?: DimensionValue;
+    placeholder: string;
+    name: string;
 }
 const AppFormPicker: FC<Props> = ({
     extraContainerStyle,
@@ -21,9 +21,10 @@ const AppFormPicker: FC<Props> = ({
     name,
     ...props
 }) => {
-    const { errors, values, handleBlur, setFieldValue } = useFormikContext()
+    const { errors, values, handleBlur, setFieldValue } = useFormikContext();
     // @ts-ignore
-    const [ selectedItem, pickerError ] = [ values[ name ], errors[ name ] ];
+    const [selectedItem, pickerError] = [values[name], errors[name]];
+
     return (
         <>
             <AppPicker
@@ -31,12 +32,12 @@ const AppFormPicker: FC<Props> = ({
                 numberOfColumns={numberOfColumns}
                 setSelectedItem={(e: any) => setFieldValue(name, e)}
                 selectedItem={selectedItem}
-                extraContainerStyle={[ extraContainerStyle, { width } ]}
+                extraContainerStyle={[extraContainerStyle, { width }]}
                 {...props}
             />
-            <AppErrorMessage error={pickerError?.selectedValue} />
+            <AppErrorMessage error={pickerError?.selectedLabel} />
         </>
-    )
-}
+    );
+};
 
-export default AppFormPicker
+export default AppFormPicker;

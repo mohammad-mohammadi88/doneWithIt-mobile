@@ -1,19 +1,21 @@
-import { Stack } from 'expo-router';
-import type { FC } from 'react';
+import { Stack } from "expo-router";
+import type { FC } from "react";
 
-const Layout :FC = () => {
+const Layout: FC = () => {
     return (
         <Stack>
-            <Stack.Screen name='index' options={{
-                headerShown: false
-            }} />
-            <Stack.Screen name='myMessages' options={{
-                title:"My Messages",
-                headerShown: true,
-                contentStyle:{ backgroundColor: "transparent" }
-            }} />
+            <Stack.Screen
+                name='index'
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name='(accountScreens)'
+                options={{ headerShown: false }}
+            />
         </Stack>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

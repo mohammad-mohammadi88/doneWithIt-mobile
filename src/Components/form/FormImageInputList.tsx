@@ -1,3 +1,4 @@
+import type { ChangeListingImageType } from '@Types/listings';
 import { ImageInputList } from '../AppComponents';
 import AppErrorMessage from './AppErrorMessage';
 import { useFormikContext } from 'formik';
@@ -6,23 +7,25 @@ import type { FC } from 'react';
 
 interface Props {
     name: string,
-    redirectUri?: Href
+    redirectUri?: Href,
+    maxImageCount?: number
 }
 
-const FormImageInput: FC<Props> = ({ name,redirectUri }) => {
+const FormImageInput: FC<Props> = ({ name,redirectUri,maxImageCount }) => {
     const { values, setFieldValue, errors } = useFormikContext()
     // @ts-ignore
-    const [ value, error ]: [ string[], string ] = [ values[ name ], errors[ name ] ];
+    const [ value, error ]: [ ChangeListingImageType[], string ] = [ values[ name ], errors[ name ] ];
 
-    const handleRemove = (uri: string) => setFieldValue(name, value.filter(imageUri => imageUri !== uri))
+    const handleRemove = ({uri}: ChangeListingImageType) => setFieldValue(name, value.filter(image => image.uri !== uri))
 
-    const handleAdd = (uri: string) => setFieldValue(name, [ ...value, uri ])
+    const handleAdd = (image: ChangeListingImageType ) => setFieldValue(name, [ ...value, image ])
 
     return (
         <>
             <ImageInputList
                 onRemove={handleRemove}
-                ImageUris={value}
+                maxImageCount={maxImageCount}
+                ImageUris={value.map(c=>c.uri)}
                 onAdd={handleAdd}
                 redirectUri={redirectUri}
             />

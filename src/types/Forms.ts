@@ -1,20 +1,17 @@
+import type { ChangeListingImageType } from "./listings";
 import type { SelectedOption } from "./globals";
+import type { FormikHelpers } from "formik";
 
-export interface LoginInterface{
-    password: string,
-    email: string
+export type LoginInterface = Record<"password" | "email", string>;
+
+export type RegisterInterface = LoginInterface & { username: string };
+
+export interface ListingChangeInterface {
+    title: string;
+    price: string;
+    description: string;
+    category: SelectedOption;
+    images: ChangeListingImageType[];
 }
 
-export interface RegisterInterface{
-    username:string;
-    password: string,
-    email: string
-}
-
-export interface ListingChangeInterface{
-    title: string,
-    price: string,
-    description: string,
-    category: SelectedOption,
-    images: string[]
-}
+export type FormikOnSubmit = ((values: any, formikHelpers: FormikHelpers<any>) => void | Promise<any>)

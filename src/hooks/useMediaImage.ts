@@ -1,12 +1,13 @@
 import { ImagePickerAsset } from "expo-image-picker";
 import { useMediaPermission } from ".";
-import { selectImage } from "@/APIs";
+import { selectImage } from "@/utilities";
 
 interface Return{
     canSelectImage: boolean|undefined,
     luanchImage: (() => Promise<{
         assets: ImagePickerAsset | {
             uri: string;
+            mimeType: string
         };
         canceled: boolean;
     }>) | null,

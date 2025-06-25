@@ -1,10 +1,7 @@
+import ListItem, { ListItemSeparator } from "@Components/ListItem";
 import { Alert, FlatList, StyleSheet } from "react-native";
 import { grayPressAction } from "@Constants/colors";
 import { useState, type FC } from "react";
-import ListItem, {
-    ListItemDeleteAction,
-    ListItemSeparator,
-} from "@Components/ListItem";
 
 interface MessageType {
     id: number;

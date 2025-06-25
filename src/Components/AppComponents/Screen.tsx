@@ -1,7 +1,7 @@
 import {
     SafeAreaProvider,
-    SafeAreaView,
     type SafeAreaViewProps,
+    SafeAreaView,
 } from "react-native-safe-area-context";
 import type { FC, ReactNode } from "react";
 

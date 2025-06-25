@@ -6,7 +6,7 @@ const selectImage = async () => {
         quality: 0.5,
     });
     return {
-        assets: !canceled ? assets[0] : { uri: "" },
+        assets: !canceled ? assets[0] : { uri: "", mimeType: 'image/jpeg' },
         canceled,
     };
 };

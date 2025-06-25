@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react"
-import * as Location from "expo-location"
-import {useLocationPermission} from ".";
-import { getLocation } from "@/APIs";
+import type { UserLocationType } from "@Types/globals";
+import { useEffect, useState } from "react";
+import { useLocationPermission } from ".";
+import { getLocation } from "@/utilities";
 
-const useLocation = (): Location.LocationObjectCoords | undefined => {
-    const [coords, setCoords] = useState<Location.LocationObjectCoords | undefined>(undefined);
-    const granted = useLocationPermission()
+const useLocation = (): UserLocationType => {
+    const [coords, setCoords] = useState<UserLocationType>(undefined);
+    const granted = useLocationPermission();
     useEffect(() => {
-        if(granted) getLocation(setCoords)
-    },[granted])
-    
-    return coords;
-}
+        if (granted) getLocation(setCoords);
+    }, [granted]);
 
-export default useLocation
+    return (
+        coords && {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+        }
+    );
+};
+
+export default useLocation;
