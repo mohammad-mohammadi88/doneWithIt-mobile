@@ -1,14 +1,13 @@
-import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useRouter } from "expo-router";
 import type { FC } from "react";
 
 import colors, { grayPressAction } from "@Constants/colors";
 import { ListItemSeparator } from "@Components/ListItem";
 import type { IconNamesType } from "@Types/globals";
-import authStorage from "@/auth/authStorage";
 import ListItem from "@Components/ListItem";
-import { useAuth } from "@/auth/Context";
 import Icon from "@Components/Icon";
+import { useAuth } from "@/hooks";
 
 interface MenuItemType {
     id: number;
@@ -27,7 +26,7 @@ const AccountScreen: FC = () => {
         {
             id: 1,
             title: "My Listings",
-            onPress: () => {},
+            onPress: () => router.navigate("/(tabs)/account/(accountScreens)/myListings"),
             icon: {
                 name: "format-list-bulleted",
                 backgroundColor: colors.primary,
@@ -44,22 +43,7 @@ const AccountScreen: FC = () => {
             },
         },
     ];
-    const handleLogout = () => {
-        auth && Alert.alert(
-            "Log Out",
-            "Are you sure want to log out?",
-            [
-                { text: "Cancel" },
-                {
-                    text: "Yes",
-                    onPress: () =>{
-                        auth.dispatch(undefined)
-                        authStorage.removeToken()
-                    },
-                },
-            ]
-        )
-    }
+
     return (
         auth?.user && (
             <View style={styles.container}>
@@ -93,7 +77,7 @@ const AccountScreen: FC = () => {
                     />
                 </View>
                 <ListItem
-                    onPress={handleLogout}
+                    onPress={auth.logOut}
                     pressAction={grayPressAction}
                     style={styles.menuItem}
                     title='log out'
@@ -118,6 +102,7 @@ const styles = StyleSheet.create({
     },
     userContainer: {
         padding: 15,
+        marginTop: 30
     },
     menuItemsContainer: {
         marginVertical: 50,

@@ -1,42 +1,27 @@
 {
   "expo": {
     "name": "Done With It",
-    "slug": "Sell everything you are done with",
+    "slug": "Sell-everything-you-are-done-with",
     "version": "1.0.0",
-    "orientation": "default",
-    "icon": "./src/assets/images/icon.png",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
     "scheme": "shopy",
-    "userInterfaceStyle": "automatic",
+    "githubUrl": "https://github.com/mohammad-mohammadi88/doneWithIt-mobile",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
-    },
+    "icon":"./src/assets/images/splash-icon.png",
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./src/assets/images/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./src/assets/images/icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
-        }
-      ]
-    ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f6827581-36cc-47bc-839b-fb433caea2d4"
+      }
+    },
+    "owner": "mohammad_dev"
   }
 }

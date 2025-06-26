@@ -1,20 +1,15 @@
-import { useWindowDimensions } from "react-native";
 import { useEffect, useState, type FC } from "react";
-import { Stack } from "expo-router";
+import { useWindowDimensions } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
+import { Stack } from "expo-router";
 
-// Keep the splash screen visible while we fetch resources
-import { InitLayout, OfflineNotice } from "@/Components";
-import Redirector from "@/Components/Redirector";
+import { InitLayout, OfflineNotice, Redirector } from "@/Components";
 import AuthContext from "@/auth/Context";
 import { useIsOffline } from "@/hooks";
 
-async function hideSplash() {
-    
-    const ff = await SplashScreen.preventAutoHideAsync();
-    console.log("🚀 ~ hideSplash ~ ff:", ff)
-}
-hideSplash()
+const showSplash = async () => await SplashScreen.preventAutoHideAsync();
+
+showSplash();
 
 const Layout: FC = () => {
     const [isAppReady, setIsAppReady] = useState<boolean>(false);
@@ -47,7 +42,7 @@ const AppNavigator = () => {
             screenOptions={{
                 headerShown: false,
                 contentStyle: {
-                    backgroundColor: "white",
+                    backgroundColor: "#fff",
                 },
             }}
             screenLayout={({ children }) => (

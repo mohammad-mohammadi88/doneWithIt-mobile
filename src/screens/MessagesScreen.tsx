@@ -32,17 +32,14 @@ const MessagesScreen: FC = () => {
         },
     ]);
     const handleLongPress = (id: number) => {
-        console.log("pressss"),
-            Alert.alert("Delete", "Do you want to delete this chat?", [
-                {
-                    text: "Cancel",
-                },
-                {
-                    text: "Yes",
-                    onPress: () =>
-                        setMessages((c) => c.filter((chat) => chat.id !== id)),
-                },
-            ]);
+        Alert.alert("Delete", "Do you want to delete this chat?", [
+            { text: "Cancel" },
+            {
+                text: "Yes",
+                onPress: () =>
+                    setMessages((c) => c.filter((chat) => chat.id !== id)),
+            },
+        ]);
     };
 
     return (
@@ -84,6 +81,8 @@ const MessagesScreen: FC = () => {
 const styles = StyleSheet.create({
     container: {
         height: "100%",
+        marginBottom:20,
+        overflow:"hidden"
     },
     messageContainer: {
         padding: 6,

@@ -26,7 +26,7 @@ const Layout: FC = () => {
                         </AppPressable>
                     );
                 },
-                sceneStyle: { backgroundColor: "#white" },
+                sceneStyle: { backgroundColor: "white" },
             }}
         >
             <Tabs.Screen

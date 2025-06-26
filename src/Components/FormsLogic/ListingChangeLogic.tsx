@@ -2,7 +2,7 @@ import type { SelectOptionInterface } from "@Types/globals";
 import FormPickerOption from "../form/FormPickerOption";
 import { StyleSheet, Text, View } from "react-native";
 import { maxImageCount } from "@Constants/defaults";
-import { getCategories } from "@/APIs/categories";
+import {categoriesApi} from "@/APIs";
 import { useEffect, type FC } from "react";
 import { useApi } from "@/hooks";
 import {
@@ -13,7 +13,7 @@ import {
 } from "../form";
 
 const ListingChangeLogic: FC = () => {
-    const { data, request: loadCategories } = useApi(getCategories);
+    const { data, request: loadCategories } = useApi(categoriesApi.getCategories);
     useEffect(() => {
         loadCategories();
     }, []);

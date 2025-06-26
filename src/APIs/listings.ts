@@ -3,10 +3,10 @@ import { nanoid } from "nanoid/non-secure";
 import apiClient from "./client";
 
 const endpoint = "listings";
-export const getListings = async () =>
-    await apiClient.get<ListingType[]>(endpoint);
+const getListings = () =>
+    apiClient.get<ListingType[]>(endpoint);
 
-export const postListing = async ({
+const postListing = async ({
     title,
     categoryId,
     price,
@@ -38,7 +38,12 @@ export const postListing = async ({
             "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progress) => {
-            setProgress(Math.min(0.95,progress.loaded / progress.total))
+            setProgress(Math.min(0.95, progress.loaded / progress.total));
         },
     });
+};
+
+export default {
+    getListings,
+    postListing,
 };

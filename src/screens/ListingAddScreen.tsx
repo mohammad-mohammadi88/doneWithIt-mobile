@@ -1,11 +1,12 @@
+import { useState, type FC } from "react";
+
+import type { FormikOnSubmit, ListingChangeInterface } from "@Types/Forms";
 import { listingChangeValidation } from "@Constants/validations";
 import { ListingChangeLogic } from "@Components/FormsLogic";
-import type { FormikOnSubmit, ListingChangeInterface } from "@Types/Forms";
-import { postListing } from "@/APIs/listings";
 import ProgressScreen from "./ProgressScreen";
 import { AppForm } from "@Components/form";
-import { useState, type FC } from "react";
 import { useLocation } from "@/hooks";
+import { listingsApi } from "@/APIs";
 
 const initialValues: ListingChangeInterface = {
     title: "",
@@ -24,11 +25,14 @@ const ListingAddScreen: FC = () => {
     const [progress, setProgress] = useState<number>(0);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
-    const handleSubmit:FormikOnSubmit = async (value: ListingChangeInterface,{resetForm}) => {
+    const handleSubmit: FormikOnSubmit = async (
+        value: ListingChangeInterface,
+        { resetForm }
+    ) => {
         setModalVisible(true);
         setProgress(0);
 
-        const { ok } = await postListing({
+        const { ok } = await listingsApi.postListing({
             ...value,
             location,
             categoryId: value.category.selectedValue,
@@ -39,9 +43,9 @@ const ListingAddScreen: FC = () => {
         else {
             alert("Could not save your listing");
             setModalVisible(false);
-        };
+        }
 
-        resetForm()
+        resetForm();
     };
 
     return (

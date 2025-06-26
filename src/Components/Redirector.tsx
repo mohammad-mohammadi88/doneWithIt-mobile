@@ -1,7 +1,7 @@
 import { Redirect } from 'expo-router';
 import type { FC } from 'react';
 
-import { useAuth } from '@/auth/Context';
+import { useAuth } from '@/hooks';
 
 const Redirector :FC = () => {
     const auth = useAuth();

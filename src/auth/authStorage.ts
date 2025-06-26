@@ -1,4 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { jwtDecode } from "jwt-decode";
+
+import type { UserType } from "@Types/user";
 
 const key = "authToken";
 
@@ -8,6 +11,14 @@ const getToken = async (): Promise<string | null | undefined> => {
     } catch (e) {
         console.log("error storing token", e);
     }
+};
+
+const getUser = async (): Promise<UserType | null> => {
+    const userToken = await getToken();
+    if(userToken)
+        return jwtDecode(userToken);
+    
+    return null;
 };
 
 const removeToken = async () => {
@@ -28,6 +39,7 @@ const storeToken = async (token: string) => {
 
 export default {
     getToken,
+    getUser,
     removeToken,
     storeToken,
 };

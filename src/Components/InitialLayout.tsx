@@ -23,6 +23,7 @@ const InitialLayout: FC<Props> = ({ children,isOffline,window }) => {
             style={{
                 height,
                 top,
+                backgroundColor: "#fff",
             }}
         >
             {children}

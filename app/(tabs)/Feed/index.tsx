@@ -1,6 +1,10 @@
-import ListingsScreen from "@Screens/ListingsScreen";
 import type { FC } from "react";
 
-const index: FC = () => <ListingsScreen />;
+import ListingsScreen from "@Screens/ListingsScreen";
+import { listingsApi } from "@/APIs";
 
-export default index;
+const Index: FC = () => (
+    <ListingsScreen getListingsApi={listingsApi.getListings} />
+);
+
+export default Index;

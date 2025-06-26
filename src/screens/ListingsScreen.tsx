@@ -1,21 +1,25 @@
-import { AppLottieView, AppButton } from "@Components/AppComponents";
 import { FlatList, StyleSheet, View, Text } from "react-native";
 import { useEffect, useState, type FC } from "react";
+
+import { AppLottieView, AppButton } from "@Components/AppComponents";
 import type { ListingType } from "@Types/listings";
-import { getListings } from "@/APIs/listings";
 import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
+import { ApiResponse } from "apisauce";
 import Card from "@Components/Card";
 import { useApi } from "@/hooks";
 
-const ListingsScreen: FC = () => {
+interface Props{
+    getListingsApi: () => Promise<ApiResponse<ListingType[], ListingType[]>>
+}
+const ListingsScreen: FC<Props> = ({getListingsApi}) => {
     const [refresh] = useState<boolean>(false);
     const {
         request: loadListings,
         data: listings,
         isLoading,
         error,
-    } = useApi<ListingType[]>(getListings);
+    } = useApi<ListingType[]>(getListingsApi);
 
     useEffect(() => {
         loadListings();
@@ -79,5 +83,3 @@ const styles = StyleSheet.create({
 });
 
 export default ListingsScreen;
-
-/* */

@@ -1,19 +1,35 @@
-import { Stack } from 'expo-router';
-import type { FC } from 'react';
+import { Stack } from "expo-router";
+import type { FC } from "react";
 
-import { LayoutWithHeader } from '@/Components';
+import { LayoutWithHeader } from "@/Components";
 
-const Layout :FC = () => {
+const Layout: FC = () => {
     return (
-        <Stack  layout={LayoutWithHeader}>
-            <Stack.Screen name='myMessages' options={{
-                title:"My Messages",
+        <Stack
+            screenOptions={{
+                contentStyle: { backgroundColor: "#fff" },
                 headerShown: true,
-                statusBarHidden:true,
-                contentStyle:{ backgroundColor: "white" }
-            }} />
+                statusBarHidden: true,
+            }}
+            layout={({ children }) => (
+                <LayoutWithHeader isTabbarShown>{children}</LayoutWithHeader>
+            )}
+        >
+            <Stack.Screen
+                name='myMessages'
+                options={{
+                    title: "My Messages",
+                }}
+            />
+            <Stack.Screen
+                name='myListings'
+                options={{
+                    title: "My Listings",
+                    
+                }}
+            />
         </Stack>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

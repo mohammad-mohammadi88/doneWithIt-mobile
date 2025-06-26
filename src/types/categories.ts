@@ -1,4 +1,3 @@
-import { ColorValue } from "react-native";
 import { IconNamesType } from "./globals";
 
 export interface ServerCategories{
