@@ -1,15 +1,10 @@
 import ListingDetailsScreen from "@Screens/ListingDetailsScreen";
-import { Screen } from "@Components/AppComponents";
 import { useLocalSearchParams } from "expo-router";
 import type { FC } from "react";
 
-const ListingDetail:FC = () => {
-    const params:any = useLocalSearchParams();
-    return (
-        <>
-            <ListingDetailsScreen listing={params}/>
-        </>
-    );
+const ListingDetail: FC = () => {
+    const params: any = useLocalSearchParams();
+    return <ListingDetailsScreen listing={params} />;
 };
 
 export default ListingDetail;

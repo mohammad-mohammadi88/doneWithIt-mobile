@@ -1,19 +1,18 @@
-import { useWindowDimensions, View } from "react-native";
-import type { ReactNode } from "react";
+import { type ScaledSize, View } from "react-native";
+import type { FC, ReactNode } from "react";
 import Constants from "expo-constants";
-
-import { useIsOffline } from "@/hooks";
 
 interface Props {
     children: ReactNode;
+    isOffline:boolean,
+    window: ScaledSize
 }
 
-const InitialLayout: any = ({ children }: Props) => {
-    const isOffline = useIsOffline();
+const InitialLayout: FC<Props> = ({ children,isOffline,window }) => {
     // Status Bar Height
     const SBHeight = Constants.statusBarHeight;
 
-    let height = useWindowDimensions().height - SBHeight;
+    let height = window.height - SBHeight;
     if (isOffline) height -= 50;
 
     let top = SBHeight;

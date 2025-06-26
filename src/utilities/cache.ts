@@ -18,9 +18,7 @@ const store = async (key: string, value: any) => {
             timeStamp: Date.now(),
         };
         await AsyncStorage.setItem(prefix + key, JSON.stringify(item));
-    } catch (e) {
-        console.log(e);
-    }
+    } catch (e) {}
 };
 
 const get = async (key: string, expireMins?: number) => {
@@ -36,9 +34,7 @@ const get = async (key: string, expireMins?: number) => {
         }
 
         return value;
-    } catch (e) {
-        console.log(e);
-    }
+    } catch (e) {}
 };
 
 export default {

@@ -17,7 +17,7 @@ export const listingChangeValidation = Yup.object().shape({
 });
 
 export const loginValidation = Yup.object().shape({
-    password: Yup.string().required().min(4).max(100).label("Password"),
+    password: Yup.string().required().min(5).label("Password"),
     email: Yup.string().required().email().label("Email"),
 });
 
