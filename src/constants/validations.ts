@@ -1,7 +1,6 @@
 import { maxImageCount } from "./defaults";
 import * as Yup from "yup";
 
-// FIXME: fix price number validation error
 export const listingChangeValidation = Yup.object().shape({
     title: Yup.string().required().min(3).label("Title"),
     price: Yup.number().required().min(1).max(10000).label("Price"),
@@ -22,7 +21,7 @@ export const loginValidation = Yup.object().shape({
 });
 
 export const registerValidation = Yup.object().shape({
-    username: Yup.string().required().min(2).max(20).label("Username"),
+    name: Yup.string().required().min(2).label("Username"),
     password: Yup.string().required().min(4).max(100).label("Password"),
     email: Yup.string().required().email().label("Email"),
 });

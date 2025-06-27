@@ -2,23 +2,30 @@ import { Image, StyleSheet } from "react-native";
 import { useState, type FC } from "react";
 
 import { AppErrorMessage, AppForm } from "@Components/form";
+import { AppLottieView } from "@Components/AppComponents";
 import { loginValidation } from "@Constants/validations";
 import { LoginFormLogic } from "@Components/FormsLogic";
 import type { LoginInterface } from "@Types/Forms";
+import { Overlay } from "@/Components";
 import { useAuth } from "@/hooks";
+import { authApi } from "@/APIs";
 
 const LoginScreen: FC = () => {
-    const [loginError, setLoginError] = useState<string>("");
+    const [loginError, setLoginError] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const auth = useAuth();
     const initialLoginValues: LoginInterface = {
         password: "",
         email: "",
     };
-
     const handleSubmit = async ({ email, password }: LoginInterface) => {
-        setLoginError("");
-        const isError = await auth?.logIn({ email, password });
-        isError && setLoginError("Invalid email and/or password");
+        setIsLoading(true);
+        setLoginError([]);
+        const error = await auth?.registerOrLogin(() =>
+            authApi.login(email, password)
+        );
+        error?.map((e) => setLoginError((c) => [...c, e]));
+        setIsLoading(false);
     };
     return (
         <>
@@ -28,9 +35,17 @@ const LoginScreen: FC = () => {
                 onSubmit={handleSubmit}
                 validationSchema={loginValidation}
             >
-                <AppErrorMessage size={22} error={loginError} />
+                {loginError &&
+                    loginError.map((error) => (
+                        <AppErrorMessage key={error} size={22} error={error} />
+                    ))}
                 <LoginFormLogic />
             </AppForm>
+            {isLoading && (
+                <Overlay>
+                    <AppLottieView visible source={require('@Animations/loading2.json')} />
+                </Overlay>
+            )}
         </>
     );
 };

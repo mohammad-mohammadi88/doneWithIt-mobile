@@ -9,10 +9,10 @@ import { ApiResponse } from "apisauce";
 import Card from "@Components/Card";
 import { useApi } from "@/hooks";
 
-interface Props{
-    getListingsApi: () => Promise<ApiResponse<ListingType[], ListingType[]>>
+interface Props {
+    getListingsApi: () => Promise<ApiResponse<ListingType[], ListingType[]>>;
 }
-const ListingsScreen: FC<Props> = ({getListingsApi}) => {
+const ListingsScreen: FC<Props> = ({ getListingsApi }) => {
     const [refresh] = useState<boolean>(false);
     const {
         request: loadListings,
@@ -25,6 +25,8 @@ const ListingsScreen: FC<Props> = ({getListingsApi}) => {
         loadListings();
     }, []);
 
+    // @ts-ignore
+    const canShowListings = !isLoading && !error && listings?.length > 0;
     return (
         <View style={[styles.container, defaultStyles.flexCenter]}>
             <AppLottieView
@@ -40,25 +42,19 @@ const ListingsScreen: FC<Props> = ({getListingsApi}) => {
                     <AppButton title='Retry' onPress={loadListings} />
                 </>
             )}
-            {!isLoading && !error && listings && (
+            {!isLoading && !error && listings?.length === 0 && (
+                <Text style={styles.noListingNotice}>
+                    No Listings Available
+                </Text>
+            )}
+            {canShowListings && (
                 <FlatList
                     data={listings}
-                    renderItem={({
-                        item: { title, price, images, location, ...props },
-                    }) => (
+                    renderItem={({ item: { title, price, images, id } }) => (
                         <Card
                             subTitle={"$" + price}
                             title={title}
-                            href={{
-                                pathname: "/Feed/ListingDetail",
-                                params: {
-                                    title,
-                                    images: JSON.stringify(images),
-                                    price,
-                                    location: JSON.stringify(location),
-                                    ...props,
-                                },
-                            }}
+                            href={`/Feed/listingDetail?id=${id}`}
                             imageURL={images[0]?.url}
                         />
                     )}
@@ -79,6 +75,12 @@ const styles = StyleSheet.create({
     errorMessage: {
         fontSize: 22,
         marginBottom: 10,
+    },
+    noListingNotice: {
+        fontFamily: defaultStyles.font.fontFamily,
+        fontSize: 28,
+        fontWeight: 500,
+        color: colors.secondary,
     },
 });
 

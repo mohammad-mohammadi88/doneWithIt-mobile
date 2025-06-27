@@ -2,11 +2,10 @@ import { jwtDecode } from "jwt-decode";
 import { Alert } from "react-native";
 import { useContext } from "react";
 
-import type { LoginInterface } from "@Types/Forms";
 import authStorage from "@/auth/authStorage";
 import type { UserType } from "@Types/user";
 import { User } from "@/auth/Context";
-import { authApi } from "@/APIs";
+import { ApiResponse } from "apisauce";
 
 const useAuth = () => {
     const res = useContext(User);
@@ -27,22 +26,27 @@ const useAuth = () => {
         ]);
     };
 
-    const logIn = async ({
-        email,
-        password,
-    }: LoginInterface): Promise<boolean> => {
-        const result = await authApi.login(email, password);
-        if (!result.ok) return true;
 
+    const registerOrLogin = async (callApi: any):Promise<string[]> => {
+        const result:ApiResponse<any, any> = await callApi();
+        if (!result.ok){
+            if(result.data && result.data?.error){
+                const error = result.data.error
+                return typeof error === "string" ? [error] : error
+            }
+            return ["An unexpected error happend"]
+        };
+
+        // @ts-ignore
         if (typeof result.data === "string") {
             const user: UserType = jwtDecode(result.data);
             dispatch(user);
             await authStorage.storeToken(result.data);
         }
-        return false;
+        return [];
     };
-
-    return { dispatch, logIn, logOut, user };
+    
+    return { dispatch, registerOrLogin, logOut, user };
 };
 
 export default useAuth;

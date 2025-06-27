@@ -2,8 +2,10 @@ import { Stack } from "expo-router";
 import type { FC } from "react";
 
 import { LayoutWithHeader } from "@/Components";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const Layout: FC = () => {
+    const tabbarHeight = useBottomTabBarHeight()
     return (
         <Stack
             screenOptions={{
@@ -12,7 +14,7 @@ const Layout: FC = () => {
                 statusBarHidden: true,
             }}
             layout={({ children }) => (
-                <LayoutWithHeader isTabbarShown>{children}</LayoutWithHeader>
+                <LayoutWithHeader tabbarHeight={tabbarHeight}>{children}</LayoutWithHeader>
             )}
         >
             <Stack.Screen

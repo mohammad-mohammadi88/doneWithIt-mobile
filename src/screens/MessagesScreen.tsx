@@ -1,92 +1,105 @@
-import ListItem, { ListItemSeparator } from "@Components/ListItem";
-import { Alert, FlatList, StyleSheet } from "react-native";
-import { grayPressAction } from "@Constants/colors";
-import { useState, type FC } from "react";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
+import { ReactNode, useEffect, useState, type FC } from "react";
 
-interface MessageType {
-    id: number;
-    title: string;
-    description: string;
-    image: any;
-}
+import ListItem, { ListItemSeparator } from "@Components/ListItem";
+import { grayPressAction } from "@Constants/colors";
+import type { MessageType } from "@Types/message";
+import { messagesApi } from "@/APIs";
+import { useApi } from "@/hooks";
+import defaultStyles from "@/constants/styles";
+import { AppErrorMessage } from "@/Components/form";
+import { AppButton, AppLottieView } from "@/Components/AppComponents";
+
 const MessagesScreen: FC = () => {
-    const [refreshing, setRefreshing] = useState<boolean>(false);
-    const [messages, setMessages] = useState<MessageType[]>([
-        {
-            id: 1,
-            title: "title 1",
-            description: "desc 1",
-            image: require("@Images/user.jpg"),
-        },
-        {
-            id: 2,
-            title: "title 2",
-            description: "desc 2",
-            image: require("@Images/user.jpg"),
-        },
-        {
-            id: 3,
-            title: "title 3",
-            description: "desc 3",
-            image: require("@Images/user.jpg"),
-        },
-    ]);
-    const handleLongPress = (id: number) => {
-        Alert.alert("Delete", "Do you want to delete this chat?", [
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
+    const {
+        data,
+        error,
+        isLoading,
+        request: getMessages,
+    } = useApi<MessageType[]>(messagesApi.getMessages);
+    const [refreshing] = useState<boolean>(false);
+
+    const handleDelete = async (messageId: number) => {
+        setIsDeleting(true);
+        const { ok } = await messagesApi.deleteMessage(messageId);
+        if (!ok) return Alert.alert("Error", "Could not delete this message");
+        getMessages();
+        setIsDeleting(false);
+    };
+    const handleLongPress = (messageId: number) => {
+        Alert.alert("Delete", "Do you want to delete this message?", [
             { text: "Cancel" },
             {
                 text: "Yes",
-                onPress: () =>
-                    setMessages((c) => c.filter((chat) => chat.id !== id)),
+                onPress: () => handleDelete(messageId),
             },
         ]);
     };
+    useEffect(() => {
+        getMessages();
+    }, []);
 
-    return (
+    const messages = (
         <FlatList
             style={styles.container}
-            data={messages}
-            renderItem={({ item: { title, description, image, id } }) => (
+            data={data}
+            renderItem={({ item: { content, fromUser, id } }) => (
                 <ListItem
-                    onPress={() => {
-                        setRefreshing(true);
-                        setRefreshing(false);
-                    }}
-                    style={styles.messageContainer}
+                    image={require("@Images/user.jpg")}
                     onLongPress={() => handleLongPress(id)}
-                    subTitle={description}
                     pressAction={grayPressAction}
-                    image={image}
-                    title={title}
+                    style={styles.messageContainer}
+                    subTitle={content}
+                    title={fromUser.name}
                 />
             )}
             ItemSeparatorComponent={ListItemSeparator}
             refreshing={refreshing}
-            onRefresh={() => {
-                const mm = [];
-                for (let i = 1; i <= Math.ceil(Math.random() * 10 + 10); i++) {
-                    mm.push({
-                        id: i,
-                        title: "title " + i,
-                        description: "desc " + i,
-                        image: require("@Images/user.jpg"),
-                    });
-                }
-                setMessages(mm);
-            }}
+            onRefresh={() => getMessages()}
         />
+    );
+
+    const Notice: FC<{ error: string }> = ({ error }) => (
+        <View style={[defaultStyles.flexCenter, defaultStyles.fullScreen,styles.notice]}>
+            <AppErrorMessage size={25} error={error} />
+            <AppButton title='reload' onPress={getMessages} />
+        </View>
+    );
+
+    const isMessagesLoaded = data && !isLoading;
+    const isError = error && !isLoading;
+    return (
+        <>
+            <AppLottieView
+                isCenter
+                source={require("@Animations/loading1.json")}
+                visible={isLoading || isDeleting}
+            />
+
+            {isMessagesLoaded && data.length > 0 && messages}
+
+            {isMessagesLoaded && data.length === 0 && (
+                <Notice error="You don't have any message" />
+            )}
+
+            {isError && <Notice error='Could not load your messages' />}
+        </>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         height: "100%",
-        marginBottom:20,
-        overflow:"hidden"
+        marginBottom: 20,
+        overflow: "hidden",
     },
     messageContainer: {
         padding: 6,
     },
+    notice:{
+        paddingHorizontal: 15
+    }
 });
 
 export default MessagesScreen;

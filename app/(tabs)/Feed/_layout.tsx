@@ -10,13 +10,13 @@ const Layout: FC = () => {
             }}
         >
             <Stack.Screen
-                name='index'
+                name='(modals)/listingDetail'
                 options={{
-                    headerShown: false,
+                    presentation: "formSheet",
                 }}
             />
             <Stack.Screen
-                name='(modals)/ListingDetail'
+                name='(modals)/viewImage'
                 options={{
                     presentation: "formSheet",
                 }}

@@ -4,7 +4,7 @@ import type { FormikHelpers } from "formik";
 
 export type LoginInterface = Record<"password" | "email", string>;
 
-export type RegisterInterface = LoginInterface & { username: string };
+export type RegisterInterface = LoginInterface & { name: string };
 
 export interface ListingChangeInterface {
     title: string;

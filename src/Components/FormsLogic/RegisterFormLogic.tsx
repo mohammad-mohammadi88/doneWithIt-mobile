@@ -4,8 +4,8 @@ import type { FC } from 'react';
 const RegisterFormLogic: FC = () => (
     <>
         <AppFormField
-            name='username'
-            textContentType="username"
+            name='name'
+            textContentType="name"
             autoCapitalize='none'
             autoCorrect={false}
             placeholder='Username'

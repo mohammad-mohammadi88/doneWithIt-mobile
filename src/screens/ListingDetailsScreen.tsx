@@ -1,52 +1,77 @@
-import type { ImageType, ListingParamsType } from "@Types/listings";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState, type FC } from "react";
+import { Image } from "expo-image";
+
+import type { ListingType } from "@Types/listings";
+import type { ListingUserInfo } from "@Types/user";
 import defaultStyles from "@Constants/styles";
+import { listingApi, userApi } from "@/APIs";
 import ListItem from "@Components/ListItem";
-import { useState, type FC } from "react";
-import colors from "@Constants/colors";
 import { capitalize } from "@/utilities";
-import {
-    ImageSourcePropType,
-    StyleSheet,
-    Image,
-    Text,
-    View,
-} from "react-native";
+import colors from "@Constants/colors";
+import { useApi } from "@/hooks";
 
-interface Props {
-    listing: ListingParamsType;
-}
-const ListingDetailsScreen: FC<Props> = ({
-    listing: { images, price, title },
-}) => {
-    const imageArr: ImageType[] = JSON.parse(images) ?? [];
-    const [imageSource, setImageSource] = useState<ImageSourcePropType>({
-        uri: imageArr[0]?.url,
-    });
+const ListingDetailsScreen: FC = () => {
+    const { id }: any = useLocalSearchParams();
+    const { data: listing, request: getListing } = useApi<ListingType>(
+        listingApi.getListing
+    );
 
-    return (
-        <View>
-            <Image
-                style={styles.image}
-                source={imageSource}
-                onError={() =>
-                    setImageSource(require("@Images/notfoundImage.png"))
-                }
-            />
-            <View style={styles.infoContainer}>
-                <Text style={styles.title} numberOfLines={3}>{capitalize(title)}</Text>
-                <Text style={styles.price}>${price}</Text>
-                <View style={styles.userContainer}>
-                    <ListItem
-                        style={{ width: "100%" }}
-                        onPress={() => console.log("first")}
-                        image={require("@Images/user.jpg")}
-                        title='mohammad mohammadi frontend developer'
-                        subTitle='5 Listings'
+    const router = useRouter();
+    useEffect(() => {
+        getListing(id);
+    }, []);
+
+    const [imageSource, setImageSource] = useState<any>();
+
+    useEffect(() => {
+        const uri = listing?.images[0].url;
+        if (uri) setImageSource({ uri });
+        if (listing?.userId) getUser<number>(listing.userId);
+    }, [listing]);
+
+    const { data: user, request: getUser } = useApi<ListingUserInfo>(
+        userApi.getUser
+    );
+
+    if (listing) {
+        const { title, price } = listing;
+        return (
+            <View>
+                <Pressable
+                    onPress={() =>
+                        imageSource?.uri &&
+                        router.navigate(`/Feed/viewImage?id=${id}`)
+                    }
+                >
+                    <Image
+                        style={styles.image}
+                        source={imageSource}
+                        onError={() =>
+                            setImageSource(require("@Images/notfoundImage.png"))
+                        }
                     />
+                </Pressable>
+                <View style={styles.infoContainer}>
+                    <Text style={styles.title} numberOfLines={3}>
+                        {capitalize(title)}
+                    </Text>
+                    <Text style={styles.price}>${price}</Text>
+                    {user && (
+                        <View style={styles.userContainer}>
+                            <ListItem
+                                image={require("@Images/user.jpg")}
+                                title={user.name}
+                                subTitle={`${user.listings} Listings`}
+                            />
+                        </View>
+                    )}
                 </View>
             </View>
-        </View>
-    );
+        );
+    }
+    return null;
 };
 
 const styles = StyleSheet.create({

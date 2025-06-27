@@ -3,6 +3,7 @@ import { AppButton } from "@Components/AppComponents";
 import LogoContainer from "@Components/WelcomeScreen";
 import { useRouter } from "expo-router";
 import type { FC } from "react";
+import colors from "@/constants/colors";
 
 const WelcomeScreen: FC = () => {
     const router = useRouter();
@@ -19,7 +20,7 @@ const WelcomeScreen: FC = () => {
                 title='login'
             />
             <AppButton
-                backgroundColor='primary'
+                backgroundColor={colors.primary}
                 onPress={() => router.navigate("/auth/register")}
                 title='register'
                 BtnStyle={{ marginBottom: 30 }}

@@ -1,19 +1,23 @@
+import defaultStyles from "@/constants/styles";
 import LottieView, { LottieViewProps } from "lottie-react-native";
 import type { FC } from "react";
+import { View } from "react-native";
 
-interface Props extends Omit<LottieViewProps , "autoPlay"> {
-    visible?: boolean;
-    source: any;
+interface Props extends Omit<LottieViewProps, "autoPlay"> {
+    isCenter?: boolean;
     size?: number;
+    source: any;
+    visible?: boolean;
 }
 
 const AppLottieView: FC<Props> = ({
+    isCenter = false,
     visible = false,
     size = 300,
     ...props
 }) => {
     if (!visible) return null;
-    return (
+    const Lottie = (
         <LottieView
             autoPlay
             style={{
@@ -23,6 +27,13 @@ const AppLottieView: FC<Props> = ({
             }}
             {...props}
         />
+    );
+    return isCenter ? (
+        <View style={[defaultStyles.flexCenter, defaultStyles.fullScreen]}>
+            {Lottie}
+        </View>
+    ) : (
+        Lottie
     );
 };
 

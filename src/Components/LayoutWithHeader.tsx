@@ -1,17 +1,15 @@
 import { useWindowDimensions, View } from "react-native";
 import type { ReactNode } from "react";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 interface Props {
     children: ReactNode;
-    isTabbarShown?: boolean;
+    tabbarHeight?:number
 }
 
-const LayoutWithHeader = ({ children, isTabbarShown = false }: Props) => {
-    // Tab Bar Height
-    const TBHeight = useBottomTabBarHeight();
+const LayoutWithHeader = ({ children,tabbarHeight }: Props) => {
     let height = useWindowDimensions().height;
-    isTabbarShown && (height -= TBHeight);
+
+    tabbarHeight && (height -= tabbarHeight);
 
     return <View style={{ top: -50, height }}>{children}</View>;
 };

@@ -1,9 +1,9 @@
-import { ApiResponse, PROBLEM_CODE } from "apisauce";
+import { ApiResponse } from "apisauce";
 
 import { useState } from "react";
 
 export default function useApi<T>(
-    apiFn: (...e: any) => Promise<ApiResponse<T, T>>
+    apiFn: ((...e: any) => Promise<ApiResponse<T, T>>)
 ) {
     const [data, setData] = useState<T | undefined>(undefined);
     const [error, setError] = useState<any>(null);

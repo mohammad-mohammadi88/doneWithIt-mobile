@@ -37,6 +37,7 @@
     "expo-system-ui": "~5.0.7",
     "expo-web-browser": "~14.1.6",
     "formik": "^2.4.6",
+    "joi": "^17.13.3",
     "jwt-decode": "^4.0.0",
     "lottie-react-native": "7.2.2",
     "nanoid": "^5.1.5",

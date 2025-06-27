@@ -1,42 +1,54 @@
-import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AppPressable } from '@Components/AppComponents';
-import defaultStyles from '@Constants/styles';
-import type { FC } from "react";
+import { Dimensions, FlatList, StyleSheet, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, type FC } from "react";
+import { Image } from "expo-image";
 
-const ViewImageScreen: FC = () => (
-    <View style={styles.container}>
-        <View style={styles.btnContainer}>
+import type { ListingType } from "@Types/listings";
+import { listingApi } from "@/APIs";
+import { useApi } from "@/hooks";
 
-            <AppPressable onPress={() => console.log("close")}>
-                <MaterialCommunityIcons name='close' size={35} color="white" />
-            </AppPressable>
+const ViewImageScreen: FC = () => {
+    const params: { id: string } = useLocalSearchParams();
+    const id = parseInt(params?.id);
+    const { data: listing, request: getListing } = useApi<ListingType>(
+        listingApi.getListing
+    );
 
-            <Pressable onPress={() => console.log("delete")}>
-                <MaterialCommunityIcons name='trash-can-outline' size={35} color="white" />
-            </Pressable>
-
+    useEffect(() => {
+        getListing(id);
+    }, []);
+    return (
+        <View style={styles.container}>
+            {listing?.images && (
+                <FlatList
+                    data={listing.images}
+                    renderItem={({ item }) => (
+                        <Image
+                            contentFit='contain'
+                            source={{ uri: item.url }}
+                            style={styles.image}
+                        />
+                    )}
+                    keyExtractor={({ url }) => url}
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                />
+            )}
         </View>
-        <Image style={styles.image} resizeMode="contain" source={require("@Images/chairImage.png")} />
-    </View>
-)
+    );
+};
 
-
+const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#000",
-        flex: 1
+        flex: 1,
     },
-    image: defaultStyles.fullScreen,
-    btnContainer: {
-        justifyContent: "space-between",
-        paddingHorizontal: 15,
-        position: "absolute",
-        flexDirection: "row",
-        width: "100%",
-        top: 20,
-        zIndex: 50
-    }
-})
+    image: {
+        zIndex: 8,
+        width,
+    },
+});
 
-export default ViewImageScreen
+export default ViewImageScreen;
