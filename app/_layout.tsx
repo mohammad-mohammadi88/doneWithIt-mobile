@@ -1,5 +1,4 @@
 import { useEffect, useState, type FC } from "react";
-import { useWindowDimensions } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { Stack } from "expo-router";
 
@@ -35,7 +34,6 @@ const Layout: FC = () => {
 };
 
 const AppNavigator = () => {
-    const window = useWindowDimensions();
     const isOffline = useIsOffline();
     return (
         <Stack
@@ -46,7 +44,7 @@ const AppNavigator = () => {
                 },
             }}
             screenLayout={({ children }) => (
-                <InitLayout isOffline={isOffline} window={window}>
+                <InitLayout isOffline={isOffline}>
                     {children}
                 </InitLayout>
             )}

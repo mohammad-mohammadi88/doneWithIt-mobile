@@ -1,18 +1,18 @@
-import { type ScaledSize, View } from "react-native";
+import { Dimensions, View } from "react-native";
 import type { FC, ReactNode } from "react";
 import Constants from "expo-constants";
 
 interface Props {
     children: ReactNode;
     isOffline:boolean,
-    window: ScaledSize
 }
 
-const InitialLayout: FC<Props> = ({ children,isOffline,window }) => {
+
+const InitialLayout: FC<Props> = ({ children,isOffline }) => {
     // Status Bar Height
     const SBHeight = Constants.statusBarHeight;
-
-    let height = window.height - SBHeight;
+    
+    let height = Dimensions.get("screen").height - SBHeight
     if (isOffline) height -= 50;
 
     let top = SBHeight;

@@ -1,4 +1,9 @@
-import type { DimensionValue, TextInputProps } from "react-native";
+import {
+    StyleSheet,
+    View,
+    type DimensionValue,
+    type TextInputProps,
+} from "react-native";
 import { AppTextInput } from "../AppComponents";
 import AppErrorMessage from "./AppErrorMessage";
 import { IconNamesType } from "@Types/globals";
@@ -10,8 +15,8 @@ interface Props {
     icon?: IconNamesType;
     width?: DimensionValue;
     style?: any;
-    ExtraElement?: React.JSX.ElementType;
-    useRegex?:RegExp
+    ExtraElement?: React.ReactNode;
+    useRegex?: RegExp;
 }
 
 const AppFormField: FC<TextInputProps & Props> = ({
@@ -26,24 +31,32 @@ const AppFormField: FC<TextInputProps & Props> = ({
         useFormikContext();
     // @ts-ignore
     const [fieldError, value] = [errors[name], values[name]];
-    const handleChange = (text:string) => {
-        if(!useRegex) return setFieldValue(name, text);
-        const regex = new RegExp(useRegex)
-        if(regex.test(text)) return setFieldValue(name,text)
-    }
+    const handleChange = (text: string) => {
+        if (!useRegex) return setFieldValue(name, text);
+        const regex = new RegExp(useRegex);
+        if (regex.test(text)) return setFieldValue(name, text);
+    };
     return (
         <>
-            <AppTextInput
-                setValue={handleChange}
-                onBlur={() => setFieldTouched(name)}
-                extraContainerStyle={[{ width }, style]}
-                value={value}
-                {...props}
-            />
-            {ExtraElement && <ExtraElement />}
+            <View style={styles.container}>
+                <AppTextInput
+                    setValue={handleChange}
+                    onBlur={() => setFieldTouched(name)}
+                    extraContainerStyle={[{ width }, style]}
+                    value={value}
+                    {...props}
+                />
+                {ExtraElement}
+            </View>
+
             <AppErrorMessage error={fieldError} />
         </>
     );
 };
-
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+    }
+});
 export default AppFormField;

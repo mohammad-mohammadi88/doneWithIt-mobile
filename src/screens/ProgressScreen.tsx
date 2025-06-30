@@ -1,5 +1,5 @@
 import { AppLottieView } from "@Components/AppComponents";
-import { Modal, StyleSheet, View } from "react-native";
+import { Modal, View } from "react-native";
 import * as Progress from "react-native-progress";
 import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
@@ -38,6 +38,5 @@ const ProgressScreen: FC<Props> = ({
         </Modal>
     );
 };
-const styles = StyleSheet.create({});
 
 export default ProgressScreen;

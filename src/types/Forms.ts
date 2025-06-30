@@ -8,7 +8,7 @@ export type RegisterInterface = LoginInterface & { name: string };
 
 export interface ListingChangeInterface {
     title: string;
-    price: string;
+    price: string | number;
     description: string;
     category: SelectedOption;
     images: ChangeListingImageType[];

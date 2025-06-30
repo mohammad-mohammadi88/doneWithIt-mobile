@@ -1,17 +1,19 @@
-import { useWindowDimensions, View } from "react-native";
+import { Dimensions, View } from "react-native";
+import Constants from "expo-constants";
 import type { ReactNode } from "react";
 
 interface Props {
     children: ReactNode;
-    tabbarHeight?:number
+    tabbarHeight?: number;
 }
 
-const LayoutWithHeader = ({ children,tabbarHeight }: Props) => {
-    let height = useWindowDimensions().height;
+const LayoutWithHeader = ({ children, tabbarHeight }: Props) => {
+    let height = Dimensions.get("screen").height;
 
     tabbarHeight && (height -= tabbarHeight);
 
-    return <View style={{ top: -50, height }}>{children}</View>;
+    const top = -Constants.statusBarHeight;
+    return <View style={{ top, height }}>{children}</View>;
 };
 
 export default LayoutWithHeader;

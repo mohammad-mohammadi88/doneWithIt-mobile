@@ -1,38 +1,12 @@
 import type { AddListingType, ListingType } from "@Types/listings";
-import { nanoid } from "nanoid/non-secure";
+import { setBody } from "@/utilities";
 import apiClient from "./client";
 
-const endpoint = "listings";
-const getListings = () =>
-    apiClient.get<ListingType[]>(endpoint);
+const endpoint = "listings/";
+const getListings = () => apiClient.get<ListingType[]>(endpoint);
 
-const postListing = async ({
-    title,
-    categoryId,
-    price,
-    images,
-    location,
-    description,
-    setProgress,
-}: AddListingType) => {
-    const data = new FormData();
-    data.append("title", title);
-    data.append("description", description);
-    data.append("price", String(price));
-    data.append("categoryId", String(categoryId));
-
-    if (location) data.append("location", JSON.stringify(location));
-
-    const imageList: any[] = images.map(({ uri, mimeType }) => ({
-        name: nanoid() + ".jpg",
-        type: mimeType || "image/jpeg",
-        uri,
-    }));
-
-    imageList.forEach((image) => {
-        data.append("images", image);
-    });
-
+const postListing = async ({ setProgress, ...info }: AddListingType) => {
+    const data = setBody(info);
     return await apiClient.post(endpoint, data, {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -43,7 +17,36 @@ const postListing = async ({
     });
 };
 
+const editListing = async ({
+    setProgress,
+    listingId,
+    ...info
+}: AddListingType & { listingId: number }) => {
+    const data = setBody(info);
+    return await apiClient.put(endpoint + listingId, data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progress) => {
+            setProgress(Math.min(0.95, progress.loaded / progress.total));
+        },
+    });
+};
+
+const deleteListing = async (
+    listingId: number,
+    setProgress: (progress: number) => void
+) => {
+    return await apiClient.delete(endpoint + listingId,undefined,{
+        onUploadProgress: (progress) => {
+            setProgress(Math.min(0.95, progress.loaded / progress.total));
+        },
+    });
+};
+
 export default {
+    deleteListing,
+    editListing,
     getListings,
     postListing,
 };

@@ -10,12 +10,13 @@ export interface ListingType {
     categoryId: number;
     userId: number;
     location?: LocationType;
+    isSold:boolean;
     description: string;
 }
 
 export type AddListingType = {
     title: string;
-    price: string;
+    price: string | number;
     description: string;
     images: ChangeListingImageType[]
     location?: UserLocationType,

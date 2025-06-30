@@ -43,19 +43,25 @@ const ListingsScreen: FC<Props> = ({ getListingsApi }) => {
                 </>
             )}
             {!isLoading && !error && listings?.length === 0 && (
-                <Text style={styles.noListingNotice}>
-                    No Listings Available
-                </Text>
+                <>
+                    <Text style={styles.noListingNotice}>
+                        No Listings Available
+                    </Text>
+                    <AppButton title='Retry' onPress={loadListings} />
+                </>
             )}
             {canShowListings && (
                 <FlatList
                     data={listings}
-                    renderItem={({ item: { title, price, images, id } }) => (
+                    renderItem={({
+                        item: { title, price, images, isSold, id },
+                    }) => (
                         <Card
-                            subTitle={"$" + price}
-                            title={title}
                             href={`/Feed/listingDetail?id=${id}`}
                             imageURL={images[0]?.url}
+                            isSold={isSold}
+                            subTitle={"$" + price}
+                            title={title}
                         />
                     )}
                     refreshing={refresh}

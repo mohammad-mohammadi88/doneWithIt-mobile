@@ -29,9 +29,9 @@ const AppTextInput: FC<Props & TextInputProps> = ({
     <View style={[ styles.container, extraContainerStyle ]}>
         {icon && <MaterialCommunityIcons name={icon} color={colors.medium} size={25} />}
         <TextInput
-            style={[ styles.input, style ]}
             clearButtonMode='always'
             onChangeText={setValue}
+            style={[ styles.input, style ]}
             {...props}
         />
     </View>

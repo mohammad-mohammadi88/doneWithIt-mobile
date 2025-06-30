@@ -9,7 +9,11 @@ const Layout: FC = () => {
             screenOptions={{
                 contentStyle: { backgroundColor: "white" },
             }}
-        />
+        >
+            <Stack.Screen name="index" options={{
+                title: "Add Listing"
+            }}/>
+        </Stack>
     );
 };
 

@@ -4,23 +4,24 @@ import type { FC } from 'react';
 const LoginFormLogic: FC = () => (
     <>
         <AppFormField
-            name='email'
-            keyboardType="email-address"
-            textContentType="emailAddress"
             autoCapitalize='none'
             autoCorrect={false}
-            placeholder='Email'
+            autoFocus
             icon='email'
+            keyboardType="email-address"
+            name='email'
+            placeholder='Email'
+            textContentType="emailAddress"
         />
 
         <AppFormField
-            name='password'
-            textContentType="password"
-            placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            secureTextEntry
             icon='lock'
+            name='password'
+            placeholder='Password'
+            secureTextEntry
+            textContentType="password"
         />
 
         <SubmitFormBtn title='login' />

@@ -1,20 +1,23 @@
-import React from "react";
-import { ImageSourcePropType, StyleSheet, Text, View } from "react-native";
-import { Image } from "expo-image";
-import defaultStyles from "@Constants/styles";
-import { Href, Link } from "expo-router";
-import colors from "@Constants/colors";
-import { capitalize } from "@/utilities";
+import { ImageSourcePropType, Pressable, StyleSheet, Text, View } from "react-native";
 import { useState, type FC } from "react";
+import { Href, useRouter } from "expo-router";
+import { Image } from "expo-image";
+
+import defaultStyles from "@Constants/styles";
+import { capitalize } from "@/utilities";
+import colors from "@Constants/colors";
+import { SoldOutMark } from ".";
 
 interface Props {
-    title: string;
-    subTitle: string;
-    imageURL: string;
     href: Href;
+    imageURL: string;
+    isSold: boolean;
+    subTitle: string;
+    title: string;
 }
 
-const Card: FC<Props> = ({ title, subTitle, imageURL, href }) => {
+const Card: FC<Props> = ({ title, subTitle, imageURL, isSold, href }) => {
+    const router = useRouter()
     const [imageSource, setImageSource] = useState<ImageSourcePropType>({
         uri: imageURL,
     });
@@ -35,7 +38,8 @@ const Card: FC<Props> = ({ title, subTitle, imageURL, href }) => {
     );
     return (
         <View style={styles.card}>
-            {href ? <Link href={href}>{cardInner}</Link> : cardInner}
+            <SoldOutMark isSold={isSold} />
+            {href && !isSold ? <Pressable onPress={() => router.push(href)}>{cardInner}</Pressable> : cardInner}
         </View>
     );
 };

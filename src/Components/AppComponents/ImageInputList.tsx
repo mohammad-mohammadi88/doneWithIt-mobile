@@ -1,14 +1,13 @@
-import type { ChangeListingImageType } from "@Types/listings";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { useRef, type FC } from "react";
-import type { Href } from "expo-router";
+
+import type { ChangeListingImageType } from "@Types/listings";
 import ImageInput from "./ImageInput";
 
 interface Props {
     ImageUris?: string[];
     onRemove: (image: ChangeListingImageType) => void;
     onAdd: (image: ChangeListingImageType) => void;
-    redirectUri?: Href;
     maxImageCount?: number;
 }
 

@@ -7,6 +7,8 @@ import ProgressScreen from "./ProgressScreen";
 import { AppForm } from "@Components/form";
 import { useLocation } from "@/hooks";
 import { listingsApi } from "@/APIs";
+import { useRouter } from "expo-router";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const initialValues: ListingChangeInterface = {
     title: "",
@@ -22,6 +24,7 @@ const initialValues: ListingChangeInterface = {
 
 const ListingAddScreen: FC = () => {
     const location = useLocation();
+    const router = useRouter();
     const [progress, setProgress] = useState<number>(0);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
@@ -51,7 +54,10 @@ const ListingAddScreen: FC = () => {
     return (
         <>
             <ProgressScreen
-                onAnimationFinish={() => setModalVisible(false)}
+                onAnimationFinish={() => {
+                    setModalVisible(false);
+                    router.push('/(tabs)/Feed')
+                }}
                 visible={modalVisible}
                 progress={progress}
             />

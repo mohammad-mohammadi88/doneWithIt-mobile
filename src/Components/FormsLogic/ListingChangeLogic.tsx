@@ -1,59 +1,87 @@
+import { Alert, StyleSheet, Text, View } from "react-native";
+import { PermissionStatus } from "expo-image-picker";
+import { useEffect, type FC } from "react";
+import { Redirect } from "expo-router";
+
 import type { SelectOptionInterface } from "@Types/globals";
 import FormPickerOption from "../form/FormPickerOption";
-import { StyleSheet, Text, View } from "react-native";
+import { useApi, useMediaPermission } from "@/hooks";
 import { maxImageCount } from "@Constants/defaults";
-import {categoriesApi} from "@/APIs";
-import { useEffect, type FC } from "react";
-import { useApi } from "@/hooks";
+import defaultStyles from "@Constants/styles";
+import { categoriesApi } from "@/APIs";
 import {
     FormImageInput,
     SubmitFormBtn,
     AppFormPicker,
     AppFormField,
+    AppErrorMessage,
 } from "../form";
 
 const ListingChangeLogic: FC = () => {
-    const { data, request: loadCategories } = useApi(categoriesApi.getCategories);
+    const status = useMediaPermission();
+    const { data, request: loadCategories } = useApi(
+        categoriesApi.getCategories
+    );
     useEffect(() => {
         loadCategories();
     }, []);
-    const categories: SelectOptionInterface[] = data ? data?.map(
-        ({
-            backgroundColor,
-            color: iconColor,
-            icon,
-            id: value,
-            name: label,
-        }) => ({
-            value,
-            item: {
-                label,
-                icon: {
-                    backgroundColor,
-                    icon,
-                    iconColor,
-                },
-            },
-        })
-    ) : [];
 
-
-    return (
-        <>
-            <FormImageInput name='images' maxImageCount={maxImageCount}/>
-
-            <AppFormField name='title' placeholder='Title' maxLength={100} />
-            <View style={style.priceContainer}>
-                <AppFormField
-                    name='price'
-                    useRegex={/^(?:\d+|\d+\.\d+)$/}
-                    placeholder='Price'
-                    maxLength={7}
-                    keyboardType='numeric'
-                    width={110}
-                    ExtraElement={() => <Text style={style.dollorSign}>$</Text>}
+    if (status === PermissionStatus.UNDETERMINED)
+        return (
+            <View style={[defaultStyles.flexCenter, defaultStyles.fullScreen]}>
+                <AppErrorMessage
+                    error='You should allow or deny your gallery permission to continue'
+                    size={26}
                 />
             </View>
+        );
+    else if (status === PermissionStatus.DENIED) {
+        Alert.alert("Permission", "You should allow us to access your gallery");
+        return <Redirect href={"/(tabs)/Feed"} />;
+    }
+
+    const categories: SelectOptionInterface[] = data
+        ? data?.map(
+              ({
+                  backgroundColor,
+                  color: iconColor,
+                  icon,
+                  id: value,
+                  name: label,
+              }) => ({
+                  value,
+                  item: {
+                      label,
+                      icon: {
+                          backgroundColor,
+                          icon,
+                          iconColor,
+                      },
+                  },
+              })
+          )
+        : [];
+
+    return (
+        <View style={styles.container}>
+            <FormImageInput name='images' maxImageCount={maxImageCount} />
+
+            <AppFormField
+                autoFocus
+                maxLength={100}
+                name='title'
+                placeholder='Title'
+            />
+            
+            <AppFormField
+                name='price'
+                useRegex={/^(?:\d+|\d+\.|\d+\.+\d|\d+\.+\d\d)?$/}
+                placeholder='Price'
+                maxLength={7}
+                keyboardType='numeric'
+                width={110}
+                ExtraElement={<Text style={styles.dollorSign}>$</Text>}
+            />
 
             <AppFormPicker
                 PickerOptionComponents={FormPickerOption}
@@ -73,14 +101,13 @@ const ListingChangeLogic: FC = () => {
             />
 
             <SubmitFormBtn title='post' />
-        </>
+        </View>
     );
 };
 
-const style = StyleSheet.create({
-    priceContainer: {
-        flexDirection: "row",
-        alignItems: "center",
+const styles = StyleSheet.create({
+    container: {
+        paddingTop: 10,
     },
     dollorSign: {
         marginLeft: 5,

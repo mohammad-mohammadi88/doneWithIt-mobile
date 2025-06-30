@@ -1,23 +1,22 @@
-import { ImagePickerAsset } from "expo-image-picker";
+import { type ImagePickerAsset, PermissionStatus } from "expo-image-picker";
 import { useMediaPermission } from ".";
 import { selectImage } from "@/utilities";
 
 interface Return{
-    canSelectImage: boolean|undefined,
+    permissionStatus: PermissionStatus,
     luanchImage: (() => Promise<{
         assets: ImagePickerAsset | {
             uri: string;
             mimeType: string
         };
         canceled: boolean;
-    }>) | null,
-
+    }>) | null
 }
 const useMediaImage = ():Return => {
-    const canSelectImage = useMediaPermission();
+    const permissionStatus = useMediaPermission();
     return {
-        canSelectImage,
-        luanchImage: canSelectImage ? selectImage : null,
+        permissionStatus,
+        luanchImage: permissionStatus === PermissionStatus.GRANTED ? selectImage : null,
     };
 };
 

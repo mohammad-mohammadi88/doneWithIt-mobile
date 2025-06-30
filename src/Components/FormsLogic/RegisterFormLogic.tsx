@@ -4,32 +4,33 @@ import type { FC } from 'react';
 const RegisterFormLogic: FC = () => (
     <>
         <AppFormField
-            name='name'
-            textContentType="name"
             autoCapitalize='none'
             autoCorrect={false}
-            placeholder='Username'
+            autoFocus
             icon='account-circle'
+            name='name'
+            placeholder='Username'
+            textContentType="name"
         />
         
         <AppFormField
-            name='email'
-            keyboardType="email-address"
-            textContentType="emailAddress"
             autoCapitalize='none'
             autoCorrect={false}
-            placeholder='Email'
             icon='email'
+            keyboardType="email-address"
+            name='email'
+            placeholder='Email'
+            textContentType="emailAddress"
         />
 
         <AppFormField
-            name='password'
-            textContentType="password"
-            placeholder='Password'
             autoCapitalize='none'
             autoCorrect={false}
-            secureTextEntry
             icon='lock'
+            name='password'
+            placeholder='Password'
+            secureTextEntry
+            textContentType="password"
         />
 
         <SubmitFormBtn title='Register' />

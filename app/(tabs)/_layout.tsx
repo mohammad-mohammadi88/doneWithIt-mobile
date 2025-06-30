@@ -1,10 +1,11 @@
-import colors, { initialPressAction } from "@Constants/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AppPressable } from "@Components/AppComponents";
 import { StyleSheet, View } from "react-native";
-import defaultStyles from "@Constants/styles";
 import { Tabs } from "expo-router";
 import type { FC } from "react";
+
+import colors, { initialPressAction } from "@Constants/colors";
+import { AppPressable } from "@Components/AppComponents";
+import defaultStyles from "@Constants/styles";
 
 const Layout: FC = () => {
     return (
@@ -13,8 +14,10 @@ const Layout: FC = () => {
                 tabBarActiveTintColor: "red",
                 headerShown: false,
                 tabBarStyle: {
-                    borderRadius: 25,
+                    borderTopRightRadius: 25,
                     borderTopLeftRadius: 25,
+                    height: 65,
+                    bottom: 0
                 },
                 tabBarButton: ({ children, android_ripple, ...props }) => {
                     return (
@@ -26,7 +29,6 @@ const Layout: FC = () => {
                         </AppPressable>
                     );
                 },
-                sceneStyle: { backgroundColor: "white" },
             }}
         >
             <Tabs.Screen

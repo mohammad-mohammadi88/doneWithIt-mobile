@@ -1,48 +1,22 @@
 import { useLayoutEffect, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { Alert } from "react-native";
 
-const useMediaPermission = () => {
-    const [canSelectImage, setCanSelectImage] = useState<boolean | undefined>(undefined);
-    const [sendingRequest, setSendingRequest] = useState<boolean>(true);
+const useMediaPermission = (): ImagePicker.PermissionStatus => {
+    const [permissionStatus, setPermissionStatus] =
+        useState<ImagePicker.PermissionStatus>(
+            ImagePicker.PermissionStatus.UNDETERMINED
+        );
 
     const cameraPermission = async () => {
-        const { granted } = await ImagePicker.getMediaLibraryPermissionsAsync();
-        if (granted) {
-            setCanSelectImage(true);
-            setSendingRequest(false);
-        }
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        setPermissionStatus(status);
     };
+
     useLayoutEffect(() => {
         cameraPermission();
     }, []);
 
-    const askAgain = async () => {
-        const { granted } =
-            await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (granted) {
-            setCanSelectImage(true);
-            setSendingRequest(false);
-        }
-    };
-
-    if (!canSelectImage && !sendingRequest) {
-        Alert.alert(
-            "Sorry",
-            "First you should enable the gallery access permission to select image",
-            [
-                {
-                    text: "Enable",
-                    onPress: () => askAgain(),
-                },
-                {
-                    text: "No thanks"
-                },
-            ]
-        );
-    };
-    if(typeof canSelectImage === "boolean") return canSelectImage
-    
+    return permissionStatus;
 };
 
 export default useMediaPermission;
