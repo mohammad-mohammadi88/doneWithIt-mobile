@@ -12,8 +12,8 @@ import {
 
 import { AppPressable, PickerOption } from "./AppComponents";
 import ProgressScreen from "@Screens/ProgressScreen";
-import { ListItemSeparator } from "./ListItem";
 import { listingApi, listingsApi } from "@/APIs";
+import { ListItemSeparator } from "./ListItem";
 import { useAuth } from "@/hooks";
 
 interface Props {
@@ -118,7 +118,6 @@ const MyListingOption: FC<Props> = ({ listingUserId, listingId }) => {
         <View>
             <ProgressScreen
                 onAnimationFinish={(isCanceled) => {
-                    console.log("first")
                     setProgress(0)
                     setDeleteModalShow(false);
                     setSoldOutModalShow(false);

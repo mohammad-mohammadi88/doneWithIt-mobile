@@ -1,6 +1,6 @@
 import { type ImagePickerAsset, PermissionStatus } from "expo-image-picker";
-import { useMediaPermission } from ".";
 import { selectImage } from "@/utilities";
+import { useMediaPermission } from ".";
 
 interface Return{
     permissionStatus: PermissionStatus,

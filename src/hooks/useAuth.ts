@@ -4,8 +4,8 @@ import { useContext } from "react";
 
 import authStorage from "@/auth/authStorage";
 import type { UserType } from "@Types/user";
-import { User } from "@/auth/Context";
 import { ApiResponse } from "apisauce";
+import { User } from "@/auth/Context";
 
 const useAuth = () => {
     const res = useContext(User);
