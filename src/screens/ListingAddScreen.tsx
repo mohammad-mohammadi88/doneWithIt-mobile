@@ -35,7 +35,7 @@ const ListingAddScreen: FC = () => {
         setModalVisible(true);
         setProgress(0);
 
-        const { ok } = await listingsApi.postListing({
+        const { ok,data } = await listingsApi.postListing({
             ...value,
             location,
             categoryId: value.category.selectedValue,
@@ -44,6 +44,7 @@ const ListingAddScreen: FC = () => {
 
         if (ok) setProgress(1);
         else {
+            console.log(data)
             alert("Could not save your listing");
             setModalVisible(false);
         }

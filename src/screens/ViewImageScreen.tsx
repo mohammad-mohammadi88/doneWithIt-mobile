@@ -8,15 +8,15 @@ import { listingApi } from "@/APIs";
 import { useApi } from "@/hooks";
 
 const ViewImageScreen: FC = () => {
-    const params: { id: string } = useLocalSearchParams();
-    const id = parseInt(params?.id);
+    const { id }: { id: string } = useLocalSearchParams();
+
     const { data: listing, request: getListing } = useApi<ListingType>(
         listingApi.getListing
     );
 
     useEffect(() => {
         getListing(id);
-    }, []);
+    }, [id]);
     return (
         <View style={styles.container}>
             {listing?.images && (

@@ -13,10 +13,7 @@ interface Props {
     imageUri?: string;
     onChangeImage: (image: ChangeListingImageType) => void;
 }
-const ImageInput: FC<Props> = ({
-    imageUri = "",
-    onChangeImage,
-}) => {
+const ImageInput: FC<Props> = ({ imageUri = "", onChangeImage }) => {
     const { permissionStatus, luanchImage } = useMediaImage();
     if (permissionStatus !== PermissionStatus.GRANTED) return null;
 
@@ -41,11 +38,11 @@ const ImageInput: FC<Props> = ({
                   "Are You sure you want to delete this image?",
                   [
                       {
-                          text: "Yes",
-                          onPress: () => onChangeImage({ uri: imageUri }),
+                          text: "No",
                       },
                       {
-                          text: "No",
+                          text: "Yes",
+                          onPress: () => onChangeImage({ uri: imageUri }),
                       },
                   ]
               );

@@ -1,8 +1,10 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState, type FC } from "react";
+import { useEffect, useLayoutEffect, useState, type FC } from "react";
 import { Image } from "expo-image";
 
+import { AppLottieView } from "@Components/AppComponents";
+import { AppErrorMessage } from "@Components/form";
 import type { ListingType } from "@Types/listings";
 import type { ListingUserInfo } from "@Types/user";
 import { MyListingOption } from "@/Components";
@@ -12,14 +14,14 @@ import ListItem from "@Components/ListItem";
 import { capitalize } from "@/utilities";
 import colors from "@Constants/colors";
 import { useApi } from "@/hooks";
-import { AppLottieView } from "@/Components/AppComponents";
-import { AppErrorMessage } from "@/Components/form";
 
 const ListingDetailsScreen: FC = () => {
     const { id }: any = useLocalSearchParams();
+    console.log("🚀 ~ id:", id)
     const { data: listing, request: getListing } = useApi<ListingType>(
         listingApi.getListing
     );
+    console.log("🚀 ~ listing:", listing)
     const {
         data: user,
         isLoading,
@@ -28,9 +30,9 @@ const ListingDetailsScreen: FC = () => {
     } = useApi<ListingUserInfo>(userApi.getUser);
 
     const router = useRouter();
-    useEffect(() => {
+    useLayoutEffect(() => {
         getListing(id);
-    }, []);
+    }, [id]);
 
     const [imageSource, setImageSource] = useState<any>();
 

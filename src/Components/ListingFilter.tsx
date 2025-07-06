@@ -23,7 +23,7 @@ const ListingFilter: FC<Props> = ({ listings, setFilteredListings }) => {
     useLayoutEffect(() => {
         setFilteredListings(listings);
         getCategories();
-    }, []);
+    }, [listings]);
 
     const handleChange = (text: string) => {
         const filterText = text.toLowerCase().trim();

@@ -31,7 +31,7 @@ const Card: FC<Props> = ({ title, subTitle, imageURL, isSold, href }) => {
                 }
             />
             <View style={styles.infoContainer}>
-                <Text style={styles.title}>{capitalize(title)}</Text>
+                <Text style={styles.title} numberOfLines={2}>{capitalize(title)}</Text>
                 <Text style={styles.subTitle}>{subTitle}</Text>
             </View>
         </>

@@ -3,11 +3,10 @@ import { useEffect, useState, type FC } from "react";
 
 import { AppLottieView, AppButton } from "@Components/AppComponents";
 import type { ListingType } from "@Types/listings";
+import { ListingFilter,Card } from "@/Components";
 import defaultStyles from "@Constants/styles";
-import { ListingFilter } from "@/Components";
 import colors from "@Constants/colors";
 import { ApiResponse } from "apisauce";
-import Card from "@Components/Card";
 import { useApi } from "@/hooks";
 
 interface Props {
@@ -16,11 +15,12 @@ interface Props {
 const ListingsScreen: FC<Props> = ({ getListingsApi }) => {
     const [refresh] = useState<boolean>(false);
     const {
-        request: loadListings,
         data: listings,
-        isLoading,
         error,
+        isLoading,
+        request: loadListings,
     } = useApi<ListingType[]>(getListingsApi);
+
     const [filteredListings, setFilteredListings] = useState<
         ListingType[] | undefined
     >(listings);
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: 500,
         color: colors.secondary,
-        textAlign: "center"
+        textAlign: "center",
     },
 });
 

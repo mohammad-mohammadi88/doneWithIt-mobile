@@ -13,20 +13,24 @@ const getToken = async (): Promise<string | null | undefined> => {
     }
 };
 
-const getUser = async (): Promise<UserType | null> => {
-    const userToken = await getToken();
-    if(userToken)
-        return jwtDecode(userToken);
-    
-    return null;
-};
-
 const removeToken = async () => {
     try {
         await AsyncStorage.removeItem(key);
     } catch (e) {
         console.log("error removing token", e);
     }
+};
+
+const getUser = async (): Promise<UserType | undefined> => {
+    const userToken = await getToken();
+    if(userToken){
+        const user:UserType = jwtDecode(userToken);
+        const now = Math.ceil(Date.now() / 1000);
+        if(user.exp > now) return user;
+        await removeToken()
+    }
+    
+    return undefined;
 };
 
 const storeToken = async (token: string) => {

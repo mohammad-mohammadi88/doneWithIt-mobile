@@ -44,9 +44,7 @@ const AppNavigator = () => {
                 },
             }}
             screenLayout={({ children }) => (
-                <InitLayout isOffline={isOffline}>
-                    {children}
-                </InitLayout>
+                <InitLayout isOffline={isOffline}>{children}</InitLayout>
             )}
         />
     );
