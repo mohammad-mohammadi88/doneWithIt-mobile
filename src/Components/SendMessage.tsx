@@ -36,7 +36,7 @@ const SendMessage: FC<Props> = ({ listingId, visible }) => {
                 />
             </Overlay>
             <View style={styles.container}>
-                <AppTextInput value={message} setValue={setMessage} />
+                <AppTextInput value={message} setValue={setMessage} placeholder="Send Message..." />
                 <AppButton onPress={handleMessage} title='send message' />
             </View>
         </>

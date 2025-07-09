@@ -8,7 +8,7 @@
         "scheme": "shopy",
         "githubUrl": "https://github.com/mohammad-mohammadi88/doneWithIt-mobile",
         "newArchEnabled": true,
-        "icon": "./src/assets/images/splash-icon.png",
+        "icon": "./src/assets/images/newIcon.png",
         "web": {
             "bundler": "metro",
             "output": "static",
