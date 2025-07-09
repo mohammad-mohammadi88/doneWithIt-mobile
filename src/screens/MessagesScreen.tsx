@@ -1,5 +1,5 @@
 import { Alert, FlatList, StyleSheet, View } from "react-native";
-import { useEffect, useState, type FC } from "react";
+import { useEffect, useLayoutEffect, useState, type FC } from "react";
 
 import ListItem, { ListItemSeparator } from "@Components/ListItem";
 import { grayPressAction } from "@Constants/colors";
@@ -36,8 +36,11 @@ const MessagesScreen: FC = () => {
             },
         ]);
     };
+    useLayoutEffect(() => {
+        getMessages();
+    }, []);
     useEffect(() => {
-        if(isDeleting)getMessages();
+        if (isDeleting) getMessages();
     }, [isDeleting]);
 
     const messages = (
@@ -61,12 +64,21 @@ const MessagesScreen: FC = () => {
     );
 
     const Notice: FC<{ error: string }> = ({ error }) => (
-        <View style={[defaultStyles.flexCenter, defaultStyles.fullScreen,styles.notice]}>
+        <View
+            style={[
+                defaultStyles.flexCenter,
+                defaultStyles.fullScreen,
+                styles.notice,
+            ]}
+        >
             <AppErrorMessage size={25} error={error} />
             <AppButton title='reload' onPress={getMessages} />
         </View>
     );
 
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
     const isMessagesLoaded = data && !isLoading;
     const isError = error && !isLoading;
     return (
@@ -97,9 +109,9 @@ const styles = StyleSheet.create({
     messageContainer: {
         padding: 6,
     },
-    notice:{
-        paddingHorizontal: 15
-    }
+    notice: {
+        paddingHorizontal: 15,
+    },
 });
 
 export default MessagesScreen;
