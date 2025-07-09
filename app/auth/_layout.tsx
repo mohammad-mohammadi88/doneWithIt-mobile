@@ -5,7 +5,7 @@ import type { FC } from "react";
 const Layout: FC = () => {
     return (
         <Stack
-        layout={LayoutWithHeader}
+            layout={LayoutWithHeader}
             screenOptions={{
                 contentStyle: { backgroundColor: "white" },
             }}

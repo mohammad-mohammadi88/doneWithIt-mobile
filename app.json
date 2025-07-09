@@ -17,9 +17,14 @@
         "experiments": {
             "typedRoutes": true
         },
-        
+        "extra": {
+            "eas": {
+                "projectId": "f6827581-36cc-47bc-839b-fb433caea2d4"
+            }
+        },
         "owner": "mohammad_dev",
         "android": {
+            "package": "com.mohammad_dev.Selleverythingyouaredonewith",
             "googleServicesFile": "./google-services.json"
         }
     }

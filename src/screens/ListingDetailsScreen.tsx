@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Image } from "expo-image";
 
-import { MyListingOption,SendMessage } from "@/Components";
+import { LocationMap, MyListingOption, SendMessage } from "@/Components";
 import { AppLottieView } from "@Components/AppComponents";
 import type { ListItemProps } from "@Types/globals";
 import { AppErrorMessage } from "@Components/form";
@@ -93,6 +93,15 @@ const ListingDetailsScreen: FC = () => {
                 )}
             </View>
             <SendMessage listingId={listing.id} visible={canSendMessage} />
+            {listing.location && <LocationMap {...listing.location} />}
+            {!listing.location && (
+                <View style={[defaultStyles.flexCenter,{marginTop:30}]}>
+                    <AppErrorMessage
+                        error="We don't have listing's location"
+                        size={24}
+                    />
+                </View>
+            )}
         </View>
     );
 };

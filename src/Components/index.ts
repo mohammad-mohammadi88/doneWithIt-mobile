@@ -5,6 +5,7 @@ export { default as ListingFilter } from "./ListingFilter";
 export { default as InitLayout } from "./InitialLayout";
 export { default as SendMessage } from "./SendMessage";
 export { default as SoldOutMark } from "./SoldOutMark";
+export { default as LocationMap } from "./LocationMap";
 export { default as Redirector } from "./Redirector";
 export { default as Overlay } from "./Overlay";
 export { default as Icon } from "./Icon";

@@ -1,6 +1,7 @@
 import { StyleSheet, Text } from "react-native";
-import defaultStyles from "@Constants/styles";
 import type { FC } from "react";
+
+import defaultStyles from "@Constants/styles";
 
 interface Props {
     error: string;
