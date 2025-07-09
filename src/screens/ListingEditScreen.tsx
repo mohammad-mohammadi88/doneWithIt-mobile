@@ -21,7 +21,7 @@ const ListingEditScreen: FC = () => {
     const router = useRouter()
     const location = useLocation();
     const { id }: { id: string } = useLocalSearchParams();
-    const listingId = parseInt(id);
+    const listingId = id;
 
     const { data:listing, request:getListing, error, isLoading } = useApi<ListingType>(
         listingApi.getListing
@@ -32,7 +32,7 @@ const ListingEditScreen: FC = () => {
 
     useEffect(() => {
         getCategories();
-        getListing<number>(listingId);
+        getListing<string>(listingId);
     }, []);
 
     useEffect(() => {

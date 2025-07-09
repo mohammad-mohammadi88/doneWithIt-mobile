@@ -1,9 +1,10 @@
-import { AppLottieView } from "@Components/AppComponents";
 import { Modal, View } from "react-native";
+import type { FC } from "react";
+
+import { AppLottieView } from "@Components/AppComponents";
 import * as Progress from "react-native-progress";
 import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
-import type { FC } from "react";
 
 interface Props {
     visible: boolean;

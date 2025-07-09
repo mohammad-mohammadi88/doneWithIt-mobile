@@ -1,4 +1,5 @@
 import { useState, type FC } from "react";
+import { useRouter } from "expo-router";
 
 import type { FormikOnSubmit, ListingChangeInterface } from "@Types/Forms";
 import { listingChangeValidation } from "@Constants/validations";
@@ -7,8 +8,6 @@ import ProgressScreen from "./ProgressScreen";
 import { AppForm } from "@Components/form";
 import { useLocation } from "@/hooks";
 import { listingsApi } from "@/APIs";
-import { useRouter } from "expo-router";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const initialValues: ListingChangeInterface = {
     title: "",

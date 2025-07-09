@@ -12,7 +12,7 @@ const postListing = async ({ setProgress, ...info }: AddListingType) => {
             "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progress) => {
-            setProgress(Math.min(0.95, progress.loaded / progress.total));
+            setProgress(Math.min(0.95, progress.loaded / (progress.total ?? 1)));
         },
     });
 };
@@ -21,25 +21,25 @@ const editListing = async ({
     setProgress,
     listingId,
     ...info
-}: AddListingType & { listingId: number }) => {
+}: AddListingType & { listingId: string }) => {
     const data = setBody(info);
     return await apiClient.put(endpoint + listingId, data, {
         headers: {
             "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progress) => {
-            setProgress(Math.min(0.95, progress.loaded / progress.total));
+            setProgress(Math.min(0.95, progress.loaded / (progress.total ?? 1)));
         },
     });
 };
 
 const deleteListing = async (
-    listingId: number,
+    listingId: string,
     setProgress: (progress: number) => void
 ) => {
     return await apiClient.delete(endpoint + listingId,undefined,{
         onUploadProgress: (progress) => {
-            setProgress(Math.min(0.95, progress.loaded / progress.total));
+            setProgress(Math.min(0.95, progress.loaded / (progress.total ?? 1)));
         },
     });
 };

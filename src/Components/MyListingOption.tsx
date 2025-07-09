@@ -14,22 +14,19 @@ import { AppPressable, PickerOption } from "./AppComponents";
 import ProgressScreen from "@Screens/ProgressScreen";
 import { listingApi, listingsApi } from "@/APIs";
 import { ListItemSeparator } from "./ListItem";
-import { useAuth } from "@/hooks";
 
 interface Props {
-    listingUserId: number;
-    listingId: number;
+    listingId: string;
+    isMyListing:boolean
 }
 
-const MyListingOption: FC<Props> = ({ listingUserId, listingId }) => {
-    const [showModal, setShowModal] = useState<boolean>(false);
-    const [deleteModalShow, setDeleteModalShow] = useState<boolean>(false);
+const MyListingOption: FC<Props> = ({ listingId,isMyListing }) => {
     const [soldOutModalShow, setSoldOutModalShow] = useState<boolean>(false);
+    const [deleteModalShow, setDeleteModalShow] = useState<boolean>(false);
+    const [showModal, setShowModal] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
-
     const router = useRouter();
-    const auth = useAuth();
-    const isMyListing = auth?.user?.userId === listingUserId;
+
 
     useLayoutEffect(() => {
         setShowModal(false);

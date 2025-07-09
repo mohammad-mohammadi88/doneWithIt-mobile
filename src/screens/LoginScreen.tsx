@@ -41,11 +41,12 @@ const LoginScreen: FC = () => {
                     ))}
                 <LoginFormLogic />
             </AppForm>
-            {isLoading && (
-                <Overlay>
-                    <AppLottieView visible source={require('@Animations/loading2.json')} />
-                </Overlay>
-            )}
+            <Overlay visible={isLoading}>
+                <AppLottieView
+                    visible
+                    source={require("@Animations/loading2.json")}
+                />
+            </Overlay>
         </>
     );
 };

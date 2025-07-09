@@ -3,7 +3,7 @@ import type { LocationType, UserLocationType } from "./globals";
 export type ImageType = Record<"url" | "thumbnailUrl", string>;
 
 export interface ListingType {
-    id: number;
+    id: string;
     title: string;
     images: ImageType[];
     price: number;

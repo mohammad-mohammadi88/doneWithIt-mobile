@@ -1,5 +1,5 @@
-import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
-import { ReactNode, useEffect, useState, type FC } from "react";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { useEffect, useState, type FC } from "react";
 
 import ListItem, { ListItemSeparator } from "@Components/ListItem";
 import { grayPressAction } from "@Constants/colors";
@@ -37,8 +37,8 @@ const MessagesScreen: FC = () => {
         ]);
     };
     useEffect(() => {
-        getMessages();
-    }, []);
+        if(isDeleting)getMessages();
+    }, [isDeleting]);
 
     const messages = (
         <FlatList

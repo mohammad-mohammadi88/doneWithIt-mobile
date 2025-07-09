@@ -1,38 +1,19 @@
-import { AppPressable } from "../AppComponents";
-import defaultStyles from "@Constants/styles";
+import { MaterialIcons } from "@expo/vector-icons";
 import React, { memo, type FC } from "react";
-import colors from "@Constants/colors";
-
 import {
-    PressableAndroidRippleConfig,
-    StyleSheet,
-    StyleProp,
-    ViewStyle,
     Image,
+    StyleSheet,
     Text,
     View,
-    PressableProps,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 
+import { AppPressable } from "../AppComponents";
+import defaultStyles from "@Constants/styles";
+import colors from "@Constants/colors";
+import type { ListItemProps } from "@Types/globals";
 
-interface Props extends PressableProps {
-    image?: any;
-    title: string;
-    subTitle?: string;
-    style?: StyleProp<ViewStyle>;
-    onPress?: (e: any) => void;
-    ImageReplaceComponent?: () => React.JSX.Element;
-    pressAction?: {
-        android_ripple: PressableAndroidRippleConfig;
-        highlightColor: string;
-    };
-    chevron?: boolean;
-}
-
-const ListItem: FC<Props> = ({
+const ListItem: FC<ListItemProps> = ({
     ImageReplaceComponent,
-    chevron = true,
     pressAction,
     style = {},
     subTitle,
@@ -61,7 +42,7 @@ const ListItem: FC<Props> = ({
                     </Text>
                 )}
             </View>
-            {chevron && (
+            {props.onPress && (
                 <MaterialIcons
                     name='chevron-right'
                     size={25}

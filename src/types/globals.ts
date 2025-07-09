@@ -1,4 +1,10 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import type {
+    PressableAndroidRippleConfig,
+    PressableProps,
+    StyleProp,
+    ViewStyle,
+} from "react-native";
 
 const names = MaterialCommunityIcons.glyphMap;
 export type IconNamesType = keyof typeof names;
@@ -20,9 +26,19 @@ export interface SelectedOption {
     selectedValue: number;
 }
 
-export type LocationType = Record<
-    "longitude" | "latitude",
-    number | undefined
->;
+export type LocationType = Record<"longitude" | "latitude", number | undefined>;
 
-export type UserLocationType = LocationType | undefined
+export type UserLocationType = LocationType | undefined;
+
+export interface ListItemProps extends PressableProps {
+    image?: any;
+    title: string;
+    subTitle?: string;
+    style?: StyleProp<ViewStyle>;
+    onPress?: (e: any) => void;
+    ImageReplaceComponent?: () => React.JSX.Element;
+    pressAction?: {
+        android_ripple: PressableAndroidRippleConfig;
+        highlightColor: string;
+    };
+}

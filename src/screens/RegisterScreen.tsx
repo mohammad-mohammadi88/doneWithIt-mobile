@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks";
 
 const RegisterScreen: FC = () => {
     const [registerError, setRegisterError] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const auth = useAuth();
     const initialValues: RegisterInterface = {
         name: "",
@@ -26,7 +26,7 @@ const RegisterScreen: FC = () => {
             usersApi.registerUser(data)
         );
         error?.map((e) => setRegisterError((c) => [...c, e]));
-        setIsLoading(false)
+        setIsLoading(false);
     };
     return (
         <>
@@ -41,14 +41,12 @@ const RegisterScreen: FC = () => {
                     ))}
                 <RegisterFormLogic />
             </AppForm>
-            {isLoading && (
-                <Overlay>
-                    <AppLottieView
-                        visible
-                        source={require("@Animations/loading2.json")}
-                    />
-                </Overlay>
-            )}
+            <Overlay visible={isLoading}>
+                <AppLottieView
+                    visible
+                    source={require("@Animations/loading2.json")}
+                />
+            </Overlay>
         </>
     );
 };

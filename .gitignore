@@ -4,6 +4,7 @@
 # dependencies
 node_modules/
 
+example.txt
 # Expo
 .expo/
 dist/
@@ -38,3 +39,6 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+# npm
+package-lock.json

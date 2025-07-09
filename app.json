@@ -1,27 +1,26 @@
 {
-  "expo": {
-    "name": "Done With It",
-    "slug": "Sell-everything-you-are-done-with",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "userInterfaceStyle": "light",
-    "scheme": "shopy",
-    "githubUrl": "https://github.com/mohammad-mohammadi88/doneWithIt-mobile",
-    "newArchEnabled": true,
-    "icon":"./src/assets/images/splash-icon.png",
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./src/assets/images/favicon.png"
-    },
-    "experiments": {
-      "typedRoutes": true
-    },
-    "extra": {
-      "eas": {
-        "projectId": "f6827581-36cc-47bc-839b-fb433caea2d4"
-      }
-    },
-    "owner": "mohammad_dev"
-  }
+    "expo": {
+        "name": "Done With It",
+        "slug": "Sell-everything-you-are-done-with",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "userInterfaceStyle": "light",
+        "scheme": "shopy",
+        "githubUrl": "https://github.com/mohammad-mohammadi88/doneWithIt-mobile",
+        "newArchEnabled": true,
+        "icon": "./src/assets/images/splash-icon.png",
+        "web": {
+            "bundler": "metro",
+            "output": "static",
+            "favicon": "./src/assets/images/favicon.png"
+        },
+        "experiments": {
+            "typedRoutes": true
+        },
+        
+        "owner": "mohammad_dev",
+        "android": {
+            "googleServicesFile": "./google-services.json"
+        }
+    }
 }

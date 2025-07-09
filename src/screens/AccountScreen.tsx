@@ -52,7 +52,6 @@ const AccountScreen: FC = () => {
                     style={styles.userContainer}
                     image={require("@Images/user.jpg")}
                     subTitle={auth.user.email}
-                    chevron={false}
                 />
                 <View style={styles.menuItemsContainer}>
                     <FlatList
