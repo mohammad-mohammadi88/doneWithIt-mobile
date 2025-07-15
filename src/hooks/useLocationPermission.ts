@@ -6,8 +6,8 @@ const useLocationPermission = () => {
 
     const getPermission = async () => {
         try {
-            const { granted } = await Location.requestForegroundPermissionsAsync();
-            setCanGetLocation(granted);
+            const { status } = await Location.requestForegroundPermissionsAsync();
+            setCanGetLocation(status === Location.PermissionStatus.GRANTED);
         } catch (e) {
             console.log(e);
         }

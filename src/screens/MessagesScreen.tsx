@@ -1,14 +1,15 @@
-import { Alert, FlatList, StyleSheet, View } from "react-native";
 import { useEffect, useLayoutEffect, useState, type FC } from "react";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
+import { useRouter } from "expo-router";
 
+import { AppButton, AppLottieView } from "@Components/AppComponents";
 import ListItem, { ListItemSeparator } from "@Components/ListItem";
 import { grayPressAction } from "@Constants/colors";
+import { AppErrorMessage } from "@Components/form";
 import type { MessageType } from "@Types/message";
+import defaultStyles from "@Constants/styles";
 import { messagesApi } from "@/APIs";
 import { useApi } from "@/hooks";
-import defaultStyles from "@/constants/styles";
-import { AppErrorMessage } from "@/Components/form";
-import { AppButton, AppLottieView } from "@/Components/AppComponents";
 
 const MessagesScreen: FC = () => {
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
@@ -19,6 +20,7 @@ const MessagesScreen: FC = () => {
         request: getMessages,
     } = useApi<MessageType[]>(messagesApi.getMessages);
     const [refreshing] = useState<boolean>(false);
+    const router = useRouter();
 
     const handleDelete = async (messageId: number) => {
         setIsDeleting(true);
@@ -50,11 +52,20 @@ const MessagesScreen: FC = () => {
             renderItem={({ item: { content, fromUser, id } }) => (
                 <ListItem
                     image={require("@Images/user.jpg")}
+                    onPress={() =>
+                        router.navigate({
+                            pathname: "/account/message/[messageId]",
+                            params: {
+                                messageId: id,
+                                username: fromUser.name,
+                            },
+                        })
+                    }
                     onLongPress={() => handleLongPress(id)}
                     pressAction={grayPressAction}
                     style={styles.messageContainer}
                     subTitle={content}
-                    title={fromUser.name}
+                    title={fromUser?.name}
                 />
             )}
             ItemSeparatorComponent={ListItemSeparator}
@@ -76,9 +87,6 @@ const MessagesScreen: FC = () => {
         </View>
     );
 
-    useEffect(() => {
-        console.log(data);
-    }, [data]);
     const isMessagesLoaded = data && !isLoading;
     const isError = error && !isLoading;
     return (

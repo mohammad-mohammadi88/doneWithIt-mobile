@@ -1,12 +1,13 @@
-import { grayPressAction } from '@Constants/colors';
-import defaultStyles from '@Constants/styles';
-import AppPressable from './AppPressable';
 import type { FC } from 'react';
 import {
     StyleSheet,
     Text,
     View,
 } from 'react-native';
+
+import { grayPressAction } from '@Constants/colors';
+import defaultStyles from '@Constants/styles';
+import AppPressable from './AppPressable';
 
 interface PickerOptionProps {
     onPress: (e: any) => void,

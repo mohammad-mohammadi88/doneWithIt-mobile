@@ -6,20 +6,21 @@ export default function useApi<T>(
     apiFn: ((...e: any) => Promise<ApiResponse<T, T>>)
 ) {
     const [data, setData] = useState<T | undefined>(undefined);
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<any>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
 
     async function request<E>(args?: E) {
-        setError(null)
+        setError(undefined)
         setIsLoading(true);
         const response = await apiFn(args);
         if (response.ok && response.data) {
             setData(response.data);
-            setError(null);
+            setError(undefined);
         } else {
             setData(undefined);
-            setError(response.originalError);
+            // @ts-ignore
+            setError(response.data?.error);
         }
 
         setIsLoading(false);

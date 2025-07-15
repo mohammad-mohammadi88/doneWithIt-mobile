@@ -2,10 +2,10 @@ import { memo, useCallback, useRef, type FC } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View } from "react-native";
 
-import type { LocationType } from "@Types/globals";
+import type { UserLocationType } from "@Types/globals";
 import Icon from "./Icon";
 
-const LocationMap: FC<LocationType> = ({ latitude = 0, longitude = 0 }) => {
+const LocationMap: FC<UserLocationType> = ({ latitude = 0, longitude = 0 }) => {
     const mapRef = useRef<MapView>(null);
     const initialRegion = {
         latitude,

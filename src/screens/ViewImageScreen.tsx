@@ -8,7 +8,7 @@ import { listingApi } from "@/APIs";
 import { useApi } from "@/hooks";
 
 const ViewImageScreen: FC = () => {
-    const { id }: { id: string } = useLocalSearchParams();
+    const { id } = useLocalSearchParams<{ id: string }>();
 
     const { data: listing, request: getListing } = useApi<ListingType>(
         listingApi.getListing

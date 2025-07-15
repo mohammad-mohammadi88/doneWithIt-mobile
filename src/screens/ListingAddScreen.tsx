@@ -26,6 +26,7 @@ const ListingAddScreen: FC = () => {
     const router = useRouter();
     const [progress, setProgress] = useState<number>(0);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    if (!location) return null;
 
     const handleSubmit: FormikOnSubmit = async (
         value: ListingChangeInterface,
@@ -34,17 +35,19 @@ const ListingAddScreen: FC = () => {
         setModalVisible(true);
         setProgress(0);
 
-        const { ok,data } = await listingsApi.postListing({
+        const { ok, data }: any = await listingsApi.postListing({
             ...value,
-            location,
+            ...location,
             categoryId: value.category.selectedValue,
             setProgress,
         });
 
         if (ok) setProgress(1);
         else {
-            console.log(data)
-            alert("Could not save your listing");
+            if (data?.error) {
+                if (typeof data.error === "string") alert(data.error);
+                else alert(data.error.join("\n"));
+            } else alert("Could not save your listing");
             setModalVisible(false);
         }
 
@@ -56,7 +59,7 @@ const ListingAddScreen: FC = () => {
             <ProgressScreen
                 onAnimationFinish={() => {
                     setModalVisible(false);
-                    router.push('/(tabs)/Feed')
+                    router.push("/(tabs)/Feed");
                 }}
                 visible={modalVisible}
                 progress={progress}

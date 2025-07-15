@@ -9,6 +9,7 @@ const apiClient = create({ baseURL });
 apiClient.addAsyncRequestTransform(async (req) => {
     const userToken = await authStorage.getToken();
     if(!userToken) return;
+    if(req.headers)
     req.headers["x-auth-token"] = userToken;
 });
 

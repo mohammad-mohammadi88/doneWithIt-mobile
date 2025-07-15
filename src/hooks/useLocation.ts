@@ -3,19 +3,22 @@ import { useEffect, useState } from "react";
 import { useLocationPermission } from ".";
 import { getLocation } from "@/utilities";
 
-const useLocation = (): UserLocationType => {
-    const [coords, setCoords] = useState<UserLocationType>(undefined);
+const useLocation = (): UserLocationType|undefined => {
+    const [{ latitude, longitude }, setCoords] = useState<UserLocationType>({
+        latitude: undefined,
+        longitude: undefined,
+    });
+    const [islocationReady, setIslocationReady] = useState<boolean>(false);
     const granted = useLocationPermission();
     useEffect(() => {
-        if (granted) getLocation(setCoords);
+        if (granted) getLocation(setCoords, setIslocationReady);
     }, [granted]);
 
-    return (
-        coords && {
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-        }
-    );
+    if (islocationReady)
+        return {
+            latitude,
+            longitude,
+        };
 };
 
 export default useLocation;

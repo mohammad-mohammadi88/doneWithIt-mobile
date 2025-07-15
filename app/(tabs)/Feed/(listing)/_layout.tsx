@@ -7,7 +7,7 @@ const _layout: FC = () => (
         layout={LayoutWithHeader}
         screenOptions={{ contentStyle: { backgroundColor: "#fff" } }}
     >
-        <Stack.Screen name='edit' options={{ title: "Edit Listing" }} />
+        <Stack.Screen name='edit/[id]' options={{ title: "Edit Listing" }} />
     </Stack>
 );
 

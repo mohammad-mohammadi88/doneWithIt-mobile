@@ -1,7 +1,5 @@
 import {
-    Dispatch,
     memo,
-    SetStateAction,
     useLayoutEffect,
     useState,
     type FC,
@@ -16,7 +14,6 @@ const Redirector: FC = () => {
     const [initUri, setInitUri] = useState<"/(tabs)/Feed" | "/welcome" | "">(
         ""
     );
-
 
     useLayoutEffect(() => {
         if (auth?.user) return setInitUri("/(tabs)/Feed");

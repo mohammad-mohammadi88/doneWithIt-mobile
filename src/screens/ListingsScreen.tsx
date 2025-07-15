@@ -3,7 +3,7 @@ import { useEffect, useState, type FC } from "react";
 
 import { AppLottieView, AppButton } from "@Components/AppComponents";
 import type { ListingType } from "@Types/listings";
-import { ListingFilter,Card } from "@/Components";
+import { ListingFilter, Card } from "@/Components";
 import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
 import { ApiResponse } from "apisauce";
@@ -26,22 +26,26 @@ const ListingsScreen: FC<Props> = ({ getListingsApi }) => {
     >(listings);
 
     useEffect(() => {
-        loadListings();
+        loadListings()
     }, []);
 
     const noFilteredListing =
-        !filteredListings?.length && !isLoading && !error ? true : false;
+        listings?.length && !filteredListings?.length && !isLoading && !error
+            ? true
+            : false;
     const canShowListings =
         listings?.length && filteredListings?.length && !isLoading && !error
             ? true
             : false;
     return (
         <>
-            {listings?.length && (
+            {listings?.length ? (
                 <ListingFilter
                     listings={listings}
                     setFilteredListings={setFilteredListings}
                 />
+            ) : (
+                ""
             )}
             <View style={[styles.container, defaultStyles.flexCenter]}>
                 <AppLottieView
@@ -58,7 +62,10 @@ const ListingsScreen: FC<Props> = ({ getListingsApi }) => {
                             item: { title, price, images, isSold, id },
                         }) => (
                             <Card
-                                href={`/Feed/listingDetail?id=${id}`}
+                                href={{
+                                    pathname: "/Feed/listingDetail/[id]",
+                                    params: { id },
+                                }}
                                 imageURL={images[0]?.url}
                                 isSold={isSold}
                                 subTitle={"$" + price}

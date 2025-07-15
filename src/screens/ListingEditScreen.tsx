@@ -18,14 +18,16 @@ const ListingEditScreen: FC = () => {
         ServerCategories | undefined
     >(undefined);
     const [progress, setProgress] = useState<number>(0);
-    const router = useRouter()
+    const router = useRouter();
     const location = useLocation();
-    const { id }: { id: string } = useLocalSearchParams();
-    const listingId = id;
+    const { id:listingId }: { id: string } = useLocalSearchParams();
 
-    const { data:listing, request:getListing, error, isLoading } = useApi<ListingType>(
-        listingApi.getListing
-    );
+    const {
+        data: listing,
+        request: getListing,
+        error,
+        isLoading,
+    } = useApi<ListingType>(listingApi.getListing);
     const { data: categories, request: getCategories } = useApi<
         ServerCategories[]
     >(categoriesApi.getCategories);
@@ -38,10 +40,13 @@ const ListingEditScreen: FC = () => {
     useEffect(() => {
         if (listing?.categoryId)
             setSelectedCategory(
-                categories?.find((category) => listing?.categoryId === category.id)
+                categories?.find(
+                    (category) => listing?.categoryId === category.id
+                )
             );
     }, [listing, categories]);
 
+    if (!location) return null;
     if (isLoading)
         return (
             <AppLottieView
@@ -78,26 +83,30 @@ const ListingEditScreen: FC = () => {
         setModalVisible(true);
         setProgress(0);
 
-        const { ok,data } = await listingsApi.editListing({
+        const { ok, data }: any = await listingsApi.editListing({
             ...value,
-            location,
+            ...location,
             listingId,
             categoryId: value.category.selectedValue,
             setProgress,
         });
 
-        if (ok && typeof data === "object"){
-            setProgress(1);
-            router.push("/(tabs)/Feed")
-        } else {
-            alert("Could not edit your listing\nPlease try again");
+        if (ok) setProgress(1);
+        else {
+            if (data?.error) {
+                if (typeof data.error === "string") alert(data.error);
+                else alert(data.error.join("\n"));
+            } else alert("Could not update your listing");
             setModalVisible(false);
         }
     };
     return (
         <>
             <ProgressScreen
-                onAnimationFinish={() => setModalVisible(false)}
+                onAnimationFinish={() => {
+                    setModalVisible(false);
+                    router.push("/(tabs)/Feed");
+                }}
                 visible={modalVisible}
                 progress={progress}
             />

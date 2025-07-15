@@ -17,48 +17,59 @@ import { ListItemSeparator } from "./ListItem";
 
 interface Props {
     listingId: string;
-    isMyListing:boolean
+    isMyListing: boolean;
 }
 
-const MyListingOption: FC<Props> = ({ listingId,isMyListing }) => {
+const MyListingOption: FC<Props> = ({ listingId, isMyListing }) => {
     const [soldOutModalShow, setSoldOutModalShow] = useState<boolean>(false);
     const [deleteModalShow, setDeleteModalShow] = useState<boolean>(false);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
     const router = useRouter();
 
-
     useLayoutEffect(() => {
         setShowModal(false);
         setDeleteModalShow(false);
-        setSoldOutModalShow(false)
+        setSoldOutModalShow(false);
     }, []);
 
     const handleDelete = async () => {
         setDeleteModalShow(true);
 
-        const { ok } = await listingsApi.deleteListing(listingId, setProgress);
+        const { ok, data }: any = await listingsApi.deleteListing(
+            listingId,
+            setProgress
+        );
 
         if (ok) {
             setProgress(1);
         } else {
-            alert("Could not delete your listing");
+            if (data?.error) {
+                if (typeof data.error === "string") alert(data.error);
+                else alert(data.error.join("\n"));
+            } else alert("Could not save your listing");
             setDeleteModalShow(false);
-            setShowModal(false)
+            setShowModal(false);
         }
     };
 
     const handleSoldOut = async () => {
         setSoldOutModalShow(true);
 
-        const { ok,data } = await listingApi.markAsSoldOut(listingId, setProgress);
+        const { ok, data }: any = await listingApi.markAsSoldOut(
+            listingId,
+            setProgress
+        );
 
         if (ok) {
             setProgress(1);
         } else {
-            alert(data);
+            if (data?.error) {
+                if (typeof data.error === "string") alert(data.error);
+                else alert(data.error.join("\n"));
+            } else alert("Could not save your listing");
             setSoldOutModalShow(false);
-            setShowModal(false)
+            setShowModal(false);
         }
     };
     const listingOption = [
@@ -87,7 +98,10 @@ const MyListingOption: FC<Props> = ({ listingId,isMyListing }) => {
                 label: "Edit Listing",
             },
             onPress: () => {
-                router.navigate(`/Feed/edit?id=${listingId}`);
+                router.navigate({
+                    pathname: "/Feed/edit/[id]",
+                    params: { id: listingId },
+                });
             },
         },
         {
@@ -115,10 +129,10 @@ const MyListingOption: FC<Props> = ({ listingId,isMyListing }) => {
         <View>
             <ProgressScreen
                 onAnimationFinish={(isCanceled) => {
-                    setProgress(0)
+                    setProgress(0);
                     setDeleteModalShow(false);
                     setSoldOutModalShow(false);
-                    setShowModal(false)
+                    setShowModal(false);
                     if (!isCanceled) router.push("/(tabs)/Feed");
                 }}
                 visible={deleteModalShow || soldOutModalShow}

@@ -1,6 +1,4 @@
-import type { LocationType, UserLocationType } from "./globals";
-
-export type ImageType = Record<"url" | "thumbnailUrl", string>;
+export type ImageType = Record<"url", string>;
 
 export interface ListingType {
     id: string;
@@ -9,7 +7,8 @@ export interface ListingType {
     price: number;
     categoryId: number;
     userId: number;
-    location?: LocationType;
+    latitude?:number;
+    longitude?:number;
     isSold:boolean;
     description: string;
 }
@@ -19,13 +18,13 @@ export type AddListingType = {
     price: string | number;
     description: string;
     images: ChangeListingImageType[]
-    location?: UserLocationType,
+    latitude?:number;
+    longitude?:number;
     categoryId: number,
     setProgress: (progress: number) => void
 }
 
-export type ListingParamsType = Omit<ListingType, "images" | "location"> & {
-    location?: string;
+export type ListingParamsType = Omit<ListingType, "images"> & {
     images: string;
 };
 

@@ -5,14 +5,20 @@ const endpoint = "messages/";
 
 const getMessages = () => apiClient.get<MessageType[]>(endpoint);
 
+const getMessageWithId = (id: string) =>
+    apiClient.get<MessageType>(endpoint + id);
+
 const deleteMessage = (messageId: number) =>
     apiClient.delete(endpoint + messageId);
 
-const sendMessage = (message: string, listingId: string) =>
-    apiClient.post(endpoint, { message, listingId });
+const sendMessage = (
+    content: string,
+    data: { userId: string | number } | { listingId: string | number }
+) => apiClient.post(endpoint, { content, ...data });
 
 export default {
     deleteMessage,
     getMessages,
-    sendMessage
+    getMessageWithId,
+    sendMessage,
 };

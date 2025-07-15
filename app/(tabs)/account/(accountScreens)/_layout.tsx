@@ -5,7 +5,7 @@ import { LayoutWithHeader } from "@/Components";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const Layout: FC = () => {
-    const tabbarHeight = useBottomTabBarHeight()
+    const tabbarHeight = useBottomTabBarHeight();
     return (
         <Stack
             screenOptions={{
@@ -14,9 +14,14 @@ const Layout: FC = () => {
                 statusBarHidden: true,
             }}
             layout={({ children }) => (
-                <LayoutWithHeader tabbarHeight={tabbarHeight}>{children}</LayoutWithHeader>
+                <LayoutWithHeader tabbarHeight={tabbarHeight}>
+                    {children}
+                </LayoutWithHeader>
             )}
         >
+            <Stack.Screen name="message" options={{
+                headerShown: false
+            }}/>
             <Stack.Screen
                 name='myMessages'
                 options={{
@@ -27,7 +32,6 @@ const Layout: FC = () => {
                 name='myListings'
                 options={{
                     title: "My Listings",
-                    
                 }}
             />
         </Stack>

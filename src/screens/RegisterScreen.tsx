@@ -6,8 +6,8 @@ import { RegisterFormLogic } from "@Components/FormsLogic";
 import { AppLottieView } from "@Components/AppComponents";
 import type { RegisterInterface } from "@Types/Forms";
 import { Overlay } from "@/Components";
-import { usersApi } from "@/APIs";
 import { useAuth } from "@/hooks";
+import { authApi } from "@/APIs";
 
 const RegisterScreen: FC = () => {
     const [registerError, setRegisterError] = useState<string[]>([]);
@@ -23,7 +23,7 @@ const RegisterScreen: FC = () => {
         setRegisterError([]);
         setIsLoading(true);
         const error = await auth?.registerOrLogin(() =>
-            usersApi.registerUser(data)
+            authApi.register(data)
         );
         error?.map((e) => setRegisterError((c) => [...c, e]));
         setIsLoading(false);

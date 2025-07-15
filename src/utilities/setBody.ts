@@ -7,7 +7,8 @@ const setBody = ({
     images,
     price,
     title,
-    location,
+    latitude,
+    longitude,
 }: Omit<AddListingType, "setProgress">) => {
     const data = new FormData();
     data.append("title", title);
@@ -15,7 +16,8 @@ const setBody = ({
     data.append("price", String(price));
     data.append("categoryId", String(categoryId));
 
-    if (location) data.append("location", JSON.stringify(location));
+    if (latitude) data.append("latitude", String(latitude));
+    if (longitude) data.append("longitude", String(longitude));
 
     const imageList: any[] = images.map(({ uri, mimeType }) => ({
         name: nanoid() + ".jpg",
@@ -26,6 +28,6 @@ const setBody = ({
     imageList.forEach((image) => {
         data.append("images", image);
     });
-    return data
+    return data;
 };
-export default setBody
+export default setBody;

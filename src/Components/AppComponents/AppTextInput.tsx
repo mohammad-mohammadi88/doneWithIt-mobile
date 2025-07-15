@@ -1,8 +1,5 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import type { Dispatch, FC, SetStateAction } from 'react';
-import type { IconNamesType } from '@Types/globals';
-import defaultStyles from '@Constants/styles';
-import colors from '@Constants/colors';
+import type { FC } from 'react';
 import {
     type TextInputProps,
     type StyleProp,
@@ -11,6 +8,10 @@ import {
     TextInput,
     View,
 } from 'react-native';
+
+import type { IconNamesType } from '@Types/globals';
+import defaultStyles from '@Constants/styles';
+import colors from '@Constants/colors';
 
 interface Props {
     extraContainerStyle?: StyleProp<ViewStyle>,

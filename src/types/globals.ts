@@ -26,9 +26,10 @@ export interface SelectedOption {
     selectedValue: number;
 }
 
-export type LocationType = Record<"longitude" | "latitude", number | undefined>;
-
-export type UserLocationType = LocationType | undefined;
+export interface UserLocationType{
+    latitude?:number;
+    longitude?:number;
+}
 
 export interface ListItemProps extends PressableProps {
     image?: any;

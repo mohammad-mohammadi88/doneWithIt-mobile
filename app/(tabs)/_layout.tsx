@@ -16,8 +16,7 @@ const Layout: FC = () => {
                 tabBarStyle: {
                     borderTopRightRadius: 25,
                     borderTopLeftRadius: 25,
-                    // height: 65,
-                    // bottom: 0
+                    height: 70,
                 },
                 tabBarButton: ({ children, android_ripple, ...props }) => {
                     return (

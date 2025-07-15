@@ -64,13 +64,17 @@ const ListingDetailsScreen: FC = () => {
     if (userListItemProps && !isMyListing)
         userListItemProps.onPress = () => setShowSendMessage((c) => !c);
 
+    const isLocation = listing.latitude && listing.longitude;
     return (
         <View>
             <MyListingOption isMyListing={isMyListing} listingId={id} />
             <Pressable
                 onPress={() =>
                     imageSource?.uri &&
-                    router.navigate(`/Feed/viewImage?id=${id}`)
+                    router.navigate({
+                        pathname: "/Feed/viewImage/[id]",
+                        params: { id },
+                    })
                 }
             >
                 <Image
@@ -86,16 +90,29 @@ const ListingDetailsScreen: FC = () => {
                     {capitalize(listing.title)}
                 </Text>
                 <Text style={styles.price}>${listing.price}</Text>
+                {listing.description && (
+                    <Text style={styles.description}>
+                        {listing.description}
+                    </Text>
+                )}
                 {userListItemProps && (
                     <View style={styles.userContainer}>
                         <ListItem {...userListItemProps} />
                     </View>
                 )}
             </View>
-            <SendMessage listingId={listing.id} visible={canSendMessage} />
-            {listing.location && <LocationMap {...listing.location} />}
-            {!listing.location && (
-                <View style={[defaultStyles.flexCenter,{marginTop:30}]}>
+            <SendMessage
+                listingId={listing.id}
+                visible={canSendMessage}
+                setVisible={setShowSendMessage}
+            />
+            {isLocation ? (
+                <LocationMap
+                    latitude={listing.latitude}
+                    longitude={listing.longitude}
+                />
+            ) : (
+                <View style={[defaultStyles.flexCenter, { marginTop: 30 }]}>
                     <AppErrorMessage
                         error="We don't have listing's location"
                         size={24}
@@ -107,6 +124,10 @@ const ListingDetailsScreen: FC = () => {
 };
 
 const styles = StyleSheet.create({
+    description: {
+        fontSize: 16,
+        marginTop: 10,
+    },
     image: {
         width: "100%",
         height: 250,
@@ -127,7 +148,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     userContainer: {
-        marginTop: 40,
+        marginTop: 30,
         width: "100%",
     },
 });
