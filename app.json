@@ -4,6 +4,7 @@
         "slug": "Sell-everything-you-are-done-with",
         "version": "1.0.0",
         "orientation": "portrait",
+        "jsEngine": "hermes",
         "userInterfaceStyle": "light",
         "scheme": "shopy",
         "githubUrl": "https://github.com/mohammad-mohammadi88/doneWithIt-mobile",

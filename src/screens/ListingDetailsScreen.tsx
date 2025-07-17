@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useState, type FC } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Image } from "expo-image";
 
@@ -66,7 +66,7 @@ const ListingDetailsScreen: FC = () => {
 
     const isLocation = listing.latitude && listing.longitude;
     return (
-        <View>
+        <ScrollView style={styles.container}>
             <MyListingOption isMyListing={isMyListing} listingId={id} />
             <Pressable
                 onPress={() =>
@@ -119,11 +119,14 @@ const ListingDetailsScreen: FC = () => {
                     />
                 </View>
             )}
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        marginBottom: 20,
+    },
     description: {
         fontSize: 16,
         marginTop: 10,
