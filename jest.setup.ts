@@ -17,6 +17,10 @@ jest.mock("expo-location", () => ({
     getCurrentPositionAsync: jest.fn(),
 }));
 
+jest.mock("expo-image", () => ({
+    Image: jest.fn(),
+}));
+
 jest.mock("expo-image-picker", () => ({
     launchImageLibraryAsync: jest.fn(),
     PermissionStatus: {
@@ -27,11 +31,12 @@ jest.mock("expo-image-picker", () => ({
 }));
 
 jest.mock("expo-router", () => ({
+    useLocalSearchParams: jest.fn().mockImplementation(() => ({ id: "1" })),
     Redirect: jest.fn(),
-    useRouter: () => ({
+    useRouter: jest.fn().mockImplementation(() => ({
         push: jest.fn(),
         navigate: jest.fn(),
-    }),
+    })),
 }));
 
 jest.mock("@expo/vector-icons", () => ({
@@ -105,4 +110,5 @@ jest.mock("@/hooks", () => ({
     useApi: jest.fn(),
 }));
 
-import "@testing-library/jest-native/extend-expect";
+import "@testing-library/jest-native/extend-expect";import { Image } from "react-native";
+

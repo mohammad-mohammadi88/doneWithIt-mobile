@@ -26,8 +26,7 @@ const AccountScreen: FC = () => {
         {
             id: 1,
             title: "My Listings",
-            onPress: () =>
-                router.navigate("/(tabs)/account/(accountScreens)/myListings"),
+            onPress: () => router.navigate("/account/myListings"),
             icon: {
                 name: "format-list-bulleted",
                 backgroundColor: colors.primary,
@@ -36,8 +35,7 @@ const AccountScreen: FC = () => {
         {
             id: 2,
             title: "My Messages",
-            onPress: () =>
-                router.navigate("/(tabs)/account/(accountScreens)/myMessages"),
+            onPress: () => router.navigate("/account/myMessages"),
             icon: {
                 name: "email",
                 backgroundColor: colors.secondary,

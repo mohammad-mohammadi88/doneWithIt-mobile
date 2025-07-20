@@ -25,8 +25,8 @@ const ViewImageScreen: FC = () => {
                     renderItem={({ item }) => (
                         <Image
                             contentFit='contain'
-                            source={{ uri: item.url }}
                             style={styles.image}
+                            source={{ uri: item.url }}
                         />
                     )}
                     keyExtractor={({ url }) => url}
@@ -39,7 +39,7 @@ const ViewImageScreen: FC = () => {
     );
 };
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get("screen");
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#000",
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     image: {
         zIndex: 8,
         width,
+        flex: 1,
     },
 });
 
