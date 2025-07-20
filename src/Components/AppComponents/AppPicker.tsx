@@ -20,6 +20,7 @@ import type { SelectedOption, SelectOptionInterface } from "@Types/globals";
 import colors, { grayPressAction } from "@Constants/colors";
 import { AppPressable, PickerOption } from ".";
 import defaultStyles from "@Constants/styles";
+
 interface Props {
     setSelectedItem: Dispatch<SetStateAction<SelectedOption>> | any;
     ItemSeparatorComponent?: ComponentType;
@@ -48,8 +49,7 @@ const AppPicker: FC<Props> = ({
         setSelectedItem(selected);
         setIsModalVisible(false);
     };
-    const isItemSelected =
-        selectedItem && selectedItem?.selectedValue > 0;
+    const isItemSelected = selectedItem && selectedItem?.selectedValue > 0;
     const placeholderColor = {
         color: isItemSelected ? colors.dark : colors.medium,
     };
@@ -68,6 +68,7 @@ const AppPicker: FC<Props> = ({
                         size={28}
                     />
                     <Text
+                        accessibilityLabel='selectedLabel'
                         numberOfLines={2}
                         style={[
                             styles.placeholder,
@@ -87,9 +88,16 @@ const AppPicker: FC<Props> = ({
                     />
                 </AppPressable>
             </View>
-            <Modal visible={isModalVisible} animationType='slide'>
+            <Modal
+                visible={isModalVisible}
+                accessibilityLabel='pickerModal'
+                animationType='slide'
+            >
                 <View style={styles.modalContainer}>
-                    <AppPressable onPress={() => setIsModalVisible(false)}>
+                    <AppPressable
+                        accessibilityLabel='closeButton'
+                        onPress={() => setIsModalVisible(false)}
+                    >
                         <MaterialCommunityIcons name='close' size={30} />
                     </AppPressable>
                     <View>

@@ -1,7 +1,8 @@
-import defaultStyles from "@/constants/styles";
 import LottieView, { LottieViewProps } from "lottie-react-native";
-import type { FC } from "react";
 import { View } from "react-native";
+import type { FC } from "react";
+
+import defaultStyles from "@Constants/styles";
 
 interface Props extends Omit<LottieViewProps, "autoPlay"> {
     isCenter?: boolean;
@@ -25,6 +26,7 @@ const AppLottieView: FC<Props> = ({
                 width: size,
                 backgroundColor: "transparent",
             }}
+            testID="lottieAnimation"
             {...props}
         />
     );

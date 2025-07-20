@@ -26,7 +26,7 @@ const ListingsScreen: FC<Props> = ({ getListingsApi }) => {
     >(listings);
 
     useEffect(() => {
-        loadListings()
+        loadListings();
     }, []);
 
     const noFilteredListing =

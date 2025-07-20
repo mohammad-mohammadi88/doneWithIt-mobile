@@ -1,10 +1,10 @@
+import type { ApiResponse } from "apisauce";
 import { jwtDecode } from "jwt-decode";
 import { Alert } from "react-native";
 import { useContext } from "react";
 
 import authStorage from "@/auth/authStorage";
 import type { UserType } from "@Types/user";
-import { ApiResponse } from "apisauce";
 import { User } from "@/auth/Context";
 
 const useAuth = () => {

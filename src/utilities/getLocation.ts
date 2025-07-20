@@ -7,17 +7,14 @@ const getLocation = async (
     setCoords: Dispatch<SetStateAction<UserLocationType>>,
     setIslocationReady: Dispatch<SetStateAction<boolean>>
 ) => {
-    const handleLocation = async () => {
     try {
-            const coords = (await Location.getLastKnownPositionAsync())?.coords;
-            if (coords && coords.latitude && coords.longitude) {
-                const { latitude, longitude } = coords;
-                setCoords({ latitude, longitude })
-                return setIslocationReady(true);
-            }
-        } catch (e) {return setIslocationReady(true)}
-    };
-    handleLocation()
+        const coords = (await Location.getCurrentPositionAsync())?.coords;
+        if (coords && coords.latitude && coords.longitude) {
+            const { latitude, longitude } = coords;
+            setCoords({ latitude, longitude });
+        }
+    } catch (e) {}
+    return setIslocationReady(true);
 };
 
 export default getLocation;

@@ -5,8 +5,8 @@ import { Redirect } from "expo-router";
 
 import type { SelectOptionInterface } from "@Types/globals";
 import FormPickerOption from "../form/FormPickerOption";
-import { useApi, useMediaPermission } from "@/hooks";
 import { maxImageCount } from "@Constants/defaults";
+import { useApi, useMediaPermission } from "@/hooks";
 import defaultStyles from "@Constants/styles";
 import { categoriesApi } from "@/APIs";
 import {
@@ -72,7 +72,7 @@ const ListingChangeLogic: FC = () => {
                 name='title'
                 placeholder='Title'
             />
-            
+
             <AppFormField
                 name='price'
                 useRegex={/^(?:\d+|\d+\.|\d+\.+\d|\d+\.+\d\d)?$/}

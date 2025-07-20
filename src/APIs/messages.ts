@@ -8,7 +8,7 @@ const getMessages = () => apiClient.get<MessageType[]>(endpoint);
 const getMessageWithId = (id: string) =>
     apiClient.get<MessageType>(endpoint + id);
 
-const deleteMessage = (messageId: number) =>
+const deleteMessage = (messageId: number|string) =>
     apiClient.delete(endpoint + messageId);
 
 const sendMessage = (

@@ -1,14 +1,15 @@
+import { useFormikContext } from "formik";
+import type { FC } from "react";
 import {
     StyleSheet,
     View,
     type DimensionValue,
     type TextInputProps,
 } from "react-native";
+
 import { AppTextInput } from "../AppComponents";
 import AppErrorMessage from "./AppErrorMessage";
 import { IconNamesType } from "@Types/globals";
-import { useFormikContext } from "formik";
-import type { FC } from "react";
 
 interface Props {
     name: string;

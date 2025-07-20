@@ -12,7 +12,7 @@ import type { ListingUserInfo } from "@Types/user";
 import defaultStyles from "@Constants/styles";
 import { listingApi, userApi } from "@/APIs";
 import ListItem from "@Components/ListItem";
-import { useApi, useAuth } from "@/hooks";
+import { useAuth, useApi } from "@/hooks";
 import { capitalize } from "@/utilities";
 import colors from "@Constants/colors";
 

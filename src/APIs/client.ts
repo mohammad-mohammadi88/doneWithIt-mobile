@@ -2,7 +2,7 @@ import { serverUri as baseURL } from "@Constants/defaults";
 import { ApiResponse, create } from "apisauce";
 import authStorage from "@/auth/authStorage";
 import { AxiosRequestConfig } from "axios";
-import { cache } from "@/utilities";
+import cache from "@/utilities/cache";
 
 const apiClient = create({ baseURL });
 

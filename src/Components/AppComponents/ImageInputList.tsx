@@ -5,7 +5,7 @@ import type { ChangeListingImageType } from "@Types/listings";
 import ImageInput from "./ImageInput";
 
 interface Props {
-    ImageUris?: string[];
+    ImageUris: string[];
     onRemove: (image: ChangeListingImageType) => void;
     onAdd: (image: ChangeListingImageType) => void;
     maxImageCount?: number;
@@ -15,8 +15,7 @@ const ImageInputList: FC<Props> = ({
     ImageUris = [],
     maxImageCount,
     onAdd,
-    onRemove,
-    ...props
+    onRemove
 }) => {
     const scrollView = useRef<ScrollView>(null);
     const imageCondition =
@@ -34,12 +33,11 @@ const ImageInputList: FC<Props> = ({
                             <ImageInput
                                 onChangeImage={onRemove}
                                 imageUri={uri}
-                                {...props}
                             />
                         </View>
                     ))}
                     {imageCondition && (
-                        <ImageInput onChangeImage={onAdd} {...props} />
+                        <ImageInput onChangeImage={onAdd} />
                     )}
                 </View>
             </ScrollView>

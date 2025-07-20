@@ -6,20 +6,22 @@ import colors from "@Constants/colors";
 import { listingApi } from "@/APIs";
 import { useApi } from "@/hooks";
 
-interface Props{
-    listingId:number
+interface Props {
+    listingId: number;
 }
-const ListingNameNavbar: FC<Props> = ({listingId}) => {
-    console.log("🚀 ~ listingId:", listingId)
+const ListingNameNavbar: FC<Props> = ({ listingId }) => {
     const { error, isLoading, data, request } = useApi(listingApi.getListing);
-    console.log("🚀 ~ error:", error)
-    console.log("🚀 ~ data:", data)
     useLayoutEffect(() => {
         request<number>(listingId);
     }, []);
 
     if (error)
-        Alert.alert("Error", typeof error === "string" ? error : "Something went wrong while getting listing name");
+        Alert.alert(
+            "Error",
+            typeof error === "string"
+                ? error
+                : "Something went wrong while getting listing name"
+        );
     return (
         <View style={[styles.container, defaultStyles.flexCenter]}>
             <Text numberOfLines={2} style={[styles.notice, defaultStyles.font]}>

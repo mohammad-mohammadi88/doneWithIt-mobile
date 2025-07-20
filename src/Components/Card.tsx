@@ -1,7 +1,13 @@
-import { ImageSourcePropType, Pressable, StyleSheet, Text, View } from "react-native";
-import { useState, type FC } from "react";
 import { Href, useRouter } from "expo-router";
+import { useState, type FC } from "react";
 import { Image } from "expo-image";
+import {
+    ImageSourcePropType,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 
 import defaultStyles from "@Constants/styles";
 import { capitalize } from "@/utilities";
@@ -17,29 +23,28 @@ interface Props {
 }
 
 const Card: FC<Props> = ({ title, subTitle, imageURL, isSold, href }) => {
-    const router = useRouter()
+    const router = useRouter();
     const [imageSource, setImageSource] = useState<ImageSourcePropType>({
         uri: imageURL,
     });
-    const cardInner = (
-        <>
-            <Image
-                style={styles.image}
-                source={imageSource}
-                onError={() =>
-                    setImageSource(require("@Images/notfoundImage.png"))
-                }
-            />
-            <View style={styles.infoContainer}>
-                <Text style={styles.title} numberOfLines={2}>{capitalize(title)}</Text>
-                <Text style={styles.subTitle}>{subTitle}</Text>
-            </View>
-        </>
-    );
     return (
         <View style={styles.card}>
             <SoldOutMark isSold={isSold} />
-            {href && !isSold ? <Pressable onPress={() => router.push(href)}>{cardInner}</Pressable> : cardInner}
+            <Pressable onPress={() => router.push(href)}>
+                <Image
+                    style={styles.image}
+                    source={imageSource}
+                    onError={() =>
+                        setImageSource(require("@Images/notfoundImage.png"))
+                    }
+                />
+                <View style={styles.infoContainer}>
+                    <Text style={styles.title} numberOfLines={2}>
+                        {capitalize(title)}
+                    </Text>
+                    <Text style={styles.subTitle}>{subTitle}</Text>
+                </View>
+            </Pressable>
         </View>
     );
 };

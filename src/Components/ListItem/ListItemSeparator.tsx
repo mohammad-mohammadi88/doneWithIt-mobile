@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
-import colors from '@Constants/colors';
 import type { FC } from 'react';
+
+import colors from '@Constants/colors';
 
 const ListItemSeparator: FC<{ bgc?: string }> = ({ bgc = colors.lightGray }) => 
     <View style={[ styles.ItemSeparator, { backgroundColor: bgc } ]} />

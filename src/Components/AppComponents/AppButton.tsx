@@ -1,8 +1,9 @@
 import { ColorValue, StyleSheet, Text, ViewStyle } from "react-native";
+import type { FC } from "react";
+
 import colors, { grayPressAction } from "@Constants/colors";
 import defaultStyles from "@Constants/styles";
 import AppPressable from "./AppPressable";
-import type { FC } from "react";
 
 interface Props {
     BtnStyle?: ViewStyle;

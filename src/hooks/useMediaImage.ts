@@ -1,10 +1,11 @@
 import { type ImagePickerAsset, PermissionStatus } from "expo-image-picker";
+
+import useMediaPermission from "./useMediaPermission";
 import { selectImage } from "@/utilities";
-import { useMediaPermission } from ".";
 
 interface Return{
     permissionStatus: PermissionStatus,
-    luanchImage: (() => Promise<{
+    launchImage: (() => Promise<{
         assets: ImagePickerAsset | {
             uri: string;
             mimeType: string
@@ -16,7 +17,7 @@ const useMediaImage = ():Return => {
     const permissionStatus = useMediaPermission();
     return {
         permissionStatus,
-        luanchImage: permissionStatus === PermissionStatus.GRANTED ? selectImage : null,
+        launchImage: permissionStatus === PermissionStatus.GRANTED ? selectImage : null,
     };
 };
 

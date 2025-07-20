@@ -1,5 +1,5 @@
-import { initialPressAction } from '@Constants/colors';
-import type { FC } from 'react';
+import { initialPressAction } from "@Constants/colors";
+import type { FC } from "react";
 import {
     PressableAndroidRippleConfig,
     type PressableProps,
@@ -7,21 +7,27 @@ import {
     type ViewStyle,
     Pressable,
     Platform,
-} from 'react-native';
+} from "react-native";
 
-interface AppPressableProps {
-    style?: StyleProp<ViewStyle>,
+interface AppPressableProps extends Omit<PressableProps, "android_ripple"> {
+    style?: StyleProp<ViewStyle>;
     pressAction?: {
-        android_ripple: PressableAndroidRippleConfig,
-        highlightColor: string
-    }
+        android_ripple: PressableAndroidRippleConfig;
+        highlightColor: string;
+    };
 }
-const AppPressable: FC<AppPressableProps & PressableProps> = ({ children, style, pressAction = initialPressAction, ...props }) => {
+const AppPressable: FC<AppPressableProps> = ({
+    children,
+    style,
+    pressAction = initialPressAction,
+    ...props
+}) => {
     const { highlightColor, android_ripple } = pressAction;
     const handleStyle = ({ pressed }: { pressed: boolean }) => [
         style,
-        pressed && Platform.OS !== "android" && { backgroundColor: highlightColor }
-    ]
+        pressed &&
+            Platform.OS !== "android" && { backgroundColor: highlightColor },
+    ];
     return (
         <Pressable
             android_ripple={android_ripple}
@@ -30,7 +36,7 @@ const AppPressable: FC<AppPressableProps & PressableProps> = ({ children, style,
         >
             {children}
         </Pressable>
-    )
-}
+    );
+};
 
-export default AppPressable
+export default AppPressable;

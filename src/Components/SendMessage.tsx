@@ -1,5 +1,5 @@
-import { Alert, StyleSheet, View } from "react-native";
 import { useState, type FC, type Dispatch, type SetStateAction } from "react";
+import { Alert, StyleSheet, View } from "react-native";
 
 import { AppButton, AppLottieView, AppTextInput } from "./AppComponents";
 import { useIsOffline } from "@/hooks";
@@ -32,11 +32,11 @@ const SendMessage: FC<Props> = ({ listingId, userId, setVisible, visible }) => {
 
         if (ok) Alert.alert("Sent", "Your Message Sent", [{ text: "ok" }]);
         else {
-            console.log(data);
             if (data?.error) {
-                if (typeof data.error === "string") alert(data.error);
-                else alert(data.error.join("\n"));
-            } else alert("Could not update your listing");
+                if (typeof data.error === "string")
+                    Alert.alert("Error", data.error);
+                else Alert.alert("Error", data.error.join("\n"));
+            } else Alert.alert("Error", "Could not update your listing");
         }
 
         setMessage("");
@@ -54,7 +54,7 @@ const SendMessage: FC<Props> = ({ listingId, userId, setVisible, visible }) => {
             <View style={styles.container}>
                 <AppTextInput
                     value={message}
-                    setValue={text=>setMessage(text.trim())}
+                    setValue={setMessage}
                     placeholder='Send Message...'
                 />
                 <AppButton onPress={handleMessage} title='send message' />

@@ -9,9 +9,11 @@
             "@Images/*": ["./src/assets/images/*"],
             "@Animations/*": ["./src/assets/animations/*"],
             "@Constants/*": ["./src/constants/*"],
+            "@Hooks/*": ["./src/hooks/*"],
             "@Screens/*": ["./src/screens/*"],
             "@Types/*": ["./src/types/*"],
+            "@Tests/*": ["./src/__tests__/*","./src/__tests__/integration/*"]
         }
     },
-    "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+    "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "jest.config.js", "babel.config.js"]
 }

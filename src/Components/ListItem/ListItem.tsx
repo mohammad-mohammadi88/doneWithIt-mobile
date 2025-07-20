@@ -1,57 +1,42 @@
+import { Image, StyleSheet, Text, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import React, { memo, type FC } from "react";
-import {
-    Image,
-    StyleSheet,
-    Text,
-    View,
-} from "react-native";
+import { memo, type FC } from "react";
 
+import type { ListItemProps } from "@Types/globals";
 import { AppPressable } from "../AppComponents";
 import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
-import type { ListItemProps } from "@Types/globals";
 
 const ListItem: FC<ListItemProps> = ({
     ImageReplaceComponent,
-    pressAction,
     style = {},
     subTitle,
     title,
     image,
     ...props
-}) => {
-    return (
-        <AppPressable
-            pressAction={pressAction}
-            style={[styles.item, style]}
-            {...props}
-        >
-            {ImageReplaceComponent && <ImageReplaceComponent />}
-            {image && <Image style={styles.image} source={image} />}
-            <View style={styles.infoContainer}>
-                <Text
-                    numberOfLines={1}
-                    style={[defaultStyles.font, styles.title]}
-                >
-                    {title}
+}) => (
+    <AppPressable style={[styles.item, style]} {...props}>
+        {ImageReplaceComponent && <ImageReplaceComponent />}
+        {image && <Image style={styles.image} source={image} />}
+        <View style={styles.infoContainer}>
+            <Text numberOfLines={1} style={[defaultStyles.font, styles.title]}>
+                {title}
+            </Text>
+            {subTitle && (
+                <Text numberOfLines={1} style={styles.subTitle}>
+                    {subTitle}
                 </Text>
-                {subTitle && (
-                    <Text numberOfLines={1} style={styles.subTitle}>
-                        {subTitle}
-                    </Text>
-                )}
-            </View>
-            {props.onPress && (
-                <MaterialIcons
-                    name='chevron-right'
-                    size={25}
-                    color={colors.medium}
-                />
             )}
-        </AppPressable>
-    );
-};
+        </View>
+        {props.onPress && (
+            <MaterialIcons
+                name='chevron-right'
+                size={25}
+                color={colors.medium}
+            />
+        )}
+    </AppPressable>
+);
 
 const styles = StyleSheet.create({
     item: {

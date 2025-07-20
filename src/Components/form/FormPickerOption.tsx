@@ -1,9 +1,10 @@
+import { StyleSheet, Text } from 'react-native';
+import type { FC } from 'react';
+
 import type { IconNamesType } from '@Types/globals';
 import { grayPressAction } from '@Constants/colors';
-import { StyleSheet, Text } from 'react-native';
 import { AppPressable } from '../AppComponents';
 import defaultStyles from '@Constants/styles';
-import type { FC } from 'react';
 import Icon from '../Icon';
 
 interface Props{

@@ -1,5 +1,5 @@
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import type { FC } from 'react';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import type { FC } from "react";
 import {
     type TextInputProps,
     type StyleProp,
@@ -7,17 +7,17 @@ import {
     StyleSheet,
     TextInput,
     View,
-} from 'react-native';
+} from "react-native";
 
-import type { IconNamesType } from '@Types/globals';
-import defaultStyles from '@Constants/styles';
-import colors from '@Constants/colors';
+import type { IconNamesType } from "@Types/globals";
+import defaultStyles from "@Constants/styles";
+import colors from "@Constants/colors";
 
 interface Props {
-    extraContainerStyle?: StyleProp<ViewStyle>,
-    setValue: (text:string) => void,
-    placeholder?: string,
-    icon?: IconNamesType,
+    extraContainerStyle?: StyleProp<ViewStyle>;
+    setValue: (text: string) => void;
+    placeholder?: string;
+    icon?: IconNamesType;
 }
 
 const AppTextInput: FC<Props & TextInputProps> = ({
@@ -27,17 +27,22 @@ const AppTextInput: FC<Props & TextInputProps> = ({
     style,
     ...props
 }) => (
-    <View style={[ styles.container, extraContainerStyle ]}>
-        {icon && <MaterialCommunityIcons name={icon} color={colors.medium} size={25} />}
+    <View style={[styles.container, extraContainerStyle]}>
+        {icon && (
+            <MaterialCommunityIcons
+                name={icon}
+                color={colors.medium}
+                size={25}
+            />
+        )}
         <TextInput
             clearButtonMode='always'
-            onChangeText={setValue}
-            style={[ styles.input, style ]}
+            onChangeText={(text) => setValue(text.trim())}
+            style={[styles.input, style]}
             {...props}
         />
     </View>
-)
-
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -48,15 +53,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 2,
         marginVertical: 10,
-        
     },
     input: {
         fontSize: 18,
         flex: 1,
         color: colors.dark,
         fontFamily: defaultStyles.font.fontFamily,
-        marginLeft: 5
-    }
-})
+        marginLeft: 5,
+    },
+});
 
-export default AppTextInput
+export default AppTextInput;

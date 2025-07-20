@@ -45,9 +45,9 @@ const MyListingOption: FC<Props> = ({ listingId, isMyListing }) => {
             setProgress(1);
         } else {
             if (data?.error) {
-                if (typeof data.error === "string") alert(data.error);
-                else alert(data.error.join("\n"));
-            } else alert("Could not save your listing");
+                if (typeof data.error === "string") Alert.alert("Error",data.error);
+                else Alert.alert("Error",data.error.join("\n"));
+            } else Alert.alert("Error","Could not save your listing");
             setDeleteModalShow(false);
             setShowModal(false);
         }
@@ -65,9 +65,9 @@ const MyListingOption: FC<Props> = ({ listingId, isMyListing }) => {
             setProgress(1);
         } else {
             if (data?.error) {
-                if (typeof data.error === "string") alert(data.error);
-                else alert(data.error.join("\n"));
-            } else alert("Could not save your listing");
+                if (typeof data.error === "string") Alert.alert("Error",data.error);
+                else Alert.alert("Error",data.error.join("\n"));
+            } else Alert.alert("Error","Could not save your listing");
             setSoldOutModalShow(false);
             setShowModal(false);
         }
@@ -98,7 +98,7 @@ const MyListingOption: FC<Props> = ({ listingId, isMyListing }) => {
                 label: "Edit Listing",
             },
             onPress: () => {
-                router.navigate({
+                router.push({
                     pathname: "/Feed/edit/[id]",
                     params: { id: listingId },
                 });
@@ -141,6 +141,7 @@ const MyListingOption: FC<Props> = ({ listingId, isMyListing }) => {
             <Pressable
                 style={styles.container}
                 onPress={() => setShowModal(true)}
+                accessibilityLabel="openModal"
             >
                 <MaterialCommunityIcons
                     color={"white"}
@@ -149,9 +150,9 @@ const MyListingOption: FC<Props> = ({ listingId, isMyListing }) => {
                     size={35}
                 />
             </Pressable>
-            <Modal visible={showModal} animationType='slide'>
+            <Modal visible={showModal} accessibilityLabel="optionsModal" animationType='slide'>
                 <View style={styles.modal}>
-                    <AppPressable onPress={() => setShowModal(false)}>
+                    <AppPressable accessibilityLabel="hideModal" onPress={() => setShowModal(false)}>
                         <MaterialCommunityIcons name='close' size={30} />
                     </AppPressable>
                     <View>

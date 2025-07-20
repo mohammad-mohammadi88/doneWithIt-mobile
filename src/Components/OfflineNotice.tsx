@@ -6,20 +6,14 @@ import defaultStyles from "@Constants/styles";
 import colors from "@Constants/colors";
 import { useIsOffline } from "@/hooks";
 
-
-const OfflineNotice: FC = () => {
-    const isOffline = useIsOffline();
-
-    if (isOffline)
-        return (
-            <View style={[styles.container, defaultStyles.flexCenter]}>
-                <Text style={[styles.notice, defaultStyles.font]}>
-                    No Internet Connection
-                </Text>
-            </View>
-        );
-    return null;
-};
+const OfflineNotice: FC = () =>
+    useIsOffline() ? (
+        <View style={[styles.container, defaultStyles.flexCenter]}>
+            <Text style={[styles.notice, defaultStyles.font]}>
+                No Internet Connection
+            </Text>
+        </View>
+    ) : null;
 
 const styles = StyleSheet.create({
     container: {

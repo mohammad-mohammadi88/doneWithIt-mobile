@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import defaultStyles from '@Constants/styles';
 import type { FC } from 'react';
+
+import defaultStyles from '@Constants/styles';
 
 const LogoContainer: FC = () => (
     <View style={styles.logoContainer}>

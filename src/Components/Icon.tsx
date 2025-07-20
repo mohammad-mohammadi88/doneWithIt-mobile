@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import type { FC } from "react";
 
 import type { IconNamesType } from "@Types/globals";
+import defaultStyles from "@/constants/styles";
 
 interface Props {
     backgroundColor: string;
@@ -10,7 +11,7 @@ interface Props {
     iconColor?: string;
     size: number;
     style?: ViewStyle;
-    onPress?:()=>void
+    onPress?: () => void;
 }
 
 const Icon: FC<Props> = ({
@@ -27,13 +28,15 @@ const Icon: FC<Props> = ({
             height: size,
             borderRadius: size / 2,
             backgroundColor,
-            justifyContent: "center",
-            alignItems: "center",
         },
     });
-    const Container = onPress ? Pressable : View
+    const Container = onPress ? Pressable : View;
     return (
-        <Container onPress={onPress} style={[styles.iconContainer, style]}>
+        <Container
+            accessibilityLabel='IconContainer'
+            onPress={onPress}
+            style={[styles.iconContainer, style, defaultStyles.flexCenter]}
+        >
             <MaterialCommunityIcons
                 name={icon}
                 size={size / 2}

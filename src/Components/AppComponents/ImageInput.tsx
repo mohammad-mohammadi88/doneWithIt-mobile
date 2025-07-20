@@ -14,16 +14,16 @@ interface Props {
     onChangeImage: (image: ChangeListingImageType) => void;
 }
 const ImageInput: FC<Props> = ({ imageUri = "", onChangeImage }) => {
-    const { permissionStatus, luanchImage } = useMediaImage();
+    const { permissionStatus, launchImage } = useMediaImage();
     if (permissionStatus !== PermissionStatus.GRANTED) return null;
 
     const handleSelectImage = async () => {
         try {
-            if (typeof luanchImage === "function") {
+            if (typeof launchImage === "function") {
                 const {
                     assets: { uri, mimeType },
                     canceled,
-                } = await luanchImage();
+                } = await launchImage();
                 if (!canceled) onChangeImage({ uri, mimeType });
             }
         } catch (error) {
@@ -50,12 +50,14 @@ const ImageInput: FC<Props> = ({ imageUri = "", onChangeImage }) => {
     return (
         <AppPressable
             onPress={handlePress}
+            accessibilityLabel="imageInputContainer"
             style={[styles.container, defaultStyles.flexCenter]}
         >
             {!!imageUri ? (
                 <Image
                     source={{ uri: imageUri }}
                     style={defaultStyles.fullScreen}
+                    accessibilityLabel="selectedImage"
                 />
             ) : (
                 <MaterialCommunityIcons

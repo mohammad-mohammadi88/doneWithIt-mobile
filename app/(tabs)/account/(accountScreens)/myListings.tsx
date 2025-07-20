@@ -1,10 +1,10 @@
 import type { FC } from "react";
 
-import ListingsScreen from "@/screens/ListingsScreen";
+import ListingsScreen from "@Screens/ListingsScreen";
 import { myApi } from "@/APIs";
 
 const MyListings: FC = () => (
-    <ListingsScreen getListingsApi={myApi.getMyListing} />
+    <ListingsScreen getListingsApi={myApi.getMyListings} />
 );
 
 export default MyListings;

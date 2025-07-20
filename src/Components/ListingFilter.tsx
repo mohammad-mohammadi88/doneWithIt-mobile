@@ -4,12 +4,12 @@ import {
     type FC,
     type SetStateAction,
 } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import type { ListingType } from "@Types/listings";
 import { AppTextInput } from "./AppComponents";
-import { useApi } from "@/hooks";
 import { categoriesApi } from "@/APIs";
+import { useApi } from "@/hooks";
 
 interface Props {
     listings: ListingType[];
@@ -28,7 +28,8 @@ const ListingFilter: FC<Props> = ({ listings, setFilteredListings }) => {
     const handleChange = (text: string) => {
         const filterText = text.toLowerCase().trim();
         if (filterText.length === 0) return setFilteredListings(listings);
-        setFilteredListings(listings.filter((listing) => {
+        setFilteredListings(
+            listings.filter((listing) => {
                 const categoryId = listing.categoryId;
                 const title = listing.title.toLowerCase();
 
@@ -38,7 +39,9 @@ const ListingFilter: FC<Props> = ({ listings, setFilteredListings }) => {
                         (e) => e.id === categoryId
                     );
                     if (category)
-                        isCategoryMatches = category?.name.toLowerCase().includes(filterText);
+                        isCategoryMatches = category?.name
+                            .toLowerCase()
+                            .includes(filterText);
                 }
                 return title.includes(filterText) || isCategoryMatches;
             })
@@ -48,7 +51,7 @@ const ListingFilter: FC<Props> = ({ listings, setFilteredListings }) => {
         <AppTextInput
             extraContainerStyle={styles.container}
             icon='magnify'
-            placeholder="Search with name or category"
+            placeholder='Search with name or category'
             setValue={handleChange}
         />
     );

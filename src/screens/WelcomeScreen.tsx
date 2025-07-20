@@ -3,7 +3,8 @@ import { AppButton } from "@Components/AppComponents";
 import LogoContainer from "@Components/WelcomeScreen";
 import { useRouter } from "expo-router";
 import type { FC } from "react";
-import colors from "@/constants/colors";
+
+import colors from "@Constants/colors";
 
 const WelcomeScreen: FC = () => {
     const router = useRouter();

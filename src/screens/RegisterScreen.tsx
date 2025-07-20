@@ -22,9 +22,7 @@ const RegisterScreen: FC = () => {
     const handleSubmit = async (data: RegisterInterface) => {
         setRegisterError([]);
         setIsLoading(true);
-        const error = await auth?.registerOrLogin(() =>
-            authApi.register(data)
-        );
+        const error = await auth?.registerOrLogin(() => authApi.register(data));
         error?.map((e) => setRegisterError((c) => [...c, e]));
         setIsLoading(false);
     };

@@ -13,7 +13,14 @@ const LayoutWithHeader = ({ children, tabbarHeight }: Props) => {
     tabbarHeight && (height -= tabbarHeight);
 
     const top = -Constants.statusBarHeight;
-    return <View style={{ top, height }}>{children}</View>;
+    return (
+        <View
+            style={{ top, height }}
+            accessibilityLabel='LayoutWithHeaderContainer'
+        >
+            {children}
+        </View>
+    );
 };
 
 export default LayoutWithHeader;

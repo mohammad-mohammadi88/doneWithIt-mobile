@@ -1,9 +1,10 @@
-import type { UserLocationType } from "@Types/globals";
 import { useEffect, useState } from "react";
-import { useLocationPermission } from ".";
+
+import useLocationPermission from "./useLocationPermission";
+import type { UserLocationType } from "@Types/globals";
 import { getLocation } from "@/utilities";
 
-const useLocation = (): UserLocationType|undefined => {
+const useLocation = (): UserLocationType | undefined => {
     const [{ latitude, longitude }, setCoords] = useState<UserLocationType>({
         latitude: undefined,
         longitude: undefined,

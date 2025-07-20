@@ -1,7 +1,7 @@
 export type ImageType = Record<"url", string>;
 
 export interface ListingType {
-    id: string;
+    id: number;
     title: string;
     images: ImageType[];
     price: number;

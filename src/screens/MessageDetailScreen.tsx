@@ -3,12 +3,12 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLayoutEffect, type FC } from "react";
 
 import { ListingNameNavbar, SendMessage } from "@/Components";
-import { useApi } from "@/hooks";
+import { AppLottieView } from "@Components/AppComponents";
+import { AppErrorMessage } from "@Components/form";
+import defaultStyles from "@Constants/styles";
+import colors from "@Constants/colors";
 import { messagesApi } from "@/APIs";
-import defaultStyles from "@/constants/styles";
-import { AppErrorMessage } from "@/Components/form";
-import { AppLottieView } from "@/Components/AppComponents";
-import colors from "@/constants/colors";
+import { useApi } from "@/hooks";
 
 const MessageDetailScreen: FC = () => {
     const { messageId } = useLocalSearchParams<{ messageId: string }>();
@@ -47,7 +47,9 @@ const MessageDetailScreen: FC = () => {
             {data.listingId && <ListingNameNavbar listingId={data.listingId} />}
             <View style={styles.container}>
                 <ScrollView>
-                    <Text style={styles.messageContent}>{data.content.trim()}</Text>
+                    <Text style={styles.messageContent}>
+                        {data.content.trim()}
+                    </Text>
                 </ScrollView>
                 <SendMessage visible userId={data?.fromUser?.id} />
             </View>
@@ -56,8 +58,8 @@ const MessageDetailScreen: FC = () => {
 };
 
 const styles = StyleSheet.create({
-    container:{
-        justifyContent:"space-between",
+    container: {
+        justifyContent: "space-between",
         flex: 1,
     },
     messageContent: {
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         borderRadius: 20,
         fontSize: 18,
-    }
+    },
 });
 
 export default MessageDetailScreen;

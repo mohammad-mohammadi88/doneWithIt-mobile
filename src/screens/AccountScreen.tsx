@@ -26,7 +26,8 @@ const AccountScreen: FC = () => {
         {
             id: 1,
             title: "My Listings",
-            onPress: () => router.navigate("/(tabs)/account/(accountScreens)/myListings"),
+            onPress: () =>
+                router.navigate("/(tabs)/account/(accountScreens)/myListings"),
             icon: {
                 name: "format-list-bulleted",
                 backgroundColor: colors.primary,
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     },
     userContainer: {
         padding: 15,
-        marginTop: 30
+        marginTop: 30,
     },
     menuItemsContainer: {
         marginVertical: 50,

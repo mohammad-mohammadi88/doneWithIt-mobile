@@ -1,4 +1,4 @@
-import { AddListingType } from "@/types/listings";
+import type { AddListingType } from "@Types/listings";
 import { nanoid } from "nanoid/non-secure";
 
 const setBody = ({
@@ -9,7 +9,7 @@ const setBody = ({
     title,
     latitude,
     longitude,
-}: Omit<AddListingType, "setProgress">) => {
+}: Omit<AddListingType, "setProgress">):FormData => {
     const data = new FormData();
     data.append("title", title);
     data.append("description", description);

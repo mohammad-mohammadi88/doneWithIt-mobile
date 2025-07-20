@@ -1,9 +1,10 @@
-import type { SelectOptionInterface } from "@Types/globals";
 import type { DimensionValue, StyleProp, ViewStyle } from "react-native";
-import AppErrorMessage from "./AppErrorMessage";
-import { AppPicker } from "../AppComponents";
 import { useFormikContext } from "formik";
 import type { FC } from "react";
+
+import type { SelectOptionInterface } from "@Types/globals";
+import AppErrorMessage from "./AppErrorMessage";
+import { AppPicker } from "../AppComponents";
 
 interface Props {
     PickerOptionComponents?: React.JSX.ElementType;

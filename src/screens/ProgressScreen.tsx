@@ -18,7 +18,7 @@ const ProgressScreen: FC<Props> = ({
     visible,
 }) => {
     return (
-        <Modal visible={visible} animationType='slide'>
+        <Modal visible={visible} accessibilityLabel="progressScreen" animationType='slide'>
             <View style={[defaultStyles.flexCenter, defaultStyles.fullScreen]}>
                 {progress < 1 ? (
                     <Progress.Bar

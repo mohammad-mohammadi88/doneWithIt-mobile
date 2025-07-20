@@ -1,13 +1,7 @@
-import {
-    memo,
-    useLayoutEffect,
-    useState,
-    type FC,
-} from "react";
+import { memo, useLayoutEffect, useState, type FC } from "react";
 import { Redirect } from "expo-router";
 
 import { useAuth } from "@/hooks";
-
 
 const Redirector: FC = () => {
     const auth = useAuth();
